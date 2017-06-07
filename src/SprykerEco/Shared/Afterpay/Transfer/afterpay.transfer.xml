@@ -10,7 +10,7 @@
         <property name="idPaymentRegistration" type="string" />
     </transfer>
 
-    <transfer name="HeidelpayRequest">
+    <transfer name="AfterpayRequest">
         <property name="auth" type="HeidelpayAuthentication" />
         <property name="async" type="HeidelpayAsync" />
         <property name="customerAddress" type="HeidelpayCustomerAddress" />
@@ -20,7 +20,7 @@
         <property name="paymentMethod" type="string" />
     </transfer>
 
-    <transfer name="HeidelpayResponse">
+    <transfer name="AfterpayResponse">
         <property name="isSuccess" type="bool"/>
         <property name="isError" type="bool"/>
         <property name="isPending" type="bool"/>
@@ -34,11 +34,24 @@
         <property name="customerRedirectUrl" type="string"/>
     </transfer>
 
-    <!-- <transfer name="Order">
-        <property name="idSalesOrder" type="int" />
-        <property name="afterpayPayment" type="HeidelpayPayment"/>
-        <property name="items" type="Item[]" singular="item"/>
-    </transfer> -->
+    <transfer name="AfterpayAvailablePaymentMethodsResponse">
+        <property name="paymentMethods" type="AfterpayPaymentMethods" />
+        <property name="riskCheckCode" type="string" />
+    </transfer>
+
+    <transfer name="AfterpayPaymentMethods">
+        <property name="invoice" type="AfterpayPaymentMethodInvoice" />
+        <property name="installment" type="AfterpayPaymentMethodInstallment" />
+    </transfer>
+
+    <transfer name="AfterpayPaymentMethodInvoice">
+        <property name="type" type="string" />
+    </transfer>
+
+    <transfer name="AfterpayPaymentMethodInstallment">
+        <property name="type" type="string" />
+        <property name="isDirectDebitAvailable" type="bool" />
+    </transfer>
 
     <transfer name="Payment">
         <property name="afterpayInvoice" type="AfterpayPayment"/>

@@ -10,6 +10,8 @@ namespace SprykerEco\Yves\Afterpay;
 use Spryker\Yves\Kernel\AbstractFactory;
 use SprykerEco\Yves\Afterpay\Form\InvoiceSubForm;
 use SprykerEco\Yves\Afterpay\Form\DataProvider\InvoiceDataProvider;
+use SprykerEco\Yves\Afterpay\Checkout\Process\RiskCheckQuoteExpander;
+use SprykerEco\Yves\Afterpay\FormChecker\AvailablePaymentMethodsSubformFilter;
 use SprykerEco\Yves\Afterpay\Handler\AfterpayHandler;
 
 /**
@@ -42,6 +44,25 @@ class AfterpayFactory extends AbstractFactory
     public function createInvoiceFormDataProvider()
     {
         return new InvoiceDataProvider();
+    }
+
+    /**
+     * @return \SprykerEco\Yves\Afterpay\Checkout\Process\RiskCheckQuoteExpander
+     */
+    public function createRiskCheckQuoteExpander()
+    {
+        return new RiskCheckQuoteExpander();
+    }
+
+    /**
+     * @return \SprykerEco\Yves\Afterpay\FormChecker\AvailablePaymentMethodsSubformFilter
+     */
+    public function createAvailablePaymentMethodsFormChecker()
+    {
+        return new AvailablePaymentMethodsSubformFilter(
+            $this->getYvesConfig(),
+            $this->getAfterpayClient()
+        );
     }
 
     /**

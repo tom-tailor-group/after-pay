@@ -8,11 +8,12 @@
 namespace SprykerEco\Yves\Afterpay\Form;
 
 use Generated\Shared\Transfer\AfterpayPaymentTransfer;
+use Spryker\Yves\StepEngine\Dependency\Form\AbstractSubFormType;
 use Spryker\Yves\StepEngine\Dependency\Form\SubFormInterface;
 use SprykerEco\Shared\Afterpay\AfterpayConstants;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class InvoiceSubForm implements SubFormInterface
+class InvoiceSubForm extends AbstractSubFormType implements SubFormInterface
 {
 
     const PAYMENT_METHOD = AfterpayConstants::PAYMENT_METHOD_INVOICE;

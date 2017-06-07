@@ -21,4 +21,12 @@ class AfterpayConfig extends AbstractBundleConfig
         return $this->get(AfterpayConstants::AFTERPAY_SERVICE_VALIDATE_ADDRESS_IS_ENABLED);
     }
 
+    /**
+     * @return string
+     */
+    public function getSubformToPaymentMethodMapping()
+    {
+        return $this->get(AfterpayConstants::AFTERPAY_RISK_CHECK_CONFIGURATION);
+    }
+
 }
