@@ -20,6 +20,51 @@
         <property name="paymentMethod" type="string" />
     </transfer>
 
+    <transfer name="AfterpayAvailablePaymentMethodsRequest">
+        <property name="customer" type="AfterpayRequestCustomer" />
+        <property name="order" type="AfterpayRequestOrder" />
+    </transfer>
+
+    <transfer name="AfterpayAvailablePaymentMethodsResponse">
+        <property name="checkoutId" type="string" />
+        <property name="outcome" type="string" />
+        <property name="customer" type="array" />
+        <property name="paymentMethods" type="array" />
+        <property name="riskCheckResultCode" type="string" />
+    </transfer>
+
+    <transfer name="AfterpayRequestCustomer">
+        <property name="salutation" type="string" />
+        <property name="firstName" type="string" />
+        <property name="lastName" type="string" />
+        <property name="email" type="string" />
+        <property name="customerCategory" type="string" />
+        <property name="conversationalLanguage" type="string" />
+        <property name="address" type="AfterpayRequestAddress" />
+    </transfer>
+
+    <transfer name="AfterpayRequestAddress">
+        <property name="street" type="string" />
+        <property name="streetNumber" type="string" />
+        <property name="postalCode" type="string" />
+        <property name="postalPlace" type="string" />
+        <property name="countryCode" type="string" />
+    </transfer>
+
+    <transfer name="AfterpayRequestOrder">
+        <property name="number" type="string" />
+        <property name="totalGrossAmount" type="string" />
+        <property name="items" type="AfterpayRequestOrderItem[]"  singular="item" />
+    </transfer>
+
+    <transfer name="AfterpayRequestOrderItem">
+        <property name="productId" type="string" />
+        <property name="description" type="string" />
+        <property name="grossUnitPrice" type="string" />
+        <property name="quantity" type="string" />
+        <property name="imageUrl" type="string" />
+    </transfer>
+
     <transfer name="AfterpayResponse">
         <property name="isSuccess" type="bool"/>
         <property name="isError" type="bool"/>
@@ -34,23 +79,13 @@
         <property name="customerRedirectUrl" type="string"/>
     </transfer>
 
-    <transfer name="AfterpayAvailablePaymentMethodsResponse">
-        <property name="paymentMethods" type="AfterpayPaymentMethods" />
+    <transfer name="AfterpayAvailablePaymentMethods">
+        <property name="availablePaymentMethodNames" type="array" />
         <property name="riskCheckCode" type="string" />
     </transfer>
 
-    <transfer name="AfterpayPaymentMethods">
-        <property name="invoice" type="AfterpayPaymentMethodInvoice" />
-        <property name="installment" type="AfterpayPaymentMethodInstallment" />
-    </transfer>
-
-    <transfer name="AfterpayPaymentMethodInvoice">
-        <property name="type" type="string" />
-    </transfer>
-
-    <transfer name="AfterpayPaymentMethodInstallment">
-        <property name="type" type="string" />
-        <property name="isDirectDebitAvailable" type="bool" />
+    <transfer name="Quote">
+        <property name="afterpayRiskCheckInfo" type="AfterpayAvailablePaymentMethods" />
     </transfer>
 
     <transfer name="Payment">

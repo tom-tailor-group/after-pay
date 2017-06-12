@@ -31,13 +31,19 @@ class AfterpayClient extends AbstractClient implements AfterpayClientInterface
     }
 
     /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
-     * @return \Generated\Shared\Transfer\QuoteTransfer
+     * @return \Generated\Shared\Transfer\AfterpayAvailablePaymentMethodsTransfer
      */
     public function getAvailablePaymentMethods(QuoteTransfer $quoteTransfer)
     {
-        // TODO: Implement getAvailablePaymentMethods() method.
+        return $this->getFactory()
+            ->createZedStub()
+            ->getAvailablePaymentMethodsByQuote($quoteTransfer);
     }
 
 }

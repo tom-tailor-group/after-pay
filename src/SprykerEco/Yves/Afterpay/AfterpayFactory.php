@@ -51,7 +51,7 @@ class AfterpayFactory extends AbstractFactory
      */
     public function createRiskCheckQuoteExpander()
     {
-        return new RiskCheckQuoteExpander();
+        return new RiskCheckQuoteExpander($this->getAfterpayClient());
     }
 
     /**

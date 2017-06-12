@@ -11,7 +11,14 @@ use Generated\Shared\Transfer\QuoteTransfer;
 
 interface AfterpayClientInterface
 {
+
     /**
+     * Specification:
+     *  - Makes "payment-methods" call to the afterpay API, in order to get list of available
+     *  payment methods for the given quote, with risk check score.
+     *
+     * @api
+     *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return
