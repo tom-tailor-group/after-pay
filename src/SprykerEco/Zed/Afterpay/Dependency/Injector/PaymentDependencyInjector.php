@@ -39,7 +39,6 @@ class PaymentDependencyInjector extends AbstractDependencyInjector
     {
         $container->extend(PaymentDependencyProvider::CHECKOUT_PLUGINS, function (CheckoutPluginCollection $pluginCollection) {
             $pluginCollection->add(new AfterpaySaveOrderPlugin(), AfterpayConstants::PROVIDER_NAME, PaymentDependencyProvider::CHECKOUT_ORDER_SAVER_PLUGINS);
-            $pluginCollection->add(new AfterpayPostSavePlugin(), AfterpayConstants::PROVIDER_NAME, PaymentDependencyProvider::CHECKOUT_POST_SAVE_PLUGINS);
 
             return $pluginCollection;
         });

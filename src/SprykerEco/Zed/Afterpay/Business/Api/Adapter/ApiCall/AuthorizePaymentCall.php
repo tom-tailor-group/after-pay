@@ -12,6 +12,7 @@ use Generated\Shared\Transfer\AfterpayAuthorizeRequestTransfer;
 use SprykerEco\Shared\Afterpay\AfterpayConstants;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\Client\ClientInterface;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\Converter\TransferToCamelCaseArrayConverterInterface;
+use SprykerEco\Zed\Afterpay\Business\Exception\ApiHttpRequestException;
 use SprykerEco\Zed\Afterpay\Dependency\Service\AfterpayToUtilEncodingInterface;
 
 class AuthorizePaymentCall extends AbstractApiCall implements AuthorizePaymentCallInterface
@@ -46,10 +47,15 @@ class AuthorizePaymentCall extends AbstractApiCall implements AuthorizePaymentCa
     public function execute(AfterpayAuthorizeRequestTransfer $requestTransfer)
     {
         $jsonRequest = $this->buildJsonRequestFromTransferObject($requestTransfer);
-        $jsonResponse = $this->client->sendPost(
-            AfterpayConstants::API_ENDPOINT_AUTHORIZE,
-            $jsonRequest
-        );
+
+        try {
+            $jsonResponse = $this->client->sendPost(
+                AfterpayConstants::API_ENDPOINT_AUTHORIZE,
+                $jsonRequest
+            );
+        } catch (ApiHttpRequestException $apiHttpRequestException) {
+            $jsonResponse = '';
+        }
 
         return $this->buildAuthorizeResponseTransfer($jsonResponse);
     }

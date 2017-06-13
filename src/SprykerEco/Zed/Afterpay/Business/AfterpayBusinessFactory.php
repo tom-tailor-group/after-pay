@@ -71,6 +71,11 @@ class AfterpayBusinessFactory extends AbstractBusinessFactory
         );
     }
 
+    public function createPostSaveHook()
+    {
+
+    }
+
     /**
      * @return \SprykerEco\Zed\Afterpay\Business\Payment\PaymentWriterInterface
      */

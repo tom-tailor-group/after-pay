@@ -12,6 +12,7 @@ use Generated\Shared\Transfer\AfterpayAvailablePaymentMethodsResponseTransfer;
 use SprykerEco\Shared\Afterpay\AfterpayConstants;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\Client\ClientInterface;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\Converter\TransferToCamelCaseArrayConverterInterface;
+use SprykerEco\Zed\Afterpay\Business\Exception\ApiHttpRequestException;
 use SprykerEco\Zed\Afterpay\Dependency\Service\AfterpayToUtilEncodingInterface;
 
 class AvailablePaymentMethodsCall extends AbstractApiCall implements AvailablePaymentMethodsCallInterface
@@ -45,10 +46,15 @@ class AvailablePaymentMethodsCall extends AbstractApiCall implements AvailablePa
     public function execute(AfterpayAvailablePaymentMethodsRequestTransfer $requestTransfer)
     {
         $jsonRequest = $this->buildJsonRequestFromTransferObject($requestTransfer);
-        $jsonResponse = $this->client->sendPost(
-            AfterpayConstants::API_ENDPOINT_AVAILABLE_PAYMENT_METHODS,
-            $jsonRequest
-        );
+
+        try {
+            $jsonResponse = $this->client->sendPost(
+                AfterpayConstants::API_ENDPOINT_AVAILABLE_PAYMENT_METHODS,
+                $jsonRequest
+            );
+        } catch (ApiHttpRequestException $apiHttpRequestException) {
+            $jsonResponse = '';
+        }
 
         return $this->buildAvailablePaymentMethodsResponseTransfer($jsonResponse);
     }

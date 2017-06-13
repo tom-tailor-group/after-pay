@@ -21,6 +21,7 @@ use SprykerEco\Shared\Afterpay\AfterpayConstants;
 class IsAuthorizationCompletedPlugin extends AbstractPlugin implements ConditionInterface
 {
 
+    const AUTHORIZE_TRANSACTION_ACCEPTED = AfterpayConstants::API_TRANSACTION_OUTCOME_ACCEPTED;
     /**
      * @api
      *
@@ -30,8 +31,7 @@ class IsAuthorizationCompletedPlugin extends AbstractPlugin implements Condition
      */
     public function check(SpySalesOrderItem $orderItem)
     {
-        return true;
-//            $this->hasCustomerCompletedAuthorization($orderItem->getFkSalesOrder());
+        return $this->isAuthorizationTransactionSuccessful($orderItem->getFkSalesOrder());
     }
 
     /**
@@ -39,14 +39,14 @@ class IsAuthorizationCompletedPlugin extends AbstractPlugin implements Condition
      *
      * @return bool
      */
-    protected function hasCustomerCompletedAuthorization($idSalesOrder)
+    protected function isAuthorizationTransactionSuccessful($idSalesOrder)
     {
-        $externalTransactionLog = $this->getExternalTransactionLogEntry($idSalesOrder);
-        if ($externalTransactionLog === null) {
+        $authorizeTransactionLog = $this->getAuthorizeTransactionLogEntry($idSalesOrder);
+        if ($authorizeTransactionLog === null) {
             return false;
         }
 
-        return $this->isTransactionSuccessful($externalTransactionLog);
+        return $this->isTransactionSuccessful($authorizeTransactionLog);
     }
 
     /**
@@ -54,20 +54,21 @@ class IsAuthorizationCompletedPlugin extends AbstractPlugin implements Condition
      *
      * @return \Orm\Zed\Afterpay\Persistence\SpyPaymentAfterpayTransactionLog|null
      */
-    protected function getExternalTransactionLogEntry($idSalesOrder)
+    protected function getAuthorizeTransactionLogEntry($idSalesOrder)
     {
         $transactionLogQuery = $this->getQueryContainer()->queryAuthorizeTransactionLog($idSalesOrder);
+
         return $transactionLogQuery->findOne();
     }
 
     /**
-     * @param \Orm\Zed\Afterpay\Persistence\SpyPaymentAfterpayTransactionLog $externalTransactionLog
+     * @param \Orm\Zed\Afterpay\Persistence\SpyPaymentAfterpayTransactionLog $authorizeTransactionLog
      *
      * @return bool
      */
-    protected function isTransactionSuccessful(SpyPaymentAfterpayTransactionLog $externalTransactionLog)
+    protected function isTransactionSuccessful(SpyPaymentAfterpayTransactionLog $authorizeTransactionLog)
     {
-        return $externalTransactionLog->getResponseCode() === static::EXTERNAL_RESPONSE_TRANSACTION_STATUS_OK;
+        return $authorizeTransactionLog->getOutcome() === static::AUTHORIZE_TRANSACTION_ACCEPTED;
     }
 
 }

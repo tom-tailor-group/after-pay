@@ -45,4 +45,6 @@ interface AfterpayConstants
 
     const API_CUSTOMER_CATEGORY_PERSON = 'Person';
 
+    const API_TRANSACTION_OUTCOME_ACCEPTED = 'Accepted';
+
 }

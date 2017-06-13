@@ -86,21 +86,4 @@ class AfterpayFacade extends AbstractFacade implements AfterpayFacadeInterface
             ->getPaymentByIdSalesOrder($idSalesOrder);
     }
 
-    /**
-     * {@inheritdoc}
-     *
-     * @api
-     *
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * @param \Generated\Shared\Transfer\CheckoutResponseTransfer $checkoutResponseTransfer
-     *
-     * @return \Generated\Shared\Transfer\CheckoutResponseTransfer
-     */
-    public function postSaveHook(QuoteTransfer $quoteTransfer, CheckoutResponseTransfer $checkoutResponseTransfer)
-    {
-        return $this->getFactory()
-            ->createPostSaveHook()
-            ->execute($quoteTransfer, $checkoutResponseTransfer);
-    }
-
 }
