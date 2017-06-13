@@ -7,35 +7,26 @@
     <process name="Authorization">
         <states>
             <state name="ready for authorization"/>
-            <state name="authorize request sent"/>
             <state name="authorization succeeded"/>
-            <state name="invalid"/>
+            <state name="authorization failed"/>
         </states>
 
         <transitions>
-            <!-- pre-authorization -->
-            <transition happy="true">
+            <transition happy="true" condition="Afterpay/IsAuthorizationCompleted">
                 <source>ready for authorization</source>
-                <target>authorize request sent</target>
+                <target>authorization succeeded</target>
                 <event>send authorize request</event>
             </transition>
 
-            <transition happy="true" condition="Afterpay/IsAuthorizationCompleted">
-                <source>authorize request sent</source>
-                <target>authorization succeeded</target>
-                <event>authorize payment</event>
-            </transition>
-
             <transition>
-                <source>authorize request sent</source>
-                <target>invalid</target>
-                <event>authorize payment</event>
+                <source>ready for authorization</source>
+                <target>authorization failed</target>
+                <event>send authorize request</event>
             </transition>
         </transitions>
 
         <events>
             <event name="send authorize request" onEnter="true" command="Afterpay/Authorize" />
-            <event name="authorize payment" timeout="1hour" />
         </events>
     </process>
 </statemachine>

@@ -11,14 +11,14 @@ use Spryker\Zed\Kernel\Communication\AbstractCommunicationFactory;
 use SprykerEco\Zed\Afterpay\AfterpayDependencyProvider;
 
 /**
- * @method \SprykerEco\Zed\Afterpay\Persistence\HeidelpayQueryContainerInterface getQueryContainer()
+ * @method \SprykerEco\Zed\Afterpay\Persistence\AfterpayQueryContainerInterface getQueryContainer()
  * @method \SprykerEco\Zed\Afterpay\AfterpayConfig getConfig()
  */
 class AfterpayCommunicationFactory extends AbstractCommunicationFactory
 {
 
     /**
-     * @return \SprykerEco\Zed\Afterpay\Dependency\Facade\HeidelpayToSalesInterface
+     * @return \SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToSalesInterface
      */
     public function getSalesFacade()
     {

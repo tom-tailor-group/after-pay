@@ -31,6 +31,9 @@ class AfterpayConfig extends AbstractBundleConfig
         switch ($endpoint) {
             case AfterpayConstants::API_ENDPOINT_AVAILABLE_PAYMENT_METHODS:
                 return AfterpayConstants::API_ENDPOINT_AVAILABLE_PAYMENT_METHODS_PATH;
+
+            case AfterpayConstants::API_ENDPOINT_AUTHORIZE:
+                return AfterpayConstants::API_ENDPOINT_AUTHORIZE_PATH;
         }
     }
 
@@ -40,6 +43,14 @@ class AfterpayConfig extends AbstractBundleConfig
     public function getApiCredentialsAuthKey()
     {
         return $this->get(AfterpayConstants::API_CREDENTIALS_AUTH_KEY);
+    }
+
+    /**
+     * @return string
+     */
+    public function getAfterpayAuthorizeWorkflow()
+    {
+        return $this->get(AfterpayConstants::AFTERPAY_AUTHORIZE_WORKFLOW);
     }
 
 }

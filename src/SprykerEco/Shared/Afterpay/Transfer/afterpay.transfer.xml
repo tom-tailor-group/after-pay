@@ -6,18 +6,29 @@
     <transfer name="AfterpayPayment">
         <property name="fkSalesOrder" type="int" />
         <property name="paymentMethod" type="string" />
-        <property name="idPaymentReference" type="string" />
-        <property name="idPaymentRegistration" type="string" />
+        <property name="idCheckout" type="string" />
+        <property name="idReservation" type="string" />
     </transfer>
 
-    <transfer name="AfterpayRequest">
-        <property name="auth" type="HeidelpayAuthentication" />
-        <property name="async" type="HeidelpayAsync" />
-        <property name="customerAddress" type="HeidelpayCustomerAddress" />
-        <property name="customerPurchase" type="HeidelpayCustomerPurchase" />
-        <property name="idPaymentReference" type="string" />
-        <property name="idPaymentRegistration" type="string" />
-        <property name="paymentMethod" type="string" />
+    <transfer name="AfterpayAuthorizeRequest">
+        <property name="fkSalesOrder" type="int" />
+        <property name="fkPayment" type="int" />
+        <property name="checkoutId" type="string" />
+        <property name="payment" type="AfterpayRequestPayment" />
+        <property name="customer" type="AfterpayRequestCustomer" />
+        <property name="order" type="AfterpayRequestOrder" />
+    </transfer>
+
+    <transfer name="AfterpayRequestPayment">
+        <property name="type" type="string" />
+    </transfer>
+
+    <transfer name="AfterpayApiResponse">
+        <property name="fkSalesOrder" type="int" />
+        <property name="outcome" type="string" />
+        <property name="reservationId" type="string" />
+        <property name="checkoutId" type="string" />
+        <property name="responsePayload" type="string" />
     </transfer>
 
     <transfer name="AfterpayAvailablePaymentMethodsRequest">
@@ -82,14 +93,21 @@
     <transfer name="AfterpayAvailablePaymentMethods">
         <property name="availablePaymentMethodNames" type="array" />
         <property name="riskCheckCode" type="string" />
+        <property name="checkoutId" type="string" />
+        <property name="quoteHash" type="string" />
     </transfer>
 
     <transfer name="Quote">
-        <property name="afterpayRiskCheckInfo" type="AfterpayAvailablePaymentMethods" />
+        <property name="afterpayAvailablePaymentMethods" type="AfterpayAvailablePaymentMethods" />
     </transfer>
 
     <transfer name="Payment">
         <property name="afterpayInvoice" type="AfterpayPayment"/>
+        <property name="afterpayCheckoutId" type="string" />
+    </transfer>
+
+    <transfer name="Order">
+        <property name="AfterpayPayment" type="AfterpayPayment"/>
     </transfer>
 
 </transfers>

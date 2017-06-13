@@ -8,9 +8,14 @@
 namespace SprykerEco\Yves\Afterpay;
 
 use Spryker\Yves\Kernel\AbstractFactory;
+use SprykerEco\Shared\Afterpay\AfterpayConstants;
+use SprykerEco\Yves\Afterpay\AuthorizeWorkflow\OneStepAuthorizeWorkflow;
+use SprykerEco\Yves\Afterpay\AuthorizeWorkflow\Steps\AvailablePaymentMethodsStep;
+use SprykerEco\Yves\Afterpay\AuthorizeWorkflow\Steps\PaymentSubformsFilter;
+use SprykerEco\Yves\Afterpay\AuthorizeWorkflow\TwoStepsAuthorizeWorkflow;
 use SprykerEco\Yves\Afterpay\Form\InvoiceSubForm;
 use SprykerEco\Yves\Afterpay\Form\DataProvider\InvoiceDataProvider;
-use SprykerEco\Yves\Afterpay\Checkout\Process\RiskCheckQuoteExpander;
+use SprykerEco\Yves\Afterpay\Checkout\Process\AvailablePaymentMethodsExpander;
 use SprykerEco\Yves\Afterpay\FormChecker\AvailablePaymentMethodsSubformFilter;
 use SprykerEco\Yves\Afterpay\Handler\AfterpayHandler;
 
@@ -47,22 +52,20 @@ class AfterpayFactory extends AbstractFactory
     }
 
     /**
-     * @return \SprykerEco\Yves\Afterpay\Checkout\Process\RiskCheckQuoteExpander
+     * @return \SprykerEco\Yves\Afterpay\AuthorizeWorkflow\AfterpayAuthorizeWorkflowInterface
      */
-    public function createRiskCheckQuoteExpander()
+    public function createAfterpayAuthorizeWorkflow()
     {
-        return new RiskCheckQuoteExpander($this->getAfterpayClient());
-    }
+        $authorizeWorkflow = $this->getYvesConfig()->getAfterpayAuthorizeWorkflow();
 
-    /**
-     * @return \SprykerEco\Yves\Afterpay\FormChecker\AvailablePaymentMethodsSubformFilter
-     */
-    public function createAvailablePaymentMethodsFormChecker()
-    {
-        return new AvailablePaymentMethodsSubformFilter(
-            $this->getYvesConfig(),
-            $this->getAfterpayClient()
-        );
+        switch ($authorizeWorkflow) {
+            case AfterpayConstants::AFTERPAY_AUTHORIZE_WORKFLOW_ONE_STEP:
+                return $this->createOneStepAuthorizeWorkflow();
+            case AfterpayConstants::AFTERPAY_AUTHORIZE_WORKFLOW_TWO_STEPS:
+                return $this->createTwoStepsAuthorizeWorkflow();
+            default:
+                return $this->createOneStepAuthorizeWorkflow();
+        }
     }
 
     /**
@@ -79,6 +82,46 @@ class AfterpayFactory extends AbstractFactory
     public function getYvesConfig()
     {
         return $this->getConfig();
+    }
+
+    /**
+     * @return \SprykerEco\Yves\Afterpay\AuthorizeWorkflow\AfterpayAuthorizeWorkflowInterface
+     */
+    protected function createOneStepAuthorizeWorkflow()
+    {
+        return new OneStepAuthorizeWorkflow();
+    }
+
+    /**
+     * @return \SprykerEco\Yves\Afterpay\AuthorizeWorkflow\AfterpayAuthorizeWorkflowInterface
+     */
+    protected function createTwoStepsAuthorizeWorkflow()
+    {
+        return new TwoStepsAuthorizeWorkflow(
+            $this->createAvailablePaymentMethodsStep(),
+            $this->createPaymentSubformsFilter()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Yves\Afterpay\AuthorizeWorkflow\Steps\AvailablePaymentMethodsStepInterface
+     */
+    protected function createAvailablePaymentMethodsStep()
+    {
+        return new AvailablePaymentMethodsStep(
+            $this->getAfterpayClient()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Yves\Afterpay\AuthorizeWorkflow\Steps\PaymentSubformsFilterInterface
+     */
+    protected function createPaymentSubformsFilter()
+    {
+        return new PaymentSubformsFilter(
+            $this->getYvesConfig(),
+            $this->getAfterpayClient()
+        );
     }
 
 }

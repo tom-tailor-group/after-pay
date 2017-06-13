@@ -5,11 +5,9 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace SprykerEco\Yves\Afterpay\FormChecker;
+namespace SprykerEco\Yves\Afterpay\AuthorizeWorkflow\Steps;
 
-use Spryker\Yves\StepEngine\Dependency\Plugin\Form\SubFormPluginCollection;
-
-interface PaymentSubformFilterInterface
+interface PaymentSubformsFilterInterface
 {
 
     /**

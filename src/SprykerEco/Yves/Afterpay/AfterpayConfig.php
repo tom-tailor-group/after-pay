@@ -29,4 +29,12 @@ class AfterpayConfig extends AbstractBundleConfig
         return $this->get(AfterpayConstants::AFTERPAY_RISK_CHECK_CONFIGURATION);
     }
 
+    /**
+     * @return string
+     */
+    public function getAfterpayAuthorizeWorkflow()
+    {
+        return $this->get(AfterpayConstants::AFTERPAY_AUTHORIZE_WORKFLOW);
+    }
+
 }

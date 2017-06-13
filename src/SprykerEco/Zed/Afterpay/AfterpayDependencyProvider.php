@@ -55,4 +55,18 @@ class AfterpayDependencyProvider extends AbstractBundleDependencyProvider
         return $container;
     }
 
+    /**
+     * @param \Spryker\Zed\Kernel\Container $container
+     *
+     * @return \Spryker\Zed\Kernel\Container
+     */
+    public function provideCommunicationLayerDependencies(Container $container)
+    {
+        $container[self::FACADE_SALES] = function (Container $container) {
+            return new AfterpayToSalesBridge($container->getLocator()->sales()->facade());
+        };
+
+        return $container;
+    }
+
 }

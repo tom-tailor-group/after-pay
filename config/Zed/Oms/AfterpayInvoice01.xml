@@ -4,7 +4,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="spryker:oms-01 http://static.spryker.com/oms-01.xsd">
 
-    <process name="AfterpayPaypalAuthorize01" main="true">
+    <process name="AfterpayInvoice01" main="true">
         <subprocesses>
             <process>Authorization</process>
             <process>Shipment</process>
@@ -13,6 +13,7 @@
 
         <states>
             <state name="new" reserved="true"/>
+            <state name="invalid"/>
         </states>
 
         <transitions>
@@ -26,6 +27,11 @@
                 <source>authorization succeeded</source>
                 <target>ready for shipment</target>
                 <event>start shipment process</event>
+            </transition>
+
+            <transition>
+                <source>authorization failed</source>
+                <target>invalid</target>
             </transition>
 
             <transition>

@@ -5,23 +5,24 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace SprykerEco\Yves\Afterpay\FormChecker;
+namespace SprykerEco\Yves\Afterpay\AuthorizeWorkflow\Steps;
 
 use Spryker\Yves\StepEngine\Dependency\Form\SubFormInterface;
 use SprykerEco\Client\Afterpay\AfterpayClientInterface;
 use SprykerEco\Yves\Afterpay\AfterpayConfig;
 
-class AvailablePaymentMethodsSubformFilter implements PaymentSubformFilterInterface
+class PaymentSubformsFilter implements PaymentSubformsFilterInterface
 {
 
     /**
      * @var \SprykerEco\Yves\Afterpay\AfterpayConfig
      */
-    private $config;
+    protected $config;
+
     /**
      * @var \SprykerEco\Client\Afterpay\AfterpayClientInterface
      */
-    private $afterpayClient;
+    protected $afterpayClient;
 
     /**
      * @param \SprykerEco\Yves\Afterpay\AfterpayConfig $config
@@ -71,7 +72,7 @@ class AvailablePaymentMethodsSubformFilter implements PaymentSubformFilterInterf
         $quoteTransfer = $this->afterpayClient->getQuoteFromSession();
 
         $allowedPaymentMethodNames = $quoteTransfer
-            ->getAfterpayRiskCheckInfo()
+            ->getAfterpayAvailablePaymentMethods()
             ->getAvailablePaymentMethodNames();
 
         if ($allowedPaymentMethodNames === null) {

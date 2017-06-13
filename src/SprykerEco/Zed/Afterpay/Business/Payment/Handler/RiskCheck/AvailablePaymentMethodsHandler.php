@@ -49,6 +49,10 @@ class AvailablePaymentMethodsHandler implements AvailablePaymentMethodsHandlerIn
 
         $availablePaymentMethodsTransfer = $this->parseResponseTransfer($responseTransfer);
 
+        $availablePaymentMethodsTransfer->setQuoteHash(
+            $quoteTransfer->getTotals()->getHash()
+        );
+
         return $availablePaymentMethodsTransfer;
     }
 
@@ -85,7 +89,8 @@ class AvailablePaymentMethodsHandler implements AvailablePaymentMethodsHandlerIn
 
         $availablePaymentMethodsTransfer
             ->setAvailablePaymentMethodNames($availablePaymentMethodNames)
-            ->setRiskCheckCode($apiResponseTransfer->getRiskCheckResultCode());
+            ->setRiskCheckCode($apiResponseTransfer->getRiskCheckResultCode())
+            ->setCheckoutId($apiResponseTransfer->getCheckoutId());
 
         return $availablePaymentMethodsTransfer;
     }

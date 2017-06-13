@@ -5,18 +5,18 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace SprykerEco\Yves\Afterpay\Checkout\Process;
+namespace SprykerEco\Yves\Afterpay\AuthorizeWorkflow\Steps;
 
 use Generated\Shared\Transfer\QuoteTransfer;
 
-interface PrePaymentQuoteExpanderInterface
+interface AvailablePaymentMethodsStepInterface
 {
 
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
-     * @return \Generated\Shared\Transfer\QuoteTransfer
+     * @return \Generated\Shared\Transfer\AfterpayAvailablePaymentMethodsTransfer
      */
-    public function expandQuote(QuoteTransfer $quoteTransfer);
+    public function getAvailablePaymentMethods(QuoteTransfer $quoteTransfer);
 
 }

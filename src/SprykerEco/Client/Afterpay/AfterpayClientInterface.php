@@ -21,7 +21,7 @@ interface AfterpayClientInterface
      *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
-     * @return
+     * @return \Generated\Shared\Transfer\AfterpayAvailablePaymentMethodsTransfer
      */
     public function getAvailablePaymentMethods(QuoteTransfer $quoteTransfer);
 

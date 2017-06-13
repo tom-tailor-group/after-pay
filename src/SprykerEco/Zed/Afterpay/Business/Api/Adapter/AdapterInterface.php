@@ -7,6 +7,7 @@
 
 namespace SprykerEco\Zed\Afterpay\Business\Api\Adapter;
 
+use Generated\Shared\Transfer\AfterpayAuthorizeRequestTransfer;
 use Generated\Shared\Transfer\AfterpayAvailablePaymentMethodsRequestTransfer;
 
 interface AdapterInterface
@@ -19,6 +20,17 @@ interface AdapterInterface
      *
      * @return \Generated\Shared\Transfer\AfterpayAvailablePaymentMethodsResponseTransfer
      */
-    public function sendAvailablePaymentMethodsRequest(AfterpayAvailablePaymentMethodsRequestTransfer $requestTransfer);
+    public function sendAvailablePaymentMethodsRequest(
+        AfterpayAvailablePaymentMethodsRequestTransfer $requestTransfer
+    );
+
+    /**
+     * @param \Generated\Shared\Transfer\AfterpayAuthorizeRequestTransfer $authorizeRequestTransfer
+     *
+     * @return \Generated\Shared\Transfer\AfterpayApiResponseTransfer
+     */
+    public function sendAuthorizationRequest(
+        AfterpayAuthorizeRequestTransfer $authorizeRequestTransfer
+    );
 
 }

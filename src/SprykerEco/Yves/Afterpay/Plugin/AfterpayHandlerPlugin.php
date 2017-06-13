@@ -23,16 +23,17 @@ class AfterpayHandlerPlugin extends AbstractPlugin implements
 {
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param \Spryker\Shared\Kernel\Transfer\AbstractTransfer $quoteTransfer
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Generated\Shared\Transfer\QuoteTransfer
      */
-    public function addToDataClass(Request $request, AbstractTransfer $quoteTransfer)
+    public function expandQuote(QuoteTransfer $quoteTransfer)
     {
-        $this->getFactory()->createAfterpayHandler()->addPaymentToQuote($quoteTransfer);
+        return $this
+            ->getFactory()
+            ->createAfterpayAuthorizeWorkflow()
+            ->expandQuoteBeforePaymentStep($quoteTransfer);
     }
-
 
     /**
      * @param \Spryker\Yves\StepEngine\Dependency\Form\SubFormInterface[] $paymentSubforms
@@ -43,20 +44,22 @@ class AfterpayHandlerPlugin extends AbstractPlugin implements
     {
         return $this
             ->getFactory()
-            ->createAvailablePaymentMethodsFormChecker()
-            ->filterPaymentSubforms($paymentSubforms);
+            ->createAfterpayAuthorizeWorkflow()
+            ->filterAvailablePaymentMethods($paymentSubforms);
     }
 
     /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Spryker\Shared\Kernel\Transfer\AbstractTransfer|\Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
-     * @return \Generated\Shared\Transfer\QuoteTransfer
+     * @return \Spryker\Shared\Kernel\Transfer\AbstractTransfer
      */
-    public function expandQuote(QuoteTransfer $quoteTransfer)
+    public function addToDataClass(Request $request, AbstractTransfer $quoteTransfer)
     {
         return $this
             ->getFactory()
-            ->createRiskCheckQuoteExpander()
-            ->expandQuote($quoteTransfer);
+            ->createAfterpayAuthorizeWorkflow()
+            ->addPaymentDataToQuote($quoteTransfer);
     }
+
 }

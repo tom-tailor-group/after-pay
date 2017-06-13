@@ -12,8 +12,14 @@ interface AfterpayConstants
 
     const PROVIDER_NAME = 'afterpay';
 
+    const AFTERPAY_AUTHORIZE_WORKFLOW = 'AFTERPAY_AUTHORIZE_WORKFLOW';
+
+    const AFTERPAY_AUTHORIZE_WORKFLOW_ONE_STEP = 'one step authorize workflow';
+    const AFTERPAY_AUTHORIZE_WORKFLOW_TWO_STEPS = 'two steps authorize workflow';
+
     const VENDOR_ROOT = 'VENDOR_ROOT';
-    const PAYMENT_METHOD_INVOICE = self::PROVIDER_NAME . 'Invoice';
+    const PAYMENT_TYPE_INVOICE = 'Invoice';
+    const PAYMENT_METHOD_INVOICE = self::PROVIDER_NAME . self::PAYMENT_TYPE_INVOICE;
 
 
     const TRANSACTION_TYPE_AUTHORIZE = 'authorize';
@@ -26,6 +32,9 @@ interface AfterpayConstants
 
     const API_ENDPOINT_AVAILABLE_PAYMENT_METHODS = 'available payment methods';
     const API_ENDPOINT_AVAILABLE_PAYMENT_METHODS_PATH = 'checkout/payment-methods';
+
+    const API_ENDPOINT_AUTHORIZE = 'authorize payment';
+    const API_ENDPOINT_AUTHORIZE_PATH = 'checkout/authorize';
 
     const API_CREDENTIALS_AUTH_KEY = 'API_CREDENTIALS_AUTH_KEY';
 

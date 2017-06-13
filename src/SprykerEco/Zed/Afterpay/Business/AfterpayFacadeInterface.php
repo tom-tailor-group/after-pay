@@ -8,7 +8,6 @@
 namespace SprykerEco\Zed\Afterpay\Business;
 
 use Generated\Shared\Transfer\CheckoutResponseTransfer;
-use Generated\Shared\Transfer\AfterpayAuthorizeTransactionLogRequestTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 
@@ -57,14 +56,15 @@ interface AfterpayFacadeInterface
 
     /**
      * Specification:
-     * - Fetches authorise transaction for a given order by idSalesOrder
+     * - Makes a call to the "payment-methods" API endpoint, to get a list of payment methods,
+     * available for the current quote, with additional information - checkout_id, and risk_check_score
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\AfterpayAuthorizeTransactionLogRequestTransfer $authorizeLogRequestTransfer
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
-     * @return \Generated\Shared\Transfer\AfterpayTransactionLogTransfer
+     * @return \Generated\Shared\Transfer\AfterpayAvailablePaymentMethodsTransfer
      */
-    public function getAuthorizeTransactionLog(AfterpayAuthorizeTransactionLogRequestTransfer $authorizeLogRequestTransfer);
+    public function getAvailablePaymentMethods(QuoteTransfer $quoteTransfer);
 
 }
