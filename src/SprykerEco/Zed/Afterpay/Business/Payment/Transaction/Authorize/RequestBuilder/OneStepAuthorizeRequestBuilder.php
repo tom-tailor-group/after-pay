@@ -9,9 +9,23 @@ namespace SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Authorize\Request
 
 use Generated\Shared\Transfer\AfterpayAuthorizeRequestTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
+use SprykerEco\Zed\Afterpay\Business\Payment\Mapper\OrderToRequestTransferInterface;
 
 class OneStepAuthorizeRequestBuilder implements AuthorizeRequestBuilderInterface
 {
+
+    /**
+     * @var \SprykerEco\Zed\Afterpay\Business\Payment\Mapper\OrderToRequestTransferInterface
+     */
+    protected $orderToRequestTransferMapper;
+
+    /**
+     * @param \SprykerEco\Zed\Afterpay\Business\Payment\Mapper\OrderToRequestTransferInterface $orderToRequestTransferMapper
+     */
+    public function __construct(OrderToRequestTransferInterface $orderToRequestTransferMapper)
+    {
+        $this->orderToRequestTransferMapper = $orderToRequestTransferMapper;
+    }
 
     /**
      * @param \Generated\Shared\Transfer\OrderTransfer $orderWithPaymentTransfer
@@ -20,50 +34,9 @@ class OneStepAuthorizeRequestBuilder implements AuthorizeRequestBuilderInterface
      */
     public function buildAuthorizeRequest(OrderTransfer $orderWithPaymentTransfer)
     {
-        $authorizeRequestTransfer = new AfterpayAuthorizeRequestTransfer();
-
-        $this->addOrderWithItems($authorizeRequestTransfer, $orderWithPaymentTransfer);
-        $this->addCustomerWithBillingAddress($authorizeRequestTransfer, $orderWithPaymentTransfer);
-        $this->addPaymentDetails($authorizeRequestTransfer, $orderWithPaymentTransfer);
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\AfterpayAuthorizeRequestTransfer $authorizeRequestTransfer
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderWithPaymentTransfer
-     *
-     * @return void
-     */
-    protected function addOrderWithItems(
-        AfterpayAuthorizeRequestTransfer $authorizeRequestTransfer,
-        OrderTransfer $orderWithPaymentTransfer
-    ) {
-        // todo: to be implemented
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\AfterpayAuthorizeRequestTransfer $authorizeRequestTransfer
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderWithPaymentTransfer
-     *
-     * @return void
-     */
-    protected function addCustomerWithBillingAddress(
-        AfterpayAuthorizeRequestTransfer $authorizeRequestTransfer,
-        OrderTransfer $orderWithPaymentTransfer
-    ) {
-        // todo: to be implemented
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\AfterpayAuthorizeRequestTransfer $authorizeRequestTransfer
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderWithPaymentTransfer
-     *
-     * @return void
-     */
-    protected function addPaymentDetails(
-        AfterpayAuthorizeRequestTransfer $authorizeRequestTransfer,
-        OrderTransfer $orderWithPaymentTransfer
-    ) {
-        // todo: to be implemented
+        return $this
+            ->orderToRequestTransferMapper
+            ->orderToAuthorizeRequest($orderWithPaymentTransfer);
     }
 
 }

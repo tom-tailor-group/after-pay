@@ -7,18 +7,19 @@
 
 namespace SprykerEco\Zed\Afterpay\Business\Payment\Mapper;
 
-use Generated\Shared\Transfer\AfterpayAvailablePaymentMethodsRequestTransfer;
+use Generated\Shared\Transfer\AfterpayAuthorizeRequestTransfer;
 use Generated\Shared\Transfer\AfterpayRequestAddressTransfer;
 use Generated\Shared\Transfer\AfterpayRequestCustomerTransfer;
 use Generated\Shared\Transfer\AfterpayRequestOrderItemTransfer;
 use Generated\Shared\Transfer\AfterpayRequestOrderTransfer;
+use Generated\Shared\Transfer\AfterpayRequestPaymentTransfer;
 use Generated\Shared\Transfer\ItemTransfer;
-use Generated\Shared\Transfer\QuoteTransfer;
+use Generated\Shared\Transfer\OrderTransfer;
 use Spryker\Shared\Kernel\Store;
 use SprykerEco\Shared\Afterpay\AfterpayConstants;
 use SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToMoneyInterface;
 
-class QuoteToRequestTransfer implements QuoteToRequestTransferInterface
+class OrderToRequestTransfer implements OrderToRequestTransferInterface
 {
 
     /**
@@ -32,6 +33,13 @@ class QuoteToRequestTransfer implements QuoteToRequestTransferInterface
     protected $store;
 
     /**
+     * @var array
+     */
+    protected static $paymentMethods = [
+        AfterpayConstants::PAYMENT_METHOD_INVOICE => AfterpayConstants::PAYMENT_TYPE_INVOICE,
+    ];
+
+    /**
      * @param \SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToMoneyInterface $money
      * @param \Spryker\Shared\Kernel\Store $store
      */
@@ -42,45 +50,49 @@ class QuoteToRequestTransfer implements QuoteToRequestTransferInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     * @param \Generated\Shared\Transfer\OrderTransfer $orderWithPaymentTransfer
      *
-     * @return \Generated\Shared\Transfer\AfterpayAvailablePaymentMethodsRequestTransfer
+     * @return \Generated\Shared\Transfer\AfterpayAuthorizeRequestTransfer
      */
-    public function quoteToAvailablePaymentMethods(QuoteTransfer $quoteTransfer)
+    public function orderToAuthorizeRequest(OrderTransfer $orderWithPaymentTransfer)
     {
-        $requestTransfer = new AfterpayAvailablePaymentMethodsRequestTransfer();
+        $requestTransfer = new AfterpayAuthorizeRequestTransfer();
         
         $requestTransfer
+            ->setFkSalesOrder($orderWithPaymentTransfer->getIdSalesOrder())
+            ->setPayment(
+                $this->buildPaymentRequestTransfer($orderWithPaymentTransfer)
+            )
             ->setCustomer(
-                $this->buildCustomerRequestTransfer($quoteTransfer)    
+                $this->buildCustomerRequestTransfer($orderWithPaymentTransfer)    
             )
             ->setOrder(
-                $this->buildOrderRequestTransfer($quoteTransfer)
+                $this->buildOrderRequestTransfer($orderWithPaymentTransfer)
             );
         
         return $requestTransfer;
     }
 
     /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     * @param \Generated\Shared\Transfer\OrderTransfer $orderWithPaymentTransfer
      * 
      * @return \Generated\Shared\Transfer\AfterpayRequestCustomerTransfer
      */
-    protected function buildCustomerRequestTransfer(QuoteTransfer $quoteTransfer)
+    protected function buildCustomerRequestTransfer(OrderTransfer $orderWithPaymentTransfer)
     {
-        $quoteBillingAddressTransfer = $quoteTransfer->getBillingAddress();
+        $billingAddressTransfer = $orderWithPaymentTransfer->getBillingAddress();
         $customerRequestTransfer = new AfterpayRequestCustomerTransfer();
 
         $customerRequestTransfer
-            ->setFirstName($quoteBillingAddressTransfer->getFirstName())
-            ->setLastName($quoteBillingAddressTransfer->getLastName())
+            ->setFirstName($billingAddressTransfer->getFirstName())
+            ->setLastName($billingAddressTransfer->getLastName())
             ->setConversationalLanguage($this->getStoreCountryIso2())
             ->setCustomerCategory(AfterpayConstants::API_CUSTOMER_CATEGORY_PERSON)
-            ->setSalutation($quoteBillingAddressTransfer->getSalutation())
-            ->setEmail($quoteTransfer->getCustomer()->getEmail());
+            ->setSalutation($billingAddressTransfer->getSalutation())
+            ->setEmail($orderWithPaymentTransfer->getEmail());
 
         $customerRequestTransfer->setAddress(
-            $this->buildCustomerBillingAddressRequestTransfer($quoteTransfer)
+            $this->buildCustomerBillingAddressRequestTransfer($orderWithPaymentTransfer)
         );
 
         return $customerRequestTransfer;
@@ -88,22 +100,39 @@ class QuoteToRequestTransfer implements QuoteToRequestTransferInterface
     }
     
     /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     * @param \Generated\Shared\Transfer\OrderTransfer $orderWithPaymentTransfer
      * 
      * @return \Generated\Shared\Transfer\AfterpayRequestOrderTransfer
      */
-    protected function buildOrderRequestTransfer(QuoteTransfer $quoteTransfer)
+    protected function buildOrderRequestTransfer(OrderTransfer $orderWithPaymentTransfer)
     {
         $orderRequestTransfer = new AfterpayRequestOrderTransfer();
-        $orderRequestTransfer->setTotalGrossAmount($this->getDecimalQuoteTotal($quoteTransfer));
+        $orderRequestTransfer
+            ->setNumber($orderWithPaymentTransfer->getOrderReference())
+            ->setTotalGrossAmount($this->getDecimalOrderTotal($orderWithPaymentTransfer));
 
-        foreach ($quoteTransfer->getItems() as $itemTransfer) {
+        foreach ($orderWithPaymentTransfer->getItems() as $itemTransfer) {
             $orderRequestTransfer->addItem(
                 $this->buildOrderItemRequestTransfer($itemTransfer)
             );
         }
 
         return $orderRequestTransfer;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\OrderTransfer $orderWithPaymentTransfer
+     *
+     * @return \Generated\Shared\Transfer\AfterpayRequestPaymentTransfer
+     */
+    protected function buildPaymentRequestTransfer(OrderTransfer $orderWithPaymentTransfer)
+    {
+        $paymentMethod = $orderWithPaymentTransfer->getAfterpayPayment()->getPaymentMethod();
+
+        $requestPaymentTransfer = new AfterpayRequestPaymentTransfer();
+        $requestPaymentTransfer->setType(static::$paymentMethods[$paymentMethod]);
+
+        return $requestPaymentTransfer;
     }
 
     /**
@@ -125,13 +154,13 @@ class QuoteToRequestTransfer implements QuoteToRequestTransferInterface
     }
     
     /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     * @param \Generated\Shared\Transfer\OrderTransfer $orderWithPaymentTransfer
      * 
      * @return \Generated\Shared\Transfer\AfterpayRequestAddressTransfer
      */
-    protected function buildCustomerBillingAddressRequestTransfer(QuoteTransfer $quoteTransfer)
+    protected function buildCustomerBillingAddressRequestTransfer(OrderTransfer $orderWithPaymentTransfer)
     {
-        $customerAddressTransfer = $quoteTransfer->getBillingAddress();
+        $customerAddressTransfer = $orderWithPaymentTransfer->getBillingAddress();
         $customerAddressRequestTransfer = new AfterpayRequestAddressTransfer();
 
         $customerAddressRequestTransfer
@@ -153,15 +182,15 @@ class QuoteToRequestTransfer implements QuoteToRequestTransferInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     * @param \Generated\Shared\Transfer\OrderTransfer $orderWithPaymentTransfer
      *
      * @return float
      */
-    protected function getDecimalQuoteTotal(QuoteTransfer $quoteTransfer)
+    protected function getDecimalOrderTotal(OrderTransfer $orderWithPaymentTransfer)
     {
-        $quoteTotal = $quoteTransfer->getTotals()->getGrandTotal();
+        $orderTotal = $orderWithPaymentTransfer->getTotals()->getGrandTotal();
 
-        return  $this->money->convertIntegerToDecimal($quoteTotal);
+        return  $this->money->convertIntegerToDecimal($orderTotal);
     }
 
     /**

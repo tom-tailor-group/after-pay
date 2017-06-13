@@ -14,6 +14,7 @@ use SprykerEco\Zed\Afterpay\Business\Api\Adapter\AdapterFactory;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\AfterpayApiAdapter;
 use SprykerEco\Zed\Afterpay\Business\Order\Saver;
 use SprykerEco\Zed\Afterpay\Business\Payment\Handler\RiskCheck\AvailablePaymentMethodsHandler;
+use SprykerEco\Zed\Afterpay\Business\Payment\Mapper\OrderToRequestTransfer;
 use SprykerEco\Zed\Afterpay\Business\Payment\Mapper\QuoteToRequestTransfer;
 use SprykerEco\Zed\Afterpay\Business\Payment\PaymentReader;
 use SprykerEco\Zed\Afterpay\Business\Payment\PaymentWriter;
@@ -147,7 +148,20 @@ class AfterpayBusinessFactory extends AbstractBusinessFactory
      */
     protected function createOneStepAuthorizeRequestBuilder()
     {
-        return new OneStepAuthorizeRequestBuilder();
+        return new OneStepAuthorizeRequestBuilder(
+            $this->createOrderToRequestMapper()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\Afterpay\Business\Payment\Mapper\OrderToRequestTransferInterface
+     */
+    protected function createOrderToRequestMapper()
+    {
+        return new OrderToRequestTransfer(
+            $this->getAfterpayToMoneyBridge(),
+            $this->getCurrentStore()
+        );
     }
 
     /**
