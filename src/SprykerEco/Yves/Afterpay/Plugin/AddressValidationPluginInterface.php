@@ -5,20 +5,12 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace SprykerEco\Client\Afterpay\Zed;
+namespace SprykerEco\Yves\Afterpay\Plugin;
 
 use Generated\Shared\Transfer\AfterpayValidateCustomerRequestTransfer;
-use Generated\Shared\Transfer\QuoteTransfer;
 
-interface AfterpayStubInterface
+interface AddressValidationPluginInterface
 {
-
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return \Generated\Shared\Transfer\AfterpayAvailablePaymentMethodsTransfer
-     */
-    public function getAvailablePaymentMethodsByQuote(QuoteTransfer $quoteTransfer);
 
     /**
      * @param \Generated\Shared\Transfer\AfterpayValidateCustomerRequestTransfer $validateCustomerRequestTransfer

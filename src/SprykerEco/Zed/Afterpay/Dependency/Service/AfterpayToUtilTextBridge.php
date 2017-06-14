@@ -36,4 +36,16 @@ class AfterpayToUtilTextBridge implements AfterpayToUtilTextInterface
     {
         return $this->utilTextService->separatorToCamelCase($string, $separator, $upperCaseFirst);
     }
+
+    /**
+     * @param string $string
+     * @param string $separator
+     *
+     * @return string
+     */
+    public function camelCaseToSeparator($string, $separator = '-')
+    {
+        return $this->utilTextService->camelCaseToSeparator($string, $separator);
+    }
+
 }

@@ -7,6 +7,7 @@
 
 namespace SprykerEco\Zed\Afterpay\Business;
 
+use Generated\Shared\Transfer\AfterpayValidateCustomerRequestTransfer;
 use Generated\Shared\Transfer\CheckoutResponseTransfer;
 use Generated\Shared\Transfer\AfterpayAuthorizeTransactionLogRequestTransfer;
 use Generated\Shared\Transfer\AfterpayRegistrationByIdAndQuoteRequestTransfer;
@@ -35,6 +36,23 @@ class AfterpayFacade extends AbstractFacade implements AfterpayFacadeInterface
         return $this->getFactory()
             ->createAvailablePaymentMethodsHandler()
             ->getAvailablePaymentMethods($quoteTransfer);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\AfterpayValidateCustomerRequestTransfer $validateCustomerRequestTransfer
+     *
+     * @return \Generated\Shared\Transfer\AfterpayValidateCustomerResponseTransfer
+     */
+    public function validateCustomerAddress(
+        AfterpayValidateCustomerRequestTransfer $validateCustomerRequestTransfer
+    ) {
+        return $this->getFactory()
+            ->createValidateCustomerHandler()
+            ->validateCustomer($validateCustomerRequestTransfer);
     }
 
     /**
@@ -85,5 +103,4 @@ class AfterpayFacade extends AbstractFacade implements AfterpayFacadeInterface
             ->createPaymentReader()
             ->getPaymentByIdSalesOrder($idSalesOrder);
     }
-
 }

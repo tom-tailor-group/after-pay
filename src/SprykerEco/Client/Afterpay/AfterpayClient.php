@@ -7,6 +7,7 @@
 
 namespace SprykerEco\Client\Afterpay;
 
+use Generated\Shared\Transfer\AfterpayValidateCustomerRequestTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Spryker\Client\Kernel\AbstractClient;
 
@@ -44,6 +45,22 @@ class AfterpayClient extends AbstractClient implements AfterpayClientInterface
         return $this->getFactory()
             ->createZedStub()
             ->getAvailablePaymentMethodsByQuote($quoteTransfer);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\AfterpayValidateCustomerRequestTransfer $validateCustomerRequestTransfer
+     *
+     * @return \Generated\Shared\Transfer\AfterpayValidateCustomerResponseTransfer
+     */
+    public function validateCustomerAddress(AfterpayValidateCustomerRequestTransfer $validateCustomerRequestTransfer)
+    {
+        return $this->getFactory()
+            ->createZedStub()
+            ->validateCustomerAddress($validateCustomerRequestTransfer);
     }
 
 }

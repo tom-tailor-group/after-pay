@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © 2016-present Spryker Systems GmbH. All rights reserved.
+ * MIT License
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
@@ -9,6 +9,7 @@ namespace SprykerEco\Zed\Afterpay\Business\Api\Adapter;
 
 use Generated\Shared\Transfer\AfterpayAuthorizeRequestTransfer;
 use Generated\Shared\Transfer\AfterpayAvailablePaymentMethodsRequestTransfer;
+use Generated\Shared\Transfer\AfterpayValidateCustomerRequestTransfer;
 
 interface AdapterInterface
 {
@@ -31,6 +32,15 @@ interface AdapterInterface
      */
     public function sendAuthorizationRequest(
         AfterpayAuthorizeRequestTransfer $authorizeRequestTransfer
+    );
+
+    /**
+     * @param \Generated\Shared\Transfer\AfterpayValidateCustomerRequestTransfer $validateCustomerRequestTransfer
+     *
+     * @return \Generated\Shared\Transfer\AfterpayValidateCustomerResponseTransfer
+     */
+    public function sendValidateCustomerRequest(
+        AfterpayValidateCustomerRequestTransfer $validateCustomerRequestTransfer
     );
 
 }

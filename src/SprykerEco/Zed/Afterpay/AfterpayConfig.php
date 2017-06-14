@@ -34,6 +34,9 @@ class AfterpayConfig extends AbstractBundleConfig
 
             case AfterpayConstants::API_ENDPOINT_AUTHORIZE:
                 return AfterpayConstants::API_ENDPOINT_AUTHORIZE_PATH;
+
+            case AfterpayConstants::API_ENDPOINT_VALIDATE_ADDRESS:
+                return AfterpayConstants::API_ENDPOINT_VALIDATE_ADDRESS_PATH;
         }
     }
 
@@ -51,6 +54,21 @@ class AfterpayConfig extends AbstractBundleConfig
     public function getAfterpayAuthorizeWorkflow()
     {
         return $this->get(AfterpayConstants::AFTERPAY_AUTHORIZE_WORKFLOW);
+    }
+
+    /**
+     * @param string $paymentMethod
+     *
+     * @return string
+     */
+    public function getPaymentChannelId($paymentMethod)
+    {
+        switch ($paymentMethod) {
+            case AfterpayConstants::PAYMENT_METHOD_INVOICE:
+                return $this->get(AfterpayConstants::PAYMENT_INVOICE_CHANNEL_ID);
+            default:
+                return $this->get(AfterpayConstants::PAYMENT_INVOICE_CHANNEL_ID);
+        }
     }
 
 }

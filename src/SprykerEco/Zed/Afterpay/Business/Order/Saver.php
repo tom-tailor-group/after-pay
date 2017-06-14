@@ -13,11 +13,25 @@ use Generated\Shared\Transfer\QuoteTransfer;
 use Orm\Zed\Afterpay\Persistence\SpyPaymentAfterpay;
 use Orm\Zed\Afterpay\Persistence\SpyPaymentAfterpayOrderItem;
 use Spryker\Zed\PropelOrm\Business\Transaction\DatabaseTransactionHandlerTrait;
+use SprykerEco\Zed\Afterpay\AfterpayConfig;
 
 class Saver implements SaverInterface
 {
 
     use DatabaseTransactionHandlerTrait;
+
+    /**
+     * @var \SprykerEco\Zed\Afterpay\AfterpayConfig
+     */
+    protected $config;
+
+    /**
+     * @param \SprykerEco\Zed\Afterpay\AfterpayConfig $config
+     */
+    public function __construct(AfterpayConfig $config)
+    {
+        $this->config = $config;
+    }
 
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
@@ -78,12 +92,26 @@ class Saver implements SaverInterface
     protected function buildPaymentEntity(QuoteTransfer $quoteTransfer, CheckoutResponseTransfer $checkoutResponseTransfer): \Orm\Zed\Afterpay\Persistence\SpyPaymentAfterpay
     {
         $paymentEntity = new SpyPaymentAfterpay();
+
+        $paymentTransfer = $quoteTransfer->getPayment();
+
         $paymentEntity
-            ->setPaymentMethod($quoteTransfer->getPayment()->getPaymentMethod())
+            ->setPaymentMethod($paymentTransfer->getPaymentMethod())
             ->setFkSalesOrder($checkoutResponseTransfer->getSaveOrder()->getIdSalesOrder())
-            ->setIdCheckout($quoteTransfer->getPayment()->getAfterpayCheckoutId());
+            ->setIdCheckout($paymentTransfer->getAfterpayCheckoutId())
+            ->setIdChannel($this->getIdChannel($paymentTransfer->getPaymentMethod()));
 
         return $paymentEntity;
+    }
+
+    /**
+     * @param string $paymentMethod
+     *
+     * @return string
+     */
+    protected function getIdChannel($paymentMethod)
+    {
+        return $this->config->getPaymentChannelId($paymentMethod);
     }
 
 }

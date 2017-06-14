@@ -10,6 +10,7 @@ namespace SprykerEco\Zed\Afterpay\Business;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 use SprykerEco\Shared\Afterpay\AfterpayConstants;
 use SprykerEco\Zed\Afterpay\AfterpayDependencyProvider;
+use SprykerEco\Zed\Afterpay\Business\AdditionalServices\Handler\ValidateCustomerHandler;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\AdapterFactory;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\AfterpayApiAdapter;
 use SprykerEco\Zed\Afterpay\Business\Order\Saver;
@@ -47,7 +48,9 @@ class AfterpayBusinessFactory extends AbstractBusinessFactory
      */
     public function createOrderSaver()
     {
-        return new Saver();
+        return new Saver(
+            $this->getConfig()
+        );
     }
 
     /**
@@ -72,9 +75,14 @@ class AfterpayBusinessFactory extends AbstractBusinessFactory
         );
     }
 
-    public function createPostSaveHook()
+    /**
+     * @return \SprykerEco\Zed\Afterpay\Business\AdditionalServices\Handler\ValidateCustomerHandler
+     */
+    public function createValidateCustomerHandler()
     {
-
+        return new ValidateCustomerHandler(
+            $this->createApiAdapter()
+        );
     }
 
     /**

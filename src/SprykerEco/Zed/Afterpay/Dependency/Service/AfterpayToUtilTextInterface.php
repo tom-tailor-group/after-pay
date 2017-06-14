@@ -19,4 +19,12 @@ interface AfterpayToUtilTextInterface
      */
     public function separatorToCamelCase($string, $separator = '-', $upperCaseFirst = false);
 
+    /**
+     * @param string $string
+     * @param string $separator
+     *
+     * @return string
+     */
+    public function camelCaseToSeparator($string, $separator = '-');
+
 }

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © 2016-present Spryker Systems GmbH. All rights reserved.
+ * MIT License
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
@@ -17,6 +17,7 @@ use SprykerEco\Shared\Afterpay\AfterpayConstants;
 use SprykerEco\Zed\Afterpay\AfterpayDependencyProvider;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\AuthorizePaymentCall;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\AvailablePaymentMethodsCall;
+use SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\ValidateCustomerCall;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\Client\ClientInterface;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\Client\Http\Guzzle;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\Converter\TransferToCamelCaseArrayConverter;
@@ -54,6 +55,19 @@ class AdapterFactory extends AbstractBusinessFactory implements AdapterFactoryIn
     }
 
     /**
+     * @return \SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\ValidateCustomerCallInterface
+     */
+    public function createValidateCustomerCall()
+    {
+        return new ValidateCustomerCall(
+            $this->createHttpClient(),
+            $this->createTransferToCamelCaseArrayConverter(),
+            $this->getUtilEncodingService(),
+            $this->getUtilTextService()
+        );
+    }
+
+    /**
      * @return \SprykerEco\Zed\Afterpay\Business\Api\Adapter\Client\ClientInterface
      */
     protected function createHttpClient()
@@ -86,5 +100,4 @@ class AdapterFactory extends AbstractBusinessFactory implements AdapterFactoryIn
     {
         return $this->getProvidedDependency(AfterpayDependencyProvider::SERVICE_UTIL_TEXT);
     }
-
 }

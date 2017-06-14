@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Copyright © 2016-present Spryker Systems GmbH. All rights reserved.
+ * MIT License
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
@@ -9,9 +9,13 @@ namespace SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall;
 
 use Generated\Shared\Transfer\AfterpayAvailablePaymentMethodsRequestTransfer;
 use Spryker\Shared\Kernel\Transfer\AbstractTransfer;
+use Spryker\Shared\Log\LoggerTrait;
+use SprykerEco\Zed\Afterpay\Business\Exception\ApiHttpRequestException;
 
 class AbstractApiCall
 {
+
+    use LoggerTrait;
 
     /**
      * @var \SprykerEco\Zed\Afterpay\Business\Api\Adapter\Converter\TransferToCamelCaseArrayConverterInterface
@@ -32,6 +36,17 @@ class AbstractApiCall
     {
         $requestArray = $this->transferConverter->convert($requestTransfer);
         return $this->utilEncoding->encodeJson($requestArray);
+    }
+
+    /**
+     * @param \SprykerEco\Zed\Afterpay\Business\Exception\ApiHttpRequestException $apiHttpRequestException
+     */
+    protected function logApiException(ApiHttpRequestException $apiHttpRequestException)
+    {
+        $this->getLogger()->error(
+            $apiHttpRequestException->getMessage(),
+            ['exception' => $apiHttpRequestException]
+        );
     }
 
 }

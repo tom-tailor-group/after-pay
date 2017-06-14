@@ -7,12 +7,41 @@
 
 namespace SprykerEco\Zed\Afterpay\Business;
 
+use Generated\Shared\Transfer\AfterpayValidateCustomerRequestTransfer;
 use Generated\Shared\Transfer\CheckoutResponseTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 
 interface AfterpayFacadeInterface
 {
+
+    /**
+     * Specification:
+     * - Makes a call to the "payment-methods" API endpoint, to get a list of payment methods,
+     * available for the current quote, with additional information - checkout_id, and risk_check_score
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     *
+     * @return \Generated\Shared\Transfer\AfterpayAvailablePaymentMethodsTransfer
+     */
+    public function getAvailablePaymentMethods(QuoteTransfer $quoteTransfer);
+
+    /**
+     * Specification:
+     * - Makes a call to the "validate-address" API endpoint, to validate customer address.
+     * Response contains isValid flag along with correctedAddress.
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\AfterpayValidateCustomerRequestTransfer $validateCustomerRequestTransfer
+     *
+     * @return \Generated\Shared\Transfer\AfterpayValidateCustomerResponseTransfer
+     */
+    public function validateCustomerAddress(
+        AfterpayValidateCustomerRequestTransfer $validateCustomerRequestTransfer
+    );
 
     /**
      * Specification:
@@ -39,18 +68,5 @@ interface AfterpayFacadeInterface
      * @return void
      */
     public function saveOrderPayment(QuoteTransfer $quoteTransfer, CheckoutResponseTransfer $checkoutResponseTransfer);
-
-    /**
-     * Specification:
-     * - Makes a call to the "payment-methods" API endpoint, to get a list of payment methods,
-     * available for the current quote, with additional information - checkout_id, and risk_check_score
-     *
-     * @api
-     *
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return \Generated\Shared\Transfer\AfterpayAvailablePaymentMethodsTransfer
-     */
-    public function getAvailablePaymentMethods(QuoteTransfer $quoteTransfer);
 
 }

@@ -1,0 +1,133 @@
+<?php
+
+/**
+ * MIT License
+ * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
+ */
+
+namespace SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall;
+
+use Generated\Shared\Transfer\AfterpayApiResponseTransfer;
+use Generated\Shared\Transfer\AfterpayAuthorizeRequestTransfer;
+use Generated\Shared\Transfer\AfterpayRequestAddressTransfer;
+use Generated\Shared\Transfer\AfterpayValidateCustomerRequestTransfer;
+use Generated\Shared\Transfer\AfterpayValidateCustomerResponseTransfer;
+use Spryker\Shared\Log\LoggerTrait;
+use SprykerEco\Shared\Afterpay\AfterpayConstants;
+use SprykerEco\Zed\Afterpay\Business\Api\Adapter\Client\ClientInterface;
+use SprykerEco\Zed\Afterpay\Business\Api\Adapter\Converter\TransferToCamelCaseArrayConverterInterface;
+use SprykerEco\Zed\Afterpay\Business\Exception\ApiHttpRequestException;
+use SprykerEco\Zed\Afterpay\Dependency\Service\AfterpayToUtilEncodingInterface;
+use SprykerEco\Zed\Afterpay\Dependency\Service\AfterpayToUtilTextInterface;
+
+class ValidateCustomerCall extends AbstractApiCall implements ValidateCustomerCallInterface
+{
+
+    /**
+     * @var \SprykerEco\Zed\Afterpay\Business\Api\Adapter\Client\ClientInterface
+     */
+    protected $client;
+
+    /**
+     * @var \SprykerEco\Zed\Afterpay\Dependency\Service\AfterpayToUtilTextInterface
+     */
+    protected $utilText;
+
+    /**
+     * @param \SprykerEco\Zed\Afterpay\Business\Api\Adapter\Client\ClientInterface $client
+     * @param \SprykerEco\Zed\Afterpay\Business\Api\Adapter\Converter\TransferToCamelCaseArrayConverterInterface $transferConverter
+     * @param \SprykerEco\Zed\Afterpay\Dependency\Service\AfterpayToUtilEncodingInterface $utilEncoding
+     * @param \SprykerEco\Zed\Afterpay\Dependency\Service\AfterpayToUtilTextInterface $utilText
+     */
+    public function __construct(
+        ClientInterface $client,
+        TransferToCamelCaseArrayConverterInterface $transferConverter,
+        AfterpayToUtilEncodingInterface $utilEncoding,
+        AfterpayToUtilTextInterface $utilText
+    ) {
+        $this->client = $client;
+        $this->transferConverter = $transferConverter;
+        $this->utilEncoding = $utilEncoding;
+        $this->utilText = $utilText;
+    }
+
+
+    /**
+     * @param \Generated\Shared\Transfer\AfterpayValidateCustomerRequestTransfer $validateCustomerRequestTransfer
+     *
+     * @return \Generated\Shared\Transfer\AfterpayValidateCustomerResponseTransfer
+     */
+    public function execute(AfterpayValidateCustomerRequestTransfer $validateCustomerRequestTransfer)
+    {
+        $jsonRequest = $this->buildJsonRequestFromTransferObject($validateCustomerRequestTransfer);
+
+        try {
+            $jsonResponse = $this->client->sendPost(
+                AfterpayConstants::API_ENDPOINT_VALIDATE_ADDRESS,
+                $jsonRequest
+            );
+        } catch (ApiHttpRequestException $apiHttpRequestException) {
+            $this->logApiException($apiHttpRequestException);
+            $jsonResponse = '';
+        }
+
+        return $this->buildValidateCustomerResponseTransfer($jsonResponse);
+    }
+
+    /**
+     * @param string $jsonResponse
+     *
+     * @return \Generated\Shared\Transfer\AfterpayValidateCustomerResponseTransfer
+     */
+    protected function buildValidateCustomerResponseTransfer($jsonResponse)
+    {
+        $jsonResponseArray = $this->utilEncoding->decodeJson($jsonResponse, true);
+
+        $responseTransfer = new AfterpayValidateCustomerResponseTransfer();
+
+        $responseTransfer
+            ->setCorrectedAddress(
+                $this->parseCorrectedAddress($jsonResponseArray)
+            )
+            ->setIsValid($jsonResponseArray['isValid'] ?? false)
+            ->setResponsePayload($jsonResponse);
+
+        return $responseTransfer;
+    }
+
+    /**
+     * @param array $jsonResponseArray
+     *
+     * @return \Generated\Shared\Transfer\AfterpayRequestAddressTransfer
+     */
+    protected function parseCorrectedAddress(array $jsonResponseArray)
+    {
+        $correctedAddressTransfer = new AfterpayRequestAddressTransfer();
+        $correctedAddressArray = $this->extractAddressDataWithUnderscoreKeys($jsonResponseArray);
+
+        $correctedAddressTransfer->fromArray($correctedAddressArray, true);
+
+        return $correctedAddressTransfer;
+    }
+
+    /**
+     * @param array $jsonResponseArray
+     *
+     * @return array
+     */
+    protected function extractAddressDataWithUnderscoreKeys(array $jsonResponseArray)
+    {
+        if (!isset($jsonResponseArray['correctedAddress'])) {
+            return [];
+        }
+
+        $addressWithUnderscoreKeys = [];
+        foreach ($jsonResponseArray['correctedAddress'] as $key => $value) {
+            $keyWithUnderscore = $this->utilText->camelCaseToSeparator($key, '_');
+            $addressWithUnderscoreKeys[$keyWithUnderscore] = $value;
+        }
+
+        return $addressWithUnderscoreKeys;
+    }
+
+}

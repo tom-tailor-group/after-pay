@@ -19,6 +19,16 @@
         <property name="order" type="AfterpayRequestOrder" />
     </transfer>
 
+    <transfer name="AfterpayValidateCustomerRequest">
+        <property name="customer" type="AfterpayRequestCustomer" />
+    </transfer>
+
+    <transfer name="AfterpayValidateCustomerResponse">
+        <property name="isValid" type="bool" />
+        <property name="correctedAddress" type="AfterpayRequestAddress" />
+        <property name="responsePayload" type="string" />
+    </transfer>
+
     <transfer name="AfterpayRequestPayment">
         <property name="type" type="string" />
     </transfer>
@@ -57,6 +67,7 @@
     <transfer name="AfterpayRequestAddress">
         <property name="street" type="string" />
         <property name="streetNumber" type="string" />
+        <property name="streetNumberAdditional" type="string" />
         <property name="postalCode" type="string" />
         <property name="postalPlace" type="string" />
         <property name="countryCode" type="string" />

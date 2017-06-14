@@ -36,10 +36,15 @@ interface AfterpayConstants
     const API_ENDPOINT_AUTHORIZE = 'authorize payment';
     const API_ENDPOINT_AUTHORIZE_PATH = 'checkout/authorize';
 
+    const API_ENDPOINT_VALIDATE_ADDRESS = 'validate address';
+    const API_ENDPOINT_VALIDATE_ADDRESS_PATH = 'validate/address';
+
     const API_CREDENTIALS_AUTH_KEY = 'API_CREDENTIALS_AUTH_KEY';
 
     const PAYMENT_SUB_FORM_CHECKERS = 'PAYMENT_SUB_FORM_CHECKERS';
     const PRE_PAYMENT_QUOTE_EXPANDERS = 'PRE_PAYMENT_QUOTE_EXPANDERS';
+
+    const PAYMENT_INVOICE_CHANNEL_ID = 'API_CREDENTIALS_INVOICE_CHANNEL_ID';
 
     const RISK_CHECK_METHOD_INVOICE = 'Invoice';
 
