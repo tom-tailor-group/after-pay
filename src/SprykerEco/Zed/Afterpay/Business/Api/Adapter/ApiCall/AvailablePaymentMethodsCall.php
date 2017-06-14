@@ -73,11 +73,13 @@ class AvailablePaymentMethodsCall extends AbstractApiCall implements AvailablePa
         $responseTransfer = new AfterpayAvailablePaymentMethodsResponseTransfer();
 
         $riskCheckResultCode = $this->extractRiskCheckCode($jsonResponseArray);
+        $customerNumber = $this->extractCustomerNumber($jsonResponseArray);
 
         $responseTransfer
             ->setCheckoutId($jsonResponseArray['checkoutId'] ?? null)
             ->setOutcome($jsonResponseArray['outcome'] ?? null)
             ->setCustomer($jsonResponseArray['customer'] ?? [])
+            ->setCustomerNumber($customerNumber)
             ->setPaymentMethods($jsonResponseArray['paymentMethods'] ?? [])
             ->setRiskCheckResultCode($riskCheckResultCode);
 
@@ -103,6 +105,27 @@ class AvailablePaymentMethodsCall extends AbstractApiCall implements AvailablePa
         }
 
         return $riskCheckResultCode;
+    }
+
+    /**
+     * @param array $jsonResponseArray
+     *
+     * @return string|null
+     */
+    protected function extractCustomerNumber($jsonResponseArray)
+    {
+        $customerNumber = null;
+
+        if (
+            isset(
+                $jsonResponseArray['customer'],
+                $jsonResponseArray['customer']['customerNumber']
+            )
+        ) {
+            $customerNumber = $jsonResponseArray['customer']['customerNumber'];
+        }
+
+        return $customerNumber;
     }
 
 }

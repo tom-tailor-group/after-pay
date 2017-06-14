@@ -76,7 +76,7 @@ class TwoStepsAuthorizeWorkflow extends AbstractAfterpayAuthorizeWorkflow implem
     {
         $quoteTransfer = parent::addPaymentDataToQuote($quoteTransfer);
 
-        $this->addCheckoutIdToPayment($quoteTransfer);
+        $this->addAvailablePaymentMethodsDataToPayment($quoteTransfer);
 
         return $quoteTransfer;
     }
@@ -96,19 +96,14 @@ class TwoStepsAuthorizeWorkflow extends AbstractAfterpayAuthorizeWorkflow implem
      *
      * @return void
      */
-    protected function addCheckoutIdToPayment(QuoteTransfer $quoteTransfer)
+    protected function addAvailablePaymentMethodsDataToPayment(QuoteTransfer $quoteTransfer)
     {
-        $paymentTransfer = $quoteTransfer
-            ->requirePayment()
-            ->getPayment();
+        $paymentTransfer = $quoteTransfer->getPayment();
+        $availablePaymentMethodsTransfer = $quoteTransfer->getAfterpayAvailablePaymentMethods();
 
-        $afterpayCheckoutId = $quoteTransfer
-            ->requireAfterpayAvailablePaymentMethods()
-            ->getAfterpayAvailablePaymentMethods()
-            ->requireCheckoutId()
-            ->getCheckoutId();
-
-        $paymentTransfer->setAfterpayCheckoutId($afterpayCheckoutId);
+        $paymentTransfer
+            ->setAfterpayCheckoutId($availablePaymentMethodsTransfer->getCheckoutId())
+            ->setAfterpayCustomerNumber($availablePaymentMethodsTransfer->getCustomerNumber());
     }
 
 }

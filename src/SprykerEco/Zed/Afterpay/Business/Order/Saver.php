@@ -99,7 +99,8 @@ class Saver implements SaverInterface
             ->setPaymentMethod($paymentTransfer->getPaymentMethod())
             ->setFkSalesOrder($checkoutResponseTransfer->getSaveOrder()->getIdSalesOrder())
             ->setIdCheckout($paymentTransfer->getAfterpayCheckoutId())
-            ->setIdChannel($this->getIdChannel($paymentTransfer->getPaymentMethod()));
+            ->setIdChannel($this->getIdChannel($paymentTransfer->getPaymentMethod()))
+            ->setInfoscoreCustomerNumber($paymentTransfer->getAfterpayCustomerNumber());
 
         return $paymentEntity;
     }

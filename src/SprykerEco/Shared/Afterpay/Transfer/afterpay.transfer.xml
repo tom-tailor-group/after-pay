@@ -7,6 +7,7 @@
         <property name="fkSalesOrder" type="int" />
         <property name="paymentMethod" type="string" />
         <property name="idCheckout" type="string" />
+        <property name="customerNumber" type="string" />
         <property name="idReservation" type="string" />
     </transfer>
 
@@ -50,6 +51,7 @@
         <property name="checkoutId" type="string" />
         <property name="outcome" type="string" />
         <property name="customer" type="array" />
+        <property name="customerNumber" type="string" />
         <property name="paymentMethods" type="array" />
         <property name="riskCheckResultCode" type="string" />
     </transfer>
@@ -104,6 +106,7 @@
     <transfer name="AfterpayAvailablePaymentMethods">
         <property name="availablePaymentMethodNames" type="array" />
         <property name="riskCheckCode" type="string" />
+        <property name="customerNumber" type="string" />
         <property name="checkoutId" type="string" />
         <property name="quoteHash" type="string" />
     </transfer>
@@ -115,6 +118,7 @@
     <transfer name="Payment">
         <property name="afterpayInvoice" type="AfterpayPayment"/>
         <property name="afterpayCheckoutId" type="string" />
+        <property name="afterpayCustomerNumber" type="string" />
     </transfer>
 
     <transfer name="Order">

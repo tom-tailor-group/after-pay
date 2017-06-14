@@ -18,7 +18,11 @@ use SprykerEco\Shared\Afterpay\AfterpayConstants;
 
 // Merchant config values, got from Afterpay
 
-$config[AfterpayConstants::AFTERPAY_SERVICE_VALIDATE_ADDRESS_IS_ENABLED] = true;
+$config[AfterpayConstants::API_ENDPOINT_BASE_URL] = 'https://sandboxapi.horizonafs.com/eCommerceServicesWebApi/api/v3/';
+$config[AfterpayConstants::API_CREDENTIALS_AUTH_KEY] = 'Ggv-L0_rrMrskEt4pa7SSIVUvgD9dM14njtWmHHE';
+$config[AfterpayConstants::PAYMENT_INVOICE_CHANNEL_ID] = 'ff8080135ce63bb0135d36854601127';
+
+// OMS and payment
 
 $config[KernelConstants::DEPENDENCY_INJECTOR_YVES] = [
     'Checkout' => [
@@ -37,7 +41,7 @@ $config[KernelConstants::DEPENDENCY_INJECTOR_ZED] = [
 
 $config[OmsConstants::PROCESS_LOCATION] = [
     OmsConfig::DEFAULT_PROCESS_LOCATION,
-    $config[KernelConstants::SPRYKER_ROOT] . '/heidelpay/config/Zed/Oms',
+    $config[AfterpayConstants::VENDOR_ROOT] . '/after-pay/config/Zed/Oms',
 ];
 
 $config[OmsConstants::ACTIVE_PROCESSES] = [
@@ -46,4 +50,10 @@ $config[OmsConstants::ACTIVE_PROCESSES] = [
 
 $config[SalesConstants::PAYMENT_METHOD_STATEMACHINE_MAPPING] = [
     AfterpayConstants::PAYMENT_METHOD_INVOICE => 'AfterpayInvoice01',
+];
+
+$config[AfterpayConstants::AFTERPAY_AUTHORIZE_WORKFLOW] = AfterpayConstants::AFTERPAY_AUTHORIZE_WORKFLOW_TWO_STEPS;
+
+$config[AfterpayConstants::AFTERPAY_RISK_CHECK_CONFIGURATION] = [
+    AfterpayConstants::PAYMENT_METHOD_INVOICE => AfterpayConstants::RISK_CHECK_METHOD_INVOICE,
 ];

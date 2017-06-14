@@ -33,12 +33,7 @@ class AvailablePaymentMethodsStep implements AvailablePaymentMethodsStepInterfac
      */
     public function getAvailablePaymentMethods(QuoteTransfer $quoteTransfer)
     {
-        if (
-            !$this->hasQuoteAvailablePaymentMethods($quoteTransfer)
-            || $this->isAvailablePaymentMethodsRefreshNeeded($quoteTransfer)
-        )  {
-            $this->resetAvailablePaymentMethodsInQuote($quoteTransfer);
-        }
+        $this->setAvailablePaymentMethodsInQuote($quoteTransfer);
 
         return $quoteTransfer->getAfterpayAvailablePaymentMethods();
     }
@@ -48,37 +43,10 @@ class AvailablePaymentMethodsStep implements AvailablePaymentMethodsStepInterfac
      *
      * @return void
      */
-    protected function resetAvailablePaymentMethodsInQuote(QuoteTransfer $quoteTransfer)
+    protected function setAvailablePaymentMethodsInQuote(QuoteTransfer $quoteTransfer)
     {
         $availablePaymentMethods = $this->afterpayClient->getAvailablePaymentMethods($quoteTransfer);
         $quoteTransfer->setAfterpayAvailablePaymentMethods($availablePaymentMethods);
     }
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return bool
-     */
-    protected function hasQuoteAvailablePaymentMethods(QuoteTransfer $quoteTransfer)
-    {
-        return $quoteTransfer->getAfterpayAvailablePaymentMethods() !== null;
-    }
-
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return bool
-     */
-    protected function isAvailablePaymentMethodsRefreshNeeded(QuoteTransfer $quoteTransfer)
-    {
-        $currentQuoteHash = $quoteTransfer
-            ->getTotals()
-            ->getHash();
-
-        $availablePaymentMethodsQuoteHash = $quoteTransfer
-            ->getAfterpayAvailablePaymentMethods()
-            ->getQuoteHash();
-
-        return $currentQuoteHash !== $availablePaymentMethodsQuoteHash;
-    }
 }

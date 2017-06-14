@@ -90,7 +90,8 @@ class AvailablePaymentMethodsHandler implements AvailablePaymentMethodsHandlerIn
         $availablePaymentMethodsTransfer
             ->setAvailablePaymentMethodNames($availablePaymentMethodNames)
             ->setRiskCheckCode($apiResponseTransfer->getRiskCheckResultCode())
-            ->setCheckoutId($apiResponseTransfer->getCheckoutId());
+            ->setCheckoutId($apiResponseTransfer->getCheckoutId())
+            ->setCustomerNumber($apiResponseTransfer->getCustomerNumber());
 
         return $availablePaymentMethodsTransfer;
     }
