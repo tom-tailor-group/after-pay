@@ -7,7 +7,6 @@
 
 namespace SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall;
 
-use Generated\Shared\Transfer\AfterpayAvailablePaymentMethodsRequestTransfer;
 use Spryker\Shared\Kernel\Transfer\AbstractTransfer;
 use Spryker\Shared\Log\LoggerTrait;
 use SprykerEco\Zed\Afterpay\Business\Exception\ApiHttpRequestException;
@@ -40,6 +39,8 @@ class AbstractApiCall
 
     /**
      * @param \SprykerEco\Zed\Afterpay\Business\Exception\ApiHttpRequestException $apiHttpRequestException
+     *
+     * @return void
      */
     protected function logApiException(ApiHttpRequestException $apiHttpRequestException)
     {

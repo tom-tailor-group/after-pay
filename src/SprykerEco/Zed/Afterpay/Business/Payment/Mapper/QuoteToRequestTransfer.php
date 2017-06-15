@@ -49,21 +49,21 @@ class QuoteToRequestTransfer implements QuoteToRequestTransferInterface
     public function quoteToAvailablePaymentMethods(QuoteTransfer $quoteTransfer)
     {
         $requestTransfer = new AfterpayAvailablePaymentMethodsRequestTransfer();
-        
+
         $requestTransfer
             ->setCustomer(
-                $this->buildCustomerRequestTransfer($quoteTransfer)    
+                $this->buildCustomerRequestTransfer($quoteTransfer)
             )
             ->setOrder(
                 $this->buildOrderRequestTransfer($quoteTransfer)
             );
-        
+
         return $requestTransfer;
     }
 
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * 
+     *
      * @return \Generated\Shared\Transfer\AfterpayRequestCustomerTransfer
      */
     protected function buildCustomerRequestTransfer(QuoteTransfer $quoteTransfer)
@@ -84,12 +84,11 @@ class QuoteToRequestTransfer implements QuoteToRequestTransferInterface
         );
 
         return $customerRequestTransfer;
-
     }
-    
+
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * 
+     *
      * @return \Generated\Shared\Transfer\AfterpayRequestOrderTransfer
      */
     protected function buildOrderRequestTransfer(QuoteTransfer $quoteTransfer)
@@ -123,10 +122,10 @@ class QuoteToRequestTransfer implements QuoteToRequestTransferInterface
 
         return $orderItemRequestTransfer;
     }
-    
+
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     * 
+     *
      * @return \Generated\Shared\Transfer\AfterpayRequestAddressTransfer
      */
     protected function buildCustomerBillingAddressRequestTransfer(QuoteTransfer $quoteTransfer)
@@ -161,7 +160,7 @@ class QuoteToRequestTransfer implements QuoteToRequestTransferInterface
     {
         $quoteTotal = $quoteTransfer->getTotals()->getGrandTotal();
 
-        return  $this->money->convertIntegerToDecimal($quoteTotal);
+        return $this->money->convertIntegerToDecimal($quoteTotal);
     }
 
     /**

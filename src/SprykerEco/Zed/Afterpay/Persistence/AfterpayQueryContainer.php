@@ -8,7 +8,6 @@
 namespace SprykerEco\Zed\Afterpay\Persistence;
 
 use Spryker\Zed\Kernel\Persistence\AbstractQueryContainer;
-use Spryker\Zed\PropelOrm\Business\Runtime\ActiveQuery\Criteria;
 use SprykerEco\Shared\Afterpay\AfterpayConstants;
 
 /**

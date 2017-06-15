@@ -21,7 +21,6 @@ interface AfterpayConstants
     const PAYMENT_TYPE_INVOICE = 'Invoice';
     const PAYMENT_METHOD_INVOICE = self::PROVIDER_NAME . self::PAYMENT_TYPE_INVOICE;
 
-
     const TRANSACTION_TYPE_AUTHORIZE = 'authorize';
     const TRANSACTION_TYPE_CAPTURE = 'capture';
 

@@ -7,8 +7,6 @@
 
 namespace SprykerEco\Yves\Afterpay\Plugin;
 
-use Spryker\Yves\StepEngine\Dependency\Plugin\Form\SubFormPluginCollection;
-
 interface PaymentSubFormFilterPluginInterface
 {
 

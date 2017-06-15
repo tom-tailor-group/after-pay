@@ -13,10 +13,8 @@ use SprykerEco\Yves\Afterpay\AuthorizeWorkflow\OneStepAuthorizeWorkflow;
 use SprykerEco\Yves\Afterpay\AuthorizeWorkflow\Steps\AvailablePaymentMethodsStep;
 use SprykerEco\Yves\Afterpay\AuthorizeWorkflow\Steps\PaymentSubformsFilter;
 use SprykerEco\Yves\Afterpay\AuthorizeWorkflow\TwoStepsAuthorizeWorkflow;
-use SprykerEco\Yves\Afterpay\Form\InvoiceSubForm;
 use SprykerEco\Yves\Afterpay\Form\DataProvider\InvoiceDataProvider;
-use SprykerEco\Yves\Afterpay\Checkout\Process\AvailablePaymentMethodsExpander;
-use SprykerEco\Yves\Afterpay\FormChecker\AvailablePaymentMethodsSubformFilter;
+use SprykerEco\Yves\Afterpay\Form\InvoiceSubForm;
 use SprykerEco\Yves\Afterpay\Handler\AfterpayHandler;
 
 /**

@@ -41,7 +41,6 @@ class AuthorizeTransactionHandler implements AuthorizeTransactionHandlerInterfac
         AuthorizeTransactionInterface $transaction,
         AuthorizeRequestBuilderInterface $requestBuilder,
         PaymentWriterInterface $paymentWriter
-
     ) {
         $this->transaction = $transaction;
         $this->requestBuilder = $requestBuilder;

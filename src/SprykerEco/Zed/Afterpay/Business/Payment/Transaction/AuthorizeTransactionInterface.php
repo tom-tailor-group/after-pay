@@ -8,9 +8,6 @@
 namespace SprykerEco\Zed\Afterpay\Business\Payment\Transaction;
 
 use Generated\Shared\Transfer\AfterpayAuthorizeRequestTransfer;
-use Generated\Shared\Transfer\AfterpayRequestTransfer;
-use Generated\Shared\Transfer\OrderTransfer;
-use SprykerEco\Zed\Afterpay\Business\Payment\Type\PaymentWithAuthorizeInterface;
 
 interface AuthorizeTransactionInterface
 {

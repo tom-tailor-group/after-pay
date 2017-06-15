@@ -7,12 +7,9 @@
 
 namespace SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall;
 
-use Generated\Shared\Transfer\AfterpayApiResponseTransfer;
-use Generated\Shared\Transfer\AfterpayAuthorizeRequestTransfer;
 use Generated\Shared\Transfer\AfterpayRequestAddressTransfer;
 use Generated\Shared\Transfer\AfterpayValidateCustomerRequestTransfer;
 use Generated\Shared\Transfer\AfterpayValidateCustomerResponseTransfer;
-use Spryker\Shared\Log\LoggerTrait;
 use SprykerEco\Shared\Afterpay\AfterpayConstants;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\Client\ClientInterface;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\Converter\TransferToCamelCaseArrayConverterInterface;
@@ -50,7 +47,6 @@ class ValidateCustomerCall extends AbstractApiCall implements ValidateCustomerCa
         $this->utilEncoding = $utilEncoding;
         $this->utilText = $utilText;
     }
-
 
     /**
      * @param \Generated\Shared\Transfer\AfterpayValidateCustomerRequestTransfer $validateCustomerRequestTransfer

@@ -57,25 +57,25 @@ class OrderToRequestTransfer implements OrderToRequestTransferInterface
     public function orderToAuthorizeRequest(OrderTransfer $orderWithPaymentTransfer)
     {
         $requestTransfer = new AfterpayAuthorizeRequestTransfer();
-        
+
         $requestTransfer
             ->setFkSalesOrder($orderWithPaymentTransfer->getIdSalesOrder())
             ->setPayment(
                 $this->buildPaymentRequestTransfer($orderWithPaymentTransfer)
             )
             ->setCustomer(
-                $this->buildCustomerRequestTransfer($orderWithPaymentTransfer)    
+                $this->buildCustomerRequestTransfer($orderWithPaymentTransfer)
             )
             ->setOrder(
                 $this->buildOrderRequestTransfer($orderWithPaymentTransfer)
             );
-        
+
         return $requestTransfer;
     }
 
     /**
      * @param \Generated\Shared\Transfer\OrderTransfer $orderWithPaymentTransfer
-     * 
+     *
      * @return \Generated\Shared\Transfer\AfterpayRequestCustomerTransfer
      */
     protected function buildCustomerRequestTransfer(OrderTransfer $orderWithPaymentTransfer)
@@ -96,12 +96,11 @@ class OrderToRequestTransfer implements OrderToRequestTransferInterface
         );
 
         return $customerRequestTransfer;
-
     }
-    
+
     /**
      * @param \Generated\Shared\Transfer\OrderTransfer $orderWithPaymentTransfer
-     * 
+     *
      * @return \Generated\Shared\Transfer\AfterpayRequestOrderTransfer
      */
     protected function buildOrderRequestTransfer(OrderTransfer $orderWithPaymentTransfer)
@@ -152,10 +151,10 @@ class OrderToRequestTransfer implements OrderToRequestTransferInterface
 
         return $orderItemRequestTransfer;
     }
-    
+
     /**
      * @param \Generated\Shared\Transfer\OrderTransfer $orderWithPaymentTransfer
-     * 
+     *
      * @return \Generated\Shared\Transfer\AfterpayRequestAddressTransfer
      */
     protected function buildCustomerBillingAddressRequestTransfer(OrderTransfer $orderWithPaymentTransfer)
@@ -190,7 +189,7 @@ class OrderToRequestTransfer implements OrderToRequestTransferInterface
     {
         $orderTotal = $orderWithPaymentTransfer->getTotals()->getGrandTotal();
 
-        return  $this->money->convertIntegerToDecimal($orderTotal);
+        return $this->money->convertIntegerToDecimal($orderTotal);
     }
 
     /**

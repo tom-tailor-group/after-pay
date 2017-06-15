@@ -7,9 +7,9 @@
 
 namespace SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Authorize\RequestBuilder;
 
-use Generated\Shared\Transfer\AfterpayRequestPaymentTransfer;
 use Generated\Shared\Transfer\AfterpayAuthorizeRequestTransfer;
 use Generated\Shared\Transfer\AfterpayRequestOrderTransfer;
+use Generated\Shared\Transfer\AfterpayRequestPaymentTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
 use SprykerEco\Shared\Afterpay\AfterpayConstants;
 

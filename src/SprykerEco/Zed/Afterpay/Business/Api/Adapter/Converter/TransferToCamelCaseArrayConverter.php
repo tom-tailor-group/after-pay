@@ -7,9 +7,9 @@
 
 namespace SprykerEco\Zed\Afterpay\Business\Api\Adapter\Converter;
 
+use \ArrayObject;
 use Spryker\Shared\Kernel\Transfer\AbstractTransfer;
 use SprykerEco\Zed\Afterpay\Dependency\Service\AfterpayToUtilTextInterface;
-use \ArrayObject;
 
 class TransferToCamelCaseArrayConverter implements TransferToCamelCaseArrayConverterInterface
 {

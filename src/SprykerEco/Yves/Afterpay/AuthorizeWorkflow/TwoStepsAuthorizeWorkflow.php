@@ -31,8 +31,8 @@ class TwoStepsAuthorizeWorkflow extends AbstractAfterpayAuthorizeWorkflow implem
     public function __construct(
         AvailablePaymentMethodsStepInterface $availablePaymentMethodsStep,
         PaymentSubformsFilterInterface $paymentSubformsFilter
-    )
-    {
+    ) {
+
         $this->availablePaymentMethodsStep = $availablePaymentMethodsStep;
         $this->paymentSubformsFilter = $paymentSubformsFilter;
     }

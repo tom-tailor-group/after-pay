@@ -9,10 +9,8 @@ namespace SprykerEco\Zed\Afterpay\Business\Payment\Transaction;
 
 use Generated\Shared\Transfer\AfterpayApiResponseTransfer;
 use Generated\Shared\Transfer\AfterpayAuthorizeRequestTransfer;
-use Generated\Shared\Transfer\OrderTransfer;
 use SprykerEco\Shared\Afterpay\AfterpayConstants;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\AdapterInterface;
-use SprykerEco\Zed\Afterpay\Business\Payment\AuthorizeWorkflow\AfterpayAuthorizeWorkflowInterface;
 use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Logger\TransactionLoggerInterface;
 
 class AuthorizeTransaction implements AuthorizeTransactionInterface
@@ -71,4 +69,5 @@ class AuthorizeTransaction implements AuthorizeTransactionInterface
             $authorizeResponseTransfer
         );
     }
+
 }

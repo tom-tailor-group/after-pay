@@ -12,7 +12,6 @@ use Spryker\Zed\Kernel\Dependency\Injector\AbstractDependencyInjector;
 use Spryker\Zed\Payment\Dependency\Plugin\Checkout\CheckoutPluginCollection;
 use Spryker\Zed\Payment\PaymentDependencyProvider;
 use SprykerEco\Shared\Afterpay\AfterpayConstants;
-use SprykerEco\Zed\Afterpay\Communication\Plugin\Checkout\AfterpayPostSavePlugin;
 use SprykerEco\Zed\Afterpay\Communication\Plugin\Checkout\AfterpaySaveOrderPlugin;
 
 class PaymentDependencyInjector extends AbstractDependencyInjector

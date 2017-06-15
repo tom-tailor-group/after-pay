@@ -10,9 +10,9 @@ namespace SprykerEco\Zed\Afterpay\Business\Api\Adapter\Client\Http;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Request;
-use SprykerEco\Zed\Afterpay\Business\Exception\ApiHttpRequestException;
-use SprykerEco\Zed\Afterpay\Business\Api\Adapter\Client\ClientInterface;
 use SprykerEco\Zed\Afterpay\AfterpayConfig;
+use SprykerEco\Zed\Afterpay\Business\Api\Adapter\Client\ClientInterface;
+use SprykerEco\Zed\Afterpay\Business\Exception\ApiHttpRequestException;
 
 class Guzzle implements ClientInterface
 {
@@ -87,9 +87,10 @@ class Guzzle implements ClientInterface
             $this->config->getApiEndpointBaseUrl() . $this->config->getApiEndpointPath($endPoint),
             [
                 static::REQUEST_HEADER_CONTENT_TYPE => static::HEADER_CONTENT_TYPE_JSON,
-                static::REQUEST_HEADER_X_AUTH_KEY => $this->config->getApiCredentialsAuthKey()
+                static::REQUEST_HEADER_X_AUTH_KEY => $this->config->getApiCredentialsAuthKey(),
             ],
             $jsonBody
         );
     }
+
 }

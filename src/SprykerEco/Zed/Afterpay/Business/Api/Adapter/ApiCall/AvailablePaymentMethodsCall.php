@@ -9,7 +9,6 @@ namespace SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall;
 
 use Generated\Shared\Transfer\AfterpayAvailablePaymentMethodsRequestTransfer;
 use Generated\Shared\Transfer\AfterpayAvailablePaymentMethodsResponseTransfer;
-use Spryker\Shared\Log\LoggerTrait;
 use SprykerEco\Shared\Afterpay\AfterpayConstants;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\Client\ClientInterface;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\Converter\TransferToCamelCaseArrayConverterInterface;
@@ -95,11 +94,10 @@ class AvailablePaymentMethodsCall extends AbstractApiCall implements AvailablePa
     {
         $riskCheckResultCode = null;
 
-        if (
-            isset(
-                $jsonResponseArray['additionalResponseInfo'],
-                $jsonResponseArray['additionalResponseInfo']['rsS_RiskCheck_ResultCode']
-            )
+        if (isset(
+            $jsonResponseArray['additionalResponseInfo'],
+            $jsonResponseArray['additionalResponseInfo']['rsS_RiskCheck_ResultCode']
+        )
         ) {
             $riskCheckResultCode = $jsonResponseArray['additionalResponseInfo']['rsS_RiskCheck_ResultCode'];
         }
@@ -116,11 +114,10 @@ class AvailablePaymentMethodsCall extends AbstractApiCall implements AvailablePa
     {
         $customerNumber = null;
 
-        if (
-            isset(
-                $jsonResponseArray['customer'],
-                $jsonResponseArray['customer']['customerNumber']
-            )
+        if (isset(
+            $jsonResponseArray['customer'],
+            $jsonResponseArray['customer']['customerNumber']
+        )
         ) {
             $customerNumber = $jsonResponseArray['customer']['customerNumber'];
         }

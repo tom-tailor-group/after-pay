@@ -7,13 +7,8 @@
 
 namespace SprykerEco\Zed\Afterpay\Business\AdditionalServices\Handler;
 
-use Generated\Shared\Transfer\AfterpayAvailablePaymentMethodsRequestTransfer;
-use Generated\Shared\Transfer\AfterpayAvailablePaymentMethodsResponseTransfer;
-use Generated\Shared\Transfer\AfterpayAvailablePaymentMethodsTransfer;
 use Generated\Shared\Transfer\AfterpayValidateCustomerRequestTransfer;
-use Generated\Shared\Transfer\QuoteTransfer;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\AdapterInterface;
-use SprykerEco\Zed\Afterpay\Business\Payment\Mapper\QuoteToRequestTransferInterface;
 
 class ValidateCustomerHandler implements ValidateCustomerHandlerInterface
 {

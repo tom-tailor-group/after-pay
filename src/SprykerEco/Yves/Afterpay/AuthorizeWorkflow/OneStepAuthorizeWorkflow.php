@@ -41,4 +41,5 @@ class OneStepAuthorizeWorkflow extends AbstractAfterpayAuthorizeWorkflow impleme
     {
         return $quoteTransfer;
     }
+
 }

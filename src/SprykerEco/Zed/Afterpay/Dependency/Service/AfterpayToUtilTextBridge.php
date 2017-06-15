@@ -7,8 +7,6 @@
 
 namespace SprykerEco\Zed\Afterpay\Dependency\Service;
 
-use Spryker\Service\UtilText\UtilTextServiceInterface;
-
 class AfterpayToUtilTextBridge implements AfterpayToUtilTextInterface
 {
 

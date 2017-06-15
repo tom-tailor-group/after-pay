@@ -9,9 +9,6 @@ namespace SprykerEco\Zed\Afterpay\Business;
 
 use Generated\Shared\Transfer\AfterpayValidateCustomerRequestTransfer;
 use Generated\Shared\Transfer\CheckoutResponseTransfer;
-use Generated\Shared\Transfer\AfterpayAuthorizeTransactionLogRequestTransfer;
-use Generated\Shared\Transfer\AfterpayRegistrationByIdAndQuoteRequestTransfer;
-use Generated\Shared\Transfer\AfterpayRegistrationRequestTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
@@ -103,4 +100,5 @@ class AfterpayFacade extends AbstractFacade implements AfterpayFacadeInterface
             ->createPaymentReader()
             ->getPaymentByIdSalesOrder($idSalesOrder);
     }
+
 }

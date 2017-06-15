@@ -9,7 +9,6 @@ namespace SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall;
 
 use Generated\Shared\Transfer\AfterpayApiResponseTransfer;
 use Generated\Shared\Transfer\AfterpayAuthorizeRequestTransfer;
-use Spryker\Shared\Log\LoggerTrait;
 use SprykerEco\Shared\Afterpay\AfterpayConstants;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\Client\ClientInterface;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\Converter\TransferToCamelCaseArrayConverterInterface;
@@ -38,7 +37,6 @@ class AuthorizePaymentCall extends AbstractApiCall implements AuthorizePaymentCa
         $this->transferConverter = $transferConverter;
         $this->utilEncoding = $utilEncoding;
     }
-
 
     /**
      * @param \Generated\Shared\Transfer\AfterpayAuthorizeRequestTransfer $requestTransfer
@@ -81,4 +79,5 @@ class AuthorizePaymentCall extends AbstractApiCall implements AuthorizePaymentCa
 
         return $responseTransfer;
     }
+
 }
