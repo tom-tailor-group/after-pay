@@ -170,7 +170,7 @@ class QuoteToRequestTransfer implements QuoteToRequestTransferInterface
      */
     protected function getDecimalItemGrossUnitPrice(ItemTransfer $itemTransfer)
     {
-        $itemUnitGrossPrice = $itemTransfer->getUnitGrossPriceWithProductOptionAndDiscountAmounts();
+        $itemUnitGrossPrice = $itemTransfer->getUnitPriceToPayAggregation();
 
         return $this->money->convertIntegerToDecimal($itemUnitGrossPrice);
     }

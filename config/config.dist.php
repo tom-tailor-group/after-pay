@@ -17,6 +17,7 @@ use SprykerEco\Shared\Afterpay\AfterpayConstants;
 // Afterpay configuration
 
 // Merchant config values, got from Afterpay
+$config[AfterpayConstants::VENDOR_ROOT] = APPLICATION_ROOT_DIR . '/vendor/spryker-eco';
 
 $config[AfterpayConstants::API_ENDPOINT_BASE_URL] = 'https://sandboxapi.horizonafs.com/eCommerceServicesWebApi/api/v3/';
 $config[AfterpayConstants::API_CREDENTIALS_AUTH_KEY] = 'Ggv-L0_rrMrskEt4pa7SSIVUvgD9dM14njtWmHHE';
