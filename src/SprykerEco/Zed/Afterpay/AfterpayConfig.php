@@ -22,22 +22,68 @@ class AfterpayConfig extends AbstractBundleConfig
     }
 
     /**
-     * @param string $endpoint
+     * @param string $orderNumber
      *
      * @return string
      */
-    public function getApiEndpointPath($endpoint)
+    public function getCaptureApiEndpointUrl($orderNumber)
     {
-        switch ($endpoint) {
-            case AfterpayConstants::API_ENDPOINT_AVAILABLE_PAYMENT_METHODS:
-                return AfterpayConstants::API_ENDPOINT_AVAILABLE_PAYMENT_METHODS_PATH;
+        return
+            $this->getApiEndpointBaseUrl() .
+            sprintf(AfterpayConstants::API_ENDPOINT_CAPTURE_PATH, $orderNumber);
+    }
 
-            case AfterpayConstants::API_ENDPOINT_AUTHORIZE:
-                return AfterpayConstants::API_ENDPOINT_AUTHORIZE_PATH;
+    /**
+     * @return string
+     */
+    public function getAuthorizeApiEndpointUrl()
+    {
+        return
+            $this->getApiEndpointBaseUrl() .
+            AfterpayConstants::API_ENDPOINT_AUTHORIZE_PATH;
 
-            case AfterpayConstants::API_ENDPOINT_VALIDATE_ADDRESS:
-                return AfterpayConstants::API_ENDPOINT_VALIDATE_ADDRESS_PATH;
-        }
+    }
+
+    /**
+     * @return string
+     */
+    public function getValidateAddressApiEndpointUrl()
+    {
+        return
+            $this->getApiEndpointBaseUrl() .
+            AfterpayConstants::API_ENDPOINT_VALIDATE_ADDRESS_PATH;
+
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatusApiEndpointUrl()
+    {
+        return
+            $this->getApiEndpointBaseUrl() .
+            AfterpayConstants::API_ENDPOINT_API_STATUS_PATH;
+    }
+
+    /**
+     * @return string
+     */
+    public function getVersionApiEndpointUrl()
+    {
+        return
+            $this->getApiEndpointBaseUrl() .
+            AfterpayConstants::API_ENDPOINT_API_VERSION_PATH;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getAvailablePaymentMethodsApiEndpointUrl()
+    {
+        return
+            $this->getApiEndpointBaseUrl() .
+            AfterpayConstants::API_ENDPOINT_AVAILABLE_PAYMENT_METHODS_PATH;
     }
 
     /**

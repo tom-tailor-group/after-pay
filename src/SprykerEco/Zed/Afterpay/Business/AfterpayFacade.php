@@ -9,6 +9,7 @@ namespace SprykerEco\Zed\Afterpay\Business;
 
 use Generated\Shared\Transfer\AfterpayValidateCustomerRequestTransfer;
 use Generated\Shared\Transfer\CheckoutResponseTransfer;
+use Generated\Shared\Transfer\ItemTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
@@ -90,6 +91,22 @@ class AfterpayFacade extends AbstractFacade implements AfterpayFacadeInterface
      *
      * @api
      *
+     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
+     *
+     * @return \Generated\Shared\Transfer\AfterpayResponseTransfer
+     */
+    public function capturePayment(ItemTransfer $itemTransfer)
+    {
+        $this->getFactory()
+            ->createCaptureTransactionHandler()
+            ->capture($itemTransfer);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
      * @param int $idSalesOrder
      *
      * @return \Generated\Shared\Transfer\AfterpayPaymentTransfer
@@ -99,6 +116,34 @@ class AfterpayFacade extends AbstractFacade implements AfterpayFacadeInterface
         return $this->getFactory()
             ->createPaymentReader()
             ->getPaymentByIdSalesOrder($idSalesOrder);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
+     * @return string
+     */
+    public function getApiVersion()
+    {
+        return $this->getFactory()
+            ->createApiAdapter()
+            ->getApiVersion();
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
+     * @return int
+     */
+    public function getApiStatus()
+    {
+        return $this->getFactory()
+            ->createApiAdapter()
+            ->getApiStatus();
     }
 
 }

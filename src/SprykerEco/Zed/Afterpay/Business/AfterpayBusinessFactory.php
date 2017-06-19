@@ -22,8 +22,10 @@ use SprykerEco\Zed\Afterpay\Business\Payment\PaymentWriter;
 use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Authorize\RequestBuilder\OneStepAuthorizeRequestBuilder;
 use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Authorize\RequestBuilder\TwoStepsAuthorizeRequestBuilder;
 use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\AuthorizeTransaction;
+use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\CaptureTransaction;
 use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Handler\AuthorizeTransactionHandler;
 use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Logger\TransactionLogger;
+use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Handler\CaptureTransactionHandler;
 
 /**
  * @method \SprykerEco\Zed\Afterpay\Persistence\AfterpayQueryContainerInterface getQueryContainer()
@@ -62,6 +64,27 @@ class AfterpayBusinessFactory extends AbstractBusinessFactory
             $this->createAuthorizeTransaction(),
             $this->createAuthorizeRequestBuilder(),
             $this->createPaymentWriter()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Handler\CaptureTransactionHandler
+     */
+    public function createCaptureTransactionHandler()
+    {
+        return new CaptureTransactionHandler(
+            $this->createCaptureTransaction()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\Afterpay\Business\Payment\Transaction\CaptureTransaction
+     */
+    protected function createCaptureTransaction()
+    {
+        return new CaptureTransaction(
+            $this->createTransactionLogger(),
+            $this->createApiAdapter()
         );
     }
 
@@ -119,7 +142,7 @@ class AfterpayBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \SprykerEco\Zed\Afterpay\Business\Api\Adapter\AdapterInterface
      */
-    protected function createApiAdapter()
+    public function createApiAdapter()
     {
         return new AfterpayApiAdapter(
             $this->createAdapterFactory()

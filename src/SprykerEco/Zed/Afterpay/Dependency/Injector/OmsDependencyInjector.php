@@ -13,7 +13,9 @@ use Spryker\Zed\Oms\Communication\Plugin\Oms\Command\CommandCollectionInterface;
 use Spryker\Zed\Oms\Communication\Plugin\Oms\Condition\ConditionCollectionInterface;
 use Spryker\Zed\Oms\OmsDependencyProvider;
 use SprykerEco\Zed\Afterpay\Communication\Plugin\Checkout\Oms\Command\AuthorizePlugin;
+use SprykerEco\Zed\Afterpay\Communication\Plugin\Checkout\Oms\Command\CapturePlugin;
 use SprykerEco\Zed\Afterpay\Communication\Plugin\Checkout\Oms\Condition\IsAuthorizationCompletedPlugin;
+use SprykerEco\Zed\Afterpay\Communication\Plugin\Checkout\Oms\Condition\IsCaptureCompletedPlugin;
 
 class OmsDependencyInjector extends AbstractDependencyInjector
 {
@@ -40,7 +42,8 @@ class OmsDependencyInjector extends AbstractDependencyInjector
     {
         $container->extend(OmsDependencyProvider::COMMAND_PLUGINS, function (CommandCollectionInterface $commandCollection) {
             $commandCollection
-                ->add(new AuthorizePlugin(), 'Afterpay/Authorize');
+                ->add(new AuthorizePlugin(), 'Afterpay/Authorize')
+                ->add(new CapturePlugin(), 'Afterpay/Capture');
 
             return $commandCollection;
         });
@@ -57,7 +60,8 @@ class OmsDependencyInjector extends AbstractDependencyInjector
     {
         $container->extend(OmsDependencyProvider::CONDITION_PLUGINS, function (ConditionCollectionInterface $conditionCollection) {
             $conditionCollection
-                ->add(new IsAuthorizationCompletedPlugin(), 'Afterpay/IsAuthorizationCompleted');
+                ->add(new IsAuthorizationCompletedPlugin(), 'Afterpay/IsAuthorizationCompleted')
+                ->add(new IsCaptureCompletedPlugin(), 'Afterpay/IsCaptureCompleted');
 
             return $conditionCollection;
         });

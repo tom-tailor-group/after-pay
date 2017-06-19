@@ -22,21 +22,19 @@ interface AfterpayConstants
     const PAYMENT_METHOD_INVOICE = self::PROVIDER_NAME . self::PAYMENT_TYPE_INVOICE;
 
     const TRANSACTION_TYPE_AUTHORIZE = 'authorize';
-    const TRANSACTION_TYPE_CAPTURE = 'capture';
+    const TRANSACTION_TYPE_FULL_CAPTURE = 'full capture';
 
     const AFTERPAY_SERVICE_VALIDATE_ADDRESS_IS_ENABLED = 'AFTERPAY_SERVICE_VALIDATE_ADDRESS_IS_ENABLED';
     const AFTERPAY_RISK_CHECK_CONFIGURATION = 'AFTERPAY_RISK_CHECK_CONFIGURATION';
 
     const API_ENDPOINT_BASE_URL = 'API_ENDPOINT_URL';
 
-    const API_ENDPOINT_AVAILABLE_PAYMENT_METHODS = 'available payment methods';
     const API_ENDPOINT_AVAILABLE_PAYMENT_METHODS_PATH = 'checkout/payment-methods';
-
-    const API_ENDPOINT_AUTHORIZE = 'authorize payment';
+    const API_ENDPOINT_CAPTURE_PATH = 'orders/%s/captures';
     const API_ENDPOINT_AUTHORIZE_PATH = 'checkout/authorize';
-
-    const API_ENDPOINT_VALIDATE_ADDRESS = 'validate address';
     const API_ENDPOINT_VALIDATE_ADDRESS_PATH = 'validate/address';
+    const API_ENDPOINT_API_STATUS_PATH = 'status';
+    const API_ENDPOINT_API_VERSION_PATH = 'version';
 
     const API_CREDENTIALS_AUTH_KEY = 'API_CREDENTIALS_AUTH_KEY';
 
@@ -50,5 +48,6 @@ interface AfterpayConstants
     const API_CUSTOMER_CATEGORY_PERSON = 'Person';
 
     const API_TRANSACTION_OUTCOME_ACCEPTED = 'Accepted';
+    const API_TRANSACTION_OUTCOME_REJECTED = 'Rejected';
 
 }

@@ -17,6 +17,7 @@ class AfterpayQueryContainer extends AbstractQueryContainer implements AfterpayQ
 {
 
     const TRANSACTION_TYPE_AUTHORIZE = AfterpayConstants::TRANSACTION_TYPE_AUTHORIZE;
+    const TRANSACTION_TYPE_FULL_CAPTURE = AfterpayConstants::TRANSACTION_TYPE_FULL_CAPTURE;
 
     /**
      * @api
@@ -31,6 +32,21 @@ class AfterpayQueryContainer extends AbstractQueryContainer implements AfterpayQ
             ->createPaymentAfterpayTransactionLogQuery()
             ->filterByFkSalesOrder($idSalesOrder)
             ->filterByTransactionType(static::TRANSACTION_TYPE_AUTHORIZE);
+    }
+
+    /**
+     * @api
+     *
+     * @param int $idSalesOrder
+     *
+     * @return \Orm\Zed\Afterpay\Persistence\SpyPaymentAfterpayTransactionLogQuery
+     */
+    public function queryFullCaptureTransactionLog($idSalesOrder)
+    {
+        return $this->getFactory()
+            ->createPaymentAfterpayTransactionLogQuery()
+            ->filterByFkSalesOrder($idSalesOrder)
+            ->filterByTransactionType(static::TRANSACTION_TYPE_FULL_CAPTURE);
     }
 
     /**

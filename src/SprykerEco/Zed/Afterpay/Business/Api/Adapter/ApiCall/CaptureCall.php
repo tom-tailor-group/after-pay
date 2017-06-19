@@ -9,23 +9,26 @@ namespace SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall;
 
 use Generated\Shared\Transfer\AfterpayApiResponseTransfer;
 use Generated\Shared\Transfer\AfterpayAuthorizeRequestTransfer;
+use Generated\Shared\Transfer\AfterpayItemCaptureRequestTransfer;
+use SprykerEco\Shared\Afterpay\AfterpayConstants;
 use SprykerEco\Zed\Afterpay\AfterpayConfig;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\Client\ClientInterface;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\Converter\TransferToCamelCaseArrayConverterInterface;
 use SprykerEco\Zed\Afterpay\Business\Exception\ApiHttpRequestException;
 use SprykerEco\Zed\Afterpay\Dependency\Service\AfterpayToUtilEncodingInterface;
 
-class AuthorizePaymentCall extends AbstractApiCall implements AuthorizePaymentCallInterface
+class CaptureCall extends AbstractApiCall implements CaptureCallInterface
 {
 
     /**
      * @var \SprykerEco\Zed\Afterpay\Business\Api\Adapter\Client\ClientInterface
      */
     protected $client;
+
     /**
      * @var \SprykerEco\Zed\Afterpay\AfterpayConfig
      */
-    private $config;
+    protected $config;
 
     /**
      * @param \SprykerEco\Zed\Afterpay\Business\Api\Adapter\Client\ClientInterface $client
@@ -46,18 +49,15 @@ class AuthorizePaymentCall extends AbstractApiCall implements AuthorizePaymentCa
     }
 
     /**
-     * @param \Generated\Shared\Transfer\AfterpayAuthorizeRequestTransfer $requestTransfer
+     * @param \Generated\Shared\Transfer\AfterpayItemCaptureRequestTransfer $requestTransfer
      *
      * @return \Generated\Shared\Transfer\AfterpayApiResponseTransfer
      */
-    public function execute(AfterpayAuthorizeRequestTransfer $requestTransfer)
+    public function execute(AfterpayItemCaptureRequestTransfer $requestTransfer)
     {
-        $jsonRequest = $this->buildJsonRequestFromTransferObject($requestTransfer);
-
         try {
             $jsonResponse = $this->client->sendPost(
-                $this->config->getAuthorizeApiEndpointUrl(),
-                $jsonRequest
+                $this->config->getCaptureApiEndpointUrl($requestTransfer->getOrderNumber())
             );
         } catch (ApiHttpRequestException $apiHttpRequestException) {
             $this->logApiException($apiHttpRequestException);
@@ -78,10 +78,12 @@ class AuthorizePaymentCall extends AbstractApiCall implements AuthorizePaymentCa
 
         $responseTransfer = new AfterpayApiResponseTransfer();
 
+        $outcome = $jsonResponseArray['captureNumber']
+            ? AfterpayConstants::API_TRANSACTION_OUTCOME_ACCEPTED
+            : AfterpayConstants::API_TRANSACTION_OUTCOME_REJECTED;
+
         $responseTransfer
-            ->setOutcome($jsonResponseArray['outcome'] ?? null)
-            ->setReservationId($jsonResponseArray['reservationId'] ?? null)
-            ->setCheckoutId($jsonResponseArray['checkoutId'] ?? null)
+            ->setOutcome($outcome)
             ->setResponsePayload($jsonResponse);
 
         return $responseTransfer;

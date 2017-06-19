@@ -11,11 +11,25 @@ interface ClientInterface
 {
 
     /**
-     * @param string $endPoint
-     * @param string $jsonBody
+     * @param string $endPointUrl
+     * @param string|null $jsonBody
      *
      * @return string
      */
-    public function sendPost($endPoint, $jsonBody);
+    public function sendPost($endPointUrl, $jsonBody = null);
+
+    /**
+     * @param string $endPointUrl
+     *
+     * @return string
+     */
+    public function sendGet($endPointUrl);
+
+    /**
+     * @param string $endPointUrl
+     *
+     * @return string
+     */
+    public function getStatus($endPointUrl);
 
 }

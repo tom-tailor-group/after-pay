@@ -30,6 +30,17 @@
         <property name="responsePayload" type="string" />
     </transfer>
 
+    <transfer name="AfterpayItemCaptureRequest">
+        <property name="fkSalesOrder" type="int" />
+        <property name="orderNumber" type="string" />
+    </transfer>
+
+    <transfer name="AfterpayFullCaptureResponse">
+        <property name="capturedAmount" type="string" />
+        <property name="authorizedAmount" type="string" />
+        <property name="captureNumber" type="string" />
+    </transfer>
+
     <transfer name="AfterpayRequestPayment">
         <property name="type" type="string" />
     </transfer>

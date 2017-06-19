@@ -18,6 +18,7 @@ class Guzzle implements ClientInterface
 {
 
     const REQUEST_METHOD_POST = 'POST';
+    const REQUEST_METHOD_GET = 'GET';
 
     const REQUEST_HEADER_X_AUTH_KEY = 'X-Auth-Key';
     const REQUEST_HEADER_CONTENT_TYPE = 'Content-Type';
@@ -44,17 +45,43 @@ class Guzzle implements ClientInterface
     }
 
     /**
-     * @param string $endPoint
-     * @param string $jsonBody
+     * @param string $endPointUrl
+     * @param string|null $jsonBody
      *
      * @return string
      */
-    public function sendPost($endPoint, $jsonBody)
+    public function sendPost($endPointUrl, $jsonBody = null)
     {
-        $postRequest = $this->buildPostRequest($endPoint, $jsonBody);
+        $postRequest = $this->buildPostRequest($endPointUrl, $jsonBody);
         $response = $this->send($postRequest);
 
         return $response->getBody();
+    }
+
+    /**
+     * @param string $endPointUrl
+     *
+     * @return string
+     */
+    public function sendGet($endPointUrl)
+    {
+        $getRequest = $this->buildGetRequest($endPointUrl);
+        $response = $this->send($getRequest);
+
+        return $response->getBody()->getContents();
+    }
+
+    /**
+     * @param string $endPointUrl
+     *
+     * @return string
+     */
+    public function getStatus($endPointUrl)
+    {
+        $getRequest = $this->buildGetRequest($endPointUrl);
+        $response = $this->send($getRequest);
+
+        return $response->getStatusCode();
     }
 
     /**
@@ -75,21 +102,38 @@ class Guzzle implements ClientInterface
     }
 
     /**
-     * @param string $endPoint
-     * @param string $jsonBody
+     * @param string $endPointUrl
+     * @param string|null $jsonBody
      *
      * @return \GuzzleHttp\Psr7\Request
      */
-    protected function buildPostRequest($endPoint, $jsonBody)
+    protected function buildPostRequest($endPointUrl, $jsonBody = null)
     {
         return new Request(
             static::REQUEST_METHOD_POST,
-            $this->config->getApiEndpointBaseUrl() . $this->config->getApiEndpointPath($endPoint),
+            $endPointUrl,
             [
                 static::REQUEST_HEADER_CONTENT_TYPE => static::HEADER_CONTENT_TYPE_JSON,
                 static::REQUEST_HEADER_X_AUTH_KEY => $this->config->getApiCredentialsAuthKey(),
             ],
             $jsonBody
+        );
+    }
+
+    /**
+     * @param string $endPointUrl
+     *
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    protected function buildGetRequest($endPointUrl)
+    {
+        return new Request(
+            static::REQUEST_METHOD_GET,
+            $endPointUrl,
+            [
+                static::REQUEST_HEADER_CONTENT_TYPE => static::HEADER_CONTENT_TYPE_JSON,
+                static::REQUEST_HEADER_X_AUTH_KEY => $this->config->getApiCredentialsAuthKey(),
+            ]
         );
     }
 

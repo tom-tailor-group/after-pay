@@ -9,6 +9,7 @@ namespace SprykerEco\Zed\Afterpay\Business\Api\Adapter;
 
 use Generated\Shared\Transfer\AfterpayAuthorizeRequestTransfer;
 use Generated\Shared\Transfer\AfterpayAvailablePaymentMethodsRequestTransfer;
+use Generated\Shared\Transfer\AfterpayItemCaptureRequestTransfer;
 use Generated\Shared\Transfer\AfterpayValidateCustomerRequestTransfer;
 
 interface AdapterInterface
@@ -42,5 +43,24 @@ interface AdapterInterface
     public function sendValidateCustomerRequest(
         AfterpayValidateCustomerRequestTransfer $validateCustomerRequestTransfer
     );
+
+    /**
+     * @param \Generated\Shared\Transfer\AfterpayItemCaptureRequestTransfer $fullCaptureRequestTransfer
+     *
+     * @return \Generated\Shared\Transfer\AfterpayApiResponseTransfer
+     */
+    public function sendFullCaptureRequest(
+        AfterpayItemCaptureRequestTransfer $fullCaptureRequestTransfer
+    );
+
+    /**
+     * @return string
+     */
+    public function getApiVersion();
+
+    /**
+     * @return string
+     */
+    public function getApiStatus();
 
 }

@@ -11,9 +11,15 @@
         </states>
 
         <transitions>
-            <transition happy="true" condition="Afterpay/IsCaptureApproved">
+            <transition happy="true" condition="Afterpay/IsCaptureCompleted">
                 <source>ready for capture</source>
                 <target>capture succeeded</target>
+                <event>capture payment</event>
+            </transition>
+
+            <transition>
+                <source>ready for capture</source>
+                <target>ready for capture</target>
                 <event>capture payment</event>
             </transition>
         </transitions>

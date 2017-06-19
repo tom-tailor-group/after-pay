@@ -10,9 +10,8 @@ namespace SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall;
 use Generated\Shared\Transfer\AfterpayRequestAddressTransfer;
 use Generated\Shared\Transfer\AfterpayValidateCustomerRequestTransfer;
 use Generated\Shared\Transfer\AfterpayValidateCustomerResponseTransfer;
-use SprykerEco\Shared\Afterpay\AfterpayConstants;
+use SprykerEco\Zed\Afterpay\AfterpayConfig;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\Client\ClientInterface;
-use SprykerEco\Zed\Afterpay\Business\Api\Adapter\Converter\TransferToCamelCaseArrayConverterInterface;
 use SprykerEco\Zed\Afterpay\Business\Exception\ApiHttpRequestException;
 use SprykerEco\Zed\Afterpay\Dependency\Service\AfterpayToUtilEncodingInterface;
 use SprykerEco\Zed\Afterpay\Dependency\Service\AfterpayToUtilTextInterface;
@@ -31,21 +30,26 @@ class ValidateCustomerCall extends AbstractApiCall implements ValidateCustomerCa
     protected $utilText;
 
     /**
+     * @var \SprykerEco\Zed\Afterpay\AfterpayConfig
+     */
+    protected $config;
+
+    /**
      * @param \SprykerEco\Zed\Afterpay\Business\Api\Adapter\Client\ClientInterface $client
-     * @param \SprykerEco\Zed\Afterpay\Business\Api\Adapter\Converter\TransferToCamelCaseArrayConverterInterface $transferConverter
      * @param \SprykerEco\Zed\Afterpay\Dependency\Service\AfterpayToUtilEncodingInterface $utilEncoding
      * @param \SprykerEco\Zed\Afterpay\Dependency\Service\AfterpayToUtilTextInterface $utilText
+     * @param \SprykerEco\Zed\Afterpay\AfterpayConfig $config
      */
     public function __construct(
         ClientInterface $client,
-        TransferToCamelCaseArrayConverterInterface $transferConverter,
         AfterpayToUtilEncodingInterface $utilEncoding,
-        AfterpayToUtilTextInterface $utilText
+        AfterpayToUtilTextInterface $utilText,
+        AfterpayConfig $config
     ) {
         $this->client = $client;
-        $this->transferConverter = $transferConverter;
         $this->utilEncoding = $utilEncoding;
         $this->utilText = $utilText;
+        $this->config = $config;
     }
 
     /**
@@ -59,7 +63,7 @@ class ValidateCustomerCall extends AbstractApiCall implements ValidateCustomerCa
 
         try {
             $jsonResponse = $this->client->sendPost(
-                AfterpayConstants::API_ENDPOINT_VALIDATE_ADDRESS,
+                $this->config->getValidateAddressApiEndpointUrl(),
                 $jsonRequest
             );
         } catch (ApiHttpRequestException $apiHttpRequestException) {

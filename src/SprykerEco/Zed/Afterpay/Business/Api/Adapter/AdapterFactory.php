@@ -9,8 +9,11 @@ namespace SprykerEco\Zed\Afterpay\Business\Api\Adapter;
 
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 use SprykerEco\Zed\Afterpay\AfterpayDependencyProvider;
+use SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\ApiStatusCall;
+use SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\ApiVersionCall;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\AuthorizePaymentCall;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\AvailablePaymentMethodsCall;
+use SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\CaptureCall;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\ValidateCustomerCall;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\Client\Http\Guzzle;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\Converter\TransferToCamelCaseArrayConverter;
@@ -29,7 +32,8 @@ class AdapterFactory extends AbstractBusinessFactory implements AdapterFactoryIn
         return new AvailablePaymentMethodsCall(
             $this->createHttpClient(),
             $this->createTransferToCamelCaseArrayConverter(),
-            $this->getUtilEncodingService()
+            $this->getUtilEncodingService(),
+            $this->getConfig()
         );
     }
 
@@ -41,7 +45,8 @@ class AdapterFactory extends AbstractBusinessFactory implements AdapterFactoryIn
         return new AuthorizePaymentCall(
             $this->createHttpClient(),
             $this->createTransferToCamelCaseArrayConverter(),
-            $this->getUtilEncodingService()
+            $this->getUtilEncodingService(),
+            $this->getConfig()
         );
     }
 
@@ -52,9 +57,45 @@ class AdapterFactory extends AbstractBusinessFactory implements AdapterFactoryIn
     {
         return new ValidateCustomerCall(
             $this->createHttpClient(),
+            $this->getUtilEncodingService(),
+            $this->getUtilTextService(),
+            $this->getConfig()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\CaptureCallInterface
+     */
+    public function createFullCaptureCall()
+    {
+        return new CaptureCall(
+            $this->createHttpClient(),
             $this->createTransferToCamelCaseArrayConverter(),
             $this->getUtilEncodingService(),
-            $this->getUtilTextService()
+            $this->getConfig()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\ApiVersionCallInterface
+     */
+    public function createGetApiVersionCall()
+    {
+        return new ApiVersionCall(
+            $this->createHttpClient(),
+            $this->getConfig(),
+            $this->getUtilEncodingService()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\ApiStatusCallInterface
+     */
+    public function createGetApiStatusCall()
+    {
+        return new ApiStatusCall(
+            $this->createHttpClient(),
+            $this->getConfig()
         );
     }
 

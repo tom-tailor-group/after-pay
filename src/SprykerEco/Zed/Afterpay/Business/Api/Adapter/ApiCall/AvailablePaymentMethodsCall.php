@@ -9,7 +9,7 @@ namespace SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall;
 
 use Generated\Shared\Transfer\AfterpayAvailablePaymentMethodsRequestTransfer;
 use Generated\Shared\Transfer\AfterpayAvailablePaymentMethodsResponseTransfer;
-use SprykerEco\Shared\Afterpay\AfterpayConstants;
+use SprykerEco\Zed\Afterpay\AfterpayConfig;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\Client\ClientInterface;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\Converter\TransferToCamelCaseArrayConverterInterface;
 use SprykerEco\Zed\Afterpay\Business\Exception\ApiHttpRequestException;
@@ -22,20 +22,27 @@ class AvailablePaymentMethodsCall extends AbstractApiCall implements AvailablePa
      * @var \SprykerEco\Zed\Afterpay\Business\Api\Adapter\Client\ClientInterface
      */
     protected $client;
+    /**
+     * @var \SprykerEco\Zed\Afterpay\AfterpayConfig
+     */
+    private $config;
 
     /**
      * @param \SprykerEco\Zed\Afterpay\Business\Api\Adapter\Client\ClientInterface $client
      * @param \SprykerEco\Zed\Afterpay\Business\Api\Adapter\Converter\TransferToCamelCaseArrayConverterInterface $transferConverter
      * @param \SprykerEco\Zed\Afterpay\Dependency\Service\AfterpayToUtilEncodingInterface $utilEncoding
+     * @param \SprykerEco\Zed\Afterpay\AfterpayConfig $config
      */
     public function __construct(
         ClientInterface $client,
         TransferToCamelCaseArrayConverterInterface $transferConverter,
-        AfterpayToUtilEncodingInterface $utilEncoding
+        AfterpayToUtilEncodingInterface $utilEncoding,
+        AfterpayConfig $config
     ) {
         $this->client = $client;
         $this->transferConverter = $transferConverter;
         $this->utilEncoding = $utilEncoding;
+        $this->config = $config;
     }
 
     /**
@@ -49,7 +56,7 @@ class AvailablePaymentMethodsCall extends AbstractApiCall implements AvailablePa
 
         try {
             $jsonResponse = $this->client->sendPost(
-                AfterpayConstants::API_ENDPOINT_AVAILABLE_PAYMENT_METHODS,
+                $this->config->getAvailablePaymentMethodsApiEndpointUrl(),
                 $jsonRequest
             );
         } catch (ApiHttpRequestException $apiHttpRequestException) {
@@ -104,7 +111,6 @@ class AvailablePaymentMethodsCall extends AbstractApiCall implements AvailablePa
 
         return $riskCheckResultCode;
     }
-
     /**
      * @param array $jsonResponseArray
      *

@@ -9,6 +9,7 @@ namespace SprykerEco\Zed\Afterpay\Business;
 
 use Generated\Shared\Transfer\AfterpayValidateCustomerRequestTransfer;
 use Generated\Shared\Transfer\CheckoutResponseTransfer;
+use Generated\Shared\Transfer\ItemTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 
@@ -58,6 +59,19 @@ interface AfterpayFacadeInterface
 
     /**
      * Specification:
+     * - Sends payment capture request to Afterpay gateway, to capture payment for a specific order item.
+     * - Saves the transaction result in DB and sets payment state as "captured" for the payment item.
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
+     *
+     * @return \Generated\Shared\Transfer\AfterpayResponseTransfer
+     */
+    public function capturePayment(ItemTransfer $itemTransfer);
+
+    /**
+     * Specification:
      * - Saves order payment method data according to quote and checkout response transfer data.
      *
      * @api
@@ -68,5 +82,25 @@ interface AfterpayFacadeInterface
      * @return void
      */
     public function saveOrderPayment(QuoteTransfer $quoteTransfer, CheckoutResponseTransfer $checkoutResponseTransfer);
+
+    /**
+     * Specification:
+     *  - Requests Afterpay API version and returns the result.
+     *
+     * @api
+     *
+     * @return string
+     */
+    public function getApiVersion();
+
+    /**
+     * Specification:
+     *  - Requests Afterpay API HTTP status and returns the result.
+     *
+     * @api
+     *
+     * @return int
+     */
+    public function getApiStatus();
 
 }
