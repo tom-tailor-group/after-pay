@@ -57,6 +57,7 @@ class AdapterFactory extends AbstractBusinessFactory implements AdapterFactoryIn
     {
         return new ValidateCustomerCall(
             $this->createHttpClient(),
+            $this->createTransferToCamelCaseArrayConverter(),
             $this->getUtilEncodingService(),
             $this->getUtilTextService(),
             $this->getConfig()

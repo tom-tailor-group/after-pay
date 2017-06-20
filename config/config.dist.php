@@ -53,6 +53,8 @@ $config[SalesConstants::PAYMENT_METHOD_STATEMACHINE_MAPPING] = [
     AfterpayConstants::PAYMENT_METHOD_INVOICE => 'AfterpayInvoice01',
 ];
 
+$config[AfterpayConstants::AFTERPAY_SERVICE_VALIDATE_ADDRESS_IS_ENABLED] = true;
+
 $config[AfterpayConstants::AFTERPAY_AUTHORIZE_WORKFLOW] = AfterpayConstants::AFTERPAY_AUTHORIZE_WORKFLOW_TWO_STEPS;
 
 $config[AfterpayConstants::AFTERPAY_RISK_CHECK_CONFIGURATION] = [

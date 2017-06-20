@@ -12,6 +12,7 @@ use Generated\Shared\Transfer\AfterpayValidateCustomerRequestTransfer;
 use Generated\Shared\Transfer\AfterpayValidateCustomerResponseTransfer;
 use SprykerEco\Zed\Afterpay\AfterpayConfig;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\Client\ClientInterface;
+use SprykerEco\Zed\Afterpay\Business\Api\Adapter\Converter\TransferToCamelCaseArrayConverterInterface;
 use SprykerEco\Zed\Afterpay\Business\Exception\ApiHttpRequestException;
 use SprykerEco\Zed\Afterpay\Dependency\Service\AfterpayToUtilEncodingInterface;
 use SprykerEco\Zed\Afterpay\Dependency\Service\AfterpayToUtilTextInterface;
@@ -36,12 +37,14 @@ class ValidateCustomerCall extends AbstractApiCall implements ValidateCustomerCa
 
     /**
      * @param \SprykerEco\Zed\Afterpay\Business\Api\Adapter\Client\ClientInterface $client
+     * @param \SprykerEco\Zed\Afterpay\Business\Api\Adapter\Converter\TransferToCamelCaseArrayConverterInterface $transferConverter
      * @param \SprykerEco\Zed\Afterpay\Dependency\Service\AfterpayToUtilEncodingInterface $utilEncoding
      * @param \SprykerEco\Zed\Afterpay\Dependency\Service\AfterpayToUtilTextInterface $utilText
      * @param \SprykerEco\Zed\Afterpay\AfterpayConfig $config
      */
     public function __construct(
         ClientInterface $client,
+        TransferToCamelCaseArrayConverterInterface $transferConverter,
         AfterpayToUtilEncodingInterface $utilEncoding,
         AfterpayToUtilTextInterface $utilText,
         AfterpayConfig $config
@@ -50,6 +53,7 @@ class ValidateCustomerCall extends AbstractApiCall implements ValidateCustomerCa
         $this->utilEncoding = $utilEncoding;
         $this->utilText = $utilText;
         $this->config = $config;
+        $this->transferConverter = $transferConverter;
     }
 
     /**

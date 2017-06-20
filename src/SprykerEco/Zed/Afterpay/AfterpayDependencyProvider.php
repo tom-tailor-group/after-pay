@@ -10,6 +10,7 @@ namespace SprykerEco\Zed\Afterpay;
 use Spryker\Shared\Kernel\Store;
 use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Container;
+use SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToCustomerBridge;
 use SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToMoneyBridge;
 use SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToSalesBridge;
 use SprykerEco\Zed\Afterpay\Dependency\Service\AfterpayToUtilEncodingBridge;
@@ -20,6 +21,7 @@ class AfterpayDependencyProvider extends AbstractBundleDependencyProvider
 
     const FACADE_MONEY = 'money facade';
     const FACADE_SALES = 'sales facade';
+    const FACADE_CUSTOMER = 'customer facade';
 
     const SERVICE_UTIL_ENCODING = 'util encoding service';
     const SERVICE_UTIL_TEXT = 'util text service';
@@ -38,6 +40,10 @@ class AfterpayDependencyProvider extends AbstractBundleDependencyProvider
 
         $container[self::FACADE_SALES] = function (Container $container) {
             return new AfterpayToSalesBridge($container->getLocator()->sales()->facade());
+        };
+
+        $container[self::FACADE_CUSTOMER] = function (Container $container) {
+            return new AfterpayToCustomerBridge($container->getLocator()->customer()->facade());
         };
 
         $container[self::SERVICE_UTIL_ENCODING] = function (Container $container) {

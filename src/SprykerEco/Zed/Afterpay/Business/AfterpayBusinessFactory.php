@@ -78,6 +78,16 @@ class AfterpayBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
+     * @return \SprykerEco\Zed\Afterpay\Business\Payment\PaymentReaderInterface
+     */
+    public function createPaymentReader()
+    {
+        return new PaymentReader(
+            $this->getQueryContainer()
+        );
+    }
+
+    /**
      * @return \SprykerEco\Zed\Afterpay\Business\Payment\Transaction\CaptureTransaction
      */
     protected function createCaptureTransaction()
@@ -89,22 +99,13 @@ class AfterpayBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \SprykerEco\Zed\Afterpay\Business\Payment\PaymentReaderInterface
-     */
-    public function createPaymentReader()
-    {
-        return new PaymentReader(
-            $this->getQueryContainer()
-        );
-    }
-
-    /**
      * @return \SprykerEco\Zed\Afterpay\Business\AdditionalServices\Handler\ValidateCustomerHandler
      */
     public function createValidateCustomerHandler()
     {
         return new ValidateCustomerHandler(
-            $this->createApiAdapter()
+            $this->createApiAdapter(),
+            $this->getAfterpayToCustomerBridge()
         );
     }
 
@@ -228,6 +229,14 @@ class AfterpayBusinessFactory extends AbstractBusinessFactory
     protected function getAfterpayToMoneyBridge()
     {
         return $this->getProvidedDependency(AfterpayDependencyProvider::FACADE_MONEY);
+    }
+
+    /**
+     * @return \SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToCustomerInterface
+     */
+    protected function getAfterpayToCustomerBridge()
+    {
+        return $this->getProvidedDependency(AfterpayDependencyProvider::FACADE_CUSTOMER);
     }
 
     /**

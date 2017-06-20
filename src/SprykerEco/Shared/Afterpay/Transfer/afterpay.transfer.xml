@@ -78,6 +78,7 @@
     </transfer>
 
     <transfer name="AfterpayRequestAddress">
+        <property name="idCustomerAddress" type="int" />
         <property name="street" type="string" />
         <property name="streetNumber" type="string" />
         <property name="streetNumberAdditional" type="string" />
