@@ -58,6 +58,7 @@ class AuthorizeTransactionHandler implements AuthorizeTransactionHandlerInterfac
         $authorizeResponseTransfer = $this->transaction->executeTransaction($authorizeRequestTransfer);
 
         $this->setPaymentReservationId($authorizeRequestTransfer, $authorizeResponseTransfer);
+        $this->setPaymentTotalAuthorizedAmount($orderTransfer);
     }
 
     /**
@@ -84,7 +85,20 @@ class AuthorizeTransactionHandler implements AuthorizeTransactionHandlerInterfac
     ) {
         $this->paymentWriter->setIdReservationByIdSalesOrder(
             $authorizeResponseTransfer->getReservationId(),
-            $authorizeRequestTransfer->getFkSalesOrder()
+            $authorizeRequestTransfer->getIdSalesOrder()
+        );
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
+     *
+     * @return void
+     */
+    protected function setPaymentTotalAuthorizedAmount(OrderTransfer $orderTransfer)
+    {
+        $this->paymentWriter->setAuthorizedTotalByIdSalesOrder(
+            $orderTransfer->getTotals()->getGrandTotal(),
+            $orderTransfer->getIdSalesOrder()
         );
     }
 

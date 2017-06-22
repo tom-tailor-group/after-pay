@@ -41,6 +41,39 @@ class PaymentWriter implements PaymentWriterInterface
     }
 
     /**
+     * @param int $authorizedTotal
+     * @param int $idSalesOrder
+     *
+     * @return void
+     */
+    public function setAuthorizedTotalByIdSalesOrder($authorizedTotal, $idSalesOrder)
+    {
+        $afterpayPaymentEntity = $this->getPaymentEntityByIdSalesOrder($idSalesOrder);
+
+        $afterpayPaymentEntity
+            ->setAuthorizedTotal($authorizedTotal)
+            ->save();
+    }
+
+    /**
+     * @param int $amountToAdd
+     * @param int $idSalesOrder
+     *
+     * @return void
+     */
+    public function increaseTotalCapturedAmountByIdSalesOrder($amountToAdd, $idSalesOrder)
+    {
+        $afterpayPaymentEntity = $this->getPaymentEntityByIdSalesOrder($idSalesOrder);
+
+        $afterpayPaymentEntity
+            ->setCapturedTotal(
+                $afterpayPaymentEntity->getCapturedTotal() + $amountToAdd
+            )
+            ->save();
+    }
+
+
+    /**
      * @param int $idSalesOrder
      *
      * @return \Orm\Zed\Afterpay\Persistence\SpyPaymentAfterpay
@@ -53,5 +86,4 @@ class PaymentWriter implements PaymentWriterInterface
 
         return $afterpayPaymentEntity;
     }
-
 }

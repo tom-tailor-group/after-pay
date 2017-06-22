@@ -73,6 +73,7 @@ class AdapterFactory extends AbstractBusinessFactory implements AdapterFactoryIn
             $this->createHttpClient(),
             $this->createTransferToCamelCaseArrayConverter(),
             $this->getUtilEncodingService(),
+            $this->getAfterpayToMoneyBridge(),
             $this->getConfig()
         );
     }
@@ -124,6 +125,14 @@ class AdapterFactory extends AbstractBusinessFactory implements AdapterFactoryIn
     protected function getUtilEncodingService()
     {
         return $this->getProvidedDependency(AfterpayDependencyProvider::SERVICE_UTIL_ENCODING);
+    }
+
+    /**
+     * @return \SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToMoneyBridge
+     */
+    protected function getAfterpayToMoneyBridge()
+    {
+        return $this->getProvidedDependency(AfterpayDependencyProvider::FACADE_MONEY);
     }
 
     /**

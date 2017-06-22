@@ -18,4 +18,21 @@ interface PaymentWriterInterface
      */
     public function setIdReservationByIdSalesOrder($idReservation, $idSalesOrder);
 
+    /**
+     * @param int $authorizedTotal
+     * @param int $idSalesOrder
+     *
+     * @return void
+     */
+    public function setAuthorizedTotalByIdSalesOrder($authorizedTotal, $idSalesOrder);
+
+
+    /**
+     * @param int $amountToAdd
+     * @param int $idSalesOrder
+     *
+     * @return void
+     */
+    public function increaseTotalCapturedAmountByIdSalesOrder($amountToAdd, $idSalesOrder);
+
 }

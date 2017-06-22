@@ -7,16 +7,16 @@
 
 namespace SprykerEco\Zed\Afterpay\Business\Payment\Transaction;
 
-use Generated\Shared\Transfer\AfterpayItemCaptureRequestTransfer;
+use Generated\Shared\Transfer\AfterpayCaptureRequestTransfer;
 
 interface CaptureTransactionInterface
 {
 
     /**
-     * @param \Generated\Shared\Transfer\AfterpayItemCaptureRequestTransfer $fullCaptureRequestTransfer
+     * @param \Generated\Shared\Transfer\AfterpayCaptureRequestTransfer $captureRequestTransfer
      *
-     * @return \Generated\Shared\Transfer\AfterpayApiResponseTransfer
+     * @return \Generated\Shared\Transfer\AfterpayCaptureResponseTransfer
      */
-    public function executeTransaction(AfterpayItemCaptureRequestTransfer $fullCaptureRequestTransfer);
+    public function executeTransaction(AfterpayCaptureRequestTransfer $captureRequestTransfer);
 
 }

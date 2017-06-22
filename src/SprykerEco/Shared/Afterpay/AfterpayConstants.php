@@ -22,7 +22,7 @@ interface AfterpayConstants
     const PAYMENT_METHOD_INVOICE = self::PROVIDER_NAME . self::PAYMENT_TYPE_INVOICE;
 
     const TRANSACTION_TYPE_AUTHORIZE = 'authorize';
-    const TRANSACTION_TYPE_FULL_CAPTURE = 'full capture';
+    const TRANSACTION_TYPE_CAPTURE = 'capture';
 
     const AFTERPAY_RISK_CHECK_CONFIGURATION = 'AFTERPAY_RISK_CHECK_CONFIGURATION';
 
@@ -48,5 +48,8 @@ interface AfterpayConstants
 
     const API_TRANSACTION_OUTCOME_ACCEPTED = 'Accepted';
     const API_TRANSACTION_OUTCOME_REJECTED = 'Rejected';
+
+    const CAPTURE_EXPENSE_SKU = 'EXPENSE';
+    const CAPTURE_EXPENSE_DESCRIPTION = 'Expense total amount';
 
 }

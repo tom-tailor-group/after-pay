@@ -65,6 +65,7 @@ class AuthorizeTransaction implements AuthorizeTransactionInterface
     ) {
         $this->transactionLogger->logTransaction(
             static::TRANSACTION_TYPE,
+            $authorizeRequestTransfer->getIdSalesOrder(),
             $authorizeRequestTransfer,
             $authorizeResponseTransfer
         );

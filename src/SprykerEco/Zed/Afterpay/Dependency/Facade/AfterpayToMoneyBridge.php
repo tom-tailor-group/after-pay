@@ -33,4 +33,14 @@ class AfterpayToMoneyBridge implements AfterpayToMoneyInterface
         return $this->moneyFacade->convertIntegerToDecimal($value);
     }
 
+    /**
+     * @param float $value
+     *
+     * @return int
+     */
+    public function convertDecimalToInteger($value)
+    {
+        return $this->moneyFacade->convertDecimalToInteger($value);
+    }
+
 }

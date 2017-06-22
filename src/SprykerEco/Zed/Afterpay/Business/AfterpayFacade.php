@@ -92,14 +92,15 @@ class AfterpayFacade extends AbstractFacade implements AfterpayFacadeInterface
      * @api
      *
      * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
+     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
      *
      * @return \Generated\Shared\Transfer\AfterpayResponseTransfer
      */
-    public function capturePayment(ItemTransfer $itemTransfer)
+    public function capturePayment(ItemTransfer $itemTransfer, OrderTransfer $orderTransfer)
     {
         $this->getFactory()
             ->createCaptureTransactionHandler()
-            ->capture($itemTransfer);
+            ->capture($itemTransfer, $orderTransfer);
     }
 
     /**

@@ -89,8 +89,10 @@ class Saver implements SaverInterface
      *
      * @return \Orm\Zed\Afterpay\Persistence\SpyPaymentAfterpay
      */
-    protected function buildPaymentEntity(QuoteTransfer $quoteTransfer, CheckoutResponseTransfer $checkoutResponseTransfer): \Orm\Zed\Afterpay\Persistence\SpyPaymentAfterpay
-    {
+    protected function buildPaymentEntity(
+        QuoteTransfer $quoteTransfer,
+        CheckoutResponseTransfer $checkoutResponseTransfer
+    ) {
         $paymentEntity = new SpyPaymentAfterpay();
 
         $paymentTransfer = $quoteTransfer->getPayment();
@@ -100,7 +102,9 @@ class Saver implements SaverInterface
             ->setFkSalesOrder($checkoutResponseTransfer->getSaveOrder()->getIdSalesOrder())
             ->setIdCheckout($paymentTransfer->getAfterpayCheckoutId())
             ->setIdChannel($this->getIdChannel($paymentTransfer->getPaymentMethod()))
-            ->setInfoscoreCustomerNumber($paymentTransfer->getAfterpayCustomerNumber());
+            ->setInfoscoreCustomerNumber($paymentTransfer->getAfterpayCustomerNumber())
+            ->setExpenseTotal($quoteTransfer->getTotals()->getExpenseTotal())
+            ->setGrandTotal($quoteTransfer->getTotals()->getGrandTotal());
 
         return $paymentEntity;
     }

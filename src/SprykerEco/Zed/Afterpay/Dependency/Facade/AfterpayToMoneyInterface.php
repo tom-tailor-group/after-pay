@@ -17,4 +17,11 @@ interface AfterpayToMoneyInterface
      */
     public function convertIntegerToDecimal($value);
 
+    /**
+     * @param float $value
+     *
+     * @return int
+     */
+    public function convertDecimalToInteger($value);
+
 }

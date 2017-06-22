@@ -17,7 +17,7 @@ class AfterpayQueryContainer extends AbstractQueryContainer implements AfterpayQ
 {
 
     const TRANSACTION_TYPE_AUTHORIZE = AfterpayConstants::TRANSACTION_TYPE_AUTHORIZE;
-    const TRANSACTION_TYPE_FULL_CAPTURE = AfterpayConstants::TRANSACTION_TYPE_FULL_CAPTURE;
+    const TRANSACTION_TYPE_FULL_CAPTURE = AfterpayConstants::TRANSACTION_TYPE_CAPTURE;
 
     /**
      * @api

@@ -9,10 +9,12 @@
         <property name="idCheckout" type="string" />
         <property name="customerNumber" type="string" />
         <property name="idReservation" type="string" />
+        <property name="capturedTotal" type="int" />
+        <property name="expenseTotal" type="int" />
     </transfer>
 
     <transfer name="AfterpayAuthorizeRequest">
-        <property name="fkSalesOrder" type="int" />
+        <property name="idSalesOrder" type="int" />
         <property name="fkPayment" type="int" />
         <property name="checkoutId" type="string" />
         <property name="payment" type="AfterpayRequestPayment" />
@@ -30,15 +32,20 @@
         <property name="responsePayload" type="string" />
     </transfer>
 
-    <transfer name="AfterpayItemCaptureRequest">
-        <property name="fkSalesOrder" type="int" />
+    <transfer name="AfterpayCaptureRequest">
+        <property name="idSalesOrder" type="int" />
+        <property name="fkPayment" type="int" />
         <property name="orderNumber" type="string" />
+        <property name="orderDetails" type="AfterpayRequestOrder" />
     </transfer>
 
-    <transfer name="AfterpayFullCaptureResponse">
-        <property name="capturedAmount" type="string" />
-        <property name="authorizedAmount" type="string" />
+    <transfer name="AfterpayCaptureResponse">
+        <property name="idSalesOrder" type="int" />
+        <property name="apiResponse" type="AfterpayApiResponse" />
+        <property name="capturedAmount" type="int" />
         <property name="captureNumber" type="string" />
+        <property name="authorizedAmount" type="int" />
+        <property name="remainingAuthorizedAmount" type="int" />
     </transfer>
 
     <transfer name="AfterpayRequestPayment">
@@ -46,7 +53,6 @@
     </transfer>
 
     <transfer name="AfterpayApiResponse">
-        <property name="fkSalesOrder" type="int" />
         <property name="outcome" type="string" />
         <property name="reservationId" type="string" />
         <property name="checkoutId" type="string" />
@@ -90,6 +96,8 @@
     <transfer name="AfterpayRequestOrder">
         <property name="number" type="string" />
         <property name="totalGrossAmount" type="string" />
+        <property name="totalNetAmount" type="string" />
+        <property name="currency" type="string" />
         <property name="items" type="AfterpayRequestOrderItem[]"  singular="item" />
     </transfer>
 
@@ -97,8 +105,8 @@
         <property name="productId" type="string" />
         <property name="description" type="string" />
         <property name="grossUnitPrice" type="string" />
+        <property name="netUnitPrice" type="string" />
         <property name="quantity" type="string" />
-        <property name="imageUrl" type="string" />
     </transfer>
 
     <transfer name="AfterpayResponse">

@@ -60,15 +60,17 @@ interface AfterpayFacadeInterface
     /**
      * Specification:
      * - Sends payment capture request to Afterpay gateway, to capture payment for a specific order item.
-     * - Saves the transaction result in DB and sets payment state as "captured" for the payment item.
+     * - If it is the first item capture request for given order, captures also full expense amount.
+     * - Saves the transaction result in DB and updates payment with new total captured amount.
      *
      * @api
      *
      * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
+     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
      *
      * @return \Generated\Shared\Transfer\AfterpayResponseTransfer
      */
-    public function capturePayment(ItemTransfer $itemTransfer);
+    public function capturePayment(ItemTransfer $itemTransfer, OrderTransfer $orderTransfer);
 
     /**
      * Specification:

@@ -32,7 +32,7 @@ class TwoStepsAuthorizeRequestBuilder implements AuthorizeRequestBuilderInterfac
     {
         $authorizeRequestTransfer = new AfterpayAuthorizeRequestTransfer();
         $authorizeRequestTransfer
-            ->setFkSalesOrder(
+            ->setIdSalesOrder(
                 $orderWithPaymentTransfer->getIdSalesOrder()
             );
 

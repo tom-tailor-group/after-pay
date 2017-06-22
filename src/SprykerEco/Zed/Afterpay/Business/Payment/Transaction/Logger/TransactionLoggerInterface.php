@@ -15,6 +15,7 @@ interface TransactionLoggerInterface
 
     /**
      * @param string $transactionType
+     * @param int $idSalesOrder
      * @param \Spryker\Shared\Kernel\Transfer\AbstractTransfer|\Generated\Shared\Transfer\AfterpayAuthorizeRequestTransfer $transactionRequest
      * @param \Generated\Shared\Transfer\AfterpayApiResponseTransfer $transactionResponse
      *
@@ -22,6 +23,7 @@ interface TransactionLoggerInterface
      */
     public function logTransaction(
         $transactionType,
+        $idSalesOrder,
         AbstractTransfer $transactionRequest,
         AfterpayApiResponseTransfer $transactionResponse
     );

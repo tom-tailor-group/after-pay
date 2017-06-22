@@ -22,6 +22,7 @@ use SprykerEco\Zed\Afterpay\Business\Payment\PaymentWriter;
 use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Authorize\RequestBuilder\OneStepAuthorizeRequestBuilder;
 use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Authorize\RequestBuilder\TwoStepsAuthorizeRequestBuilder;
 use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\AuthorizeTransaction;
+use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Capture\CaptureRequestBuilder;
 use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\CaptureTransaction;
 use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Handler\AuthorizeTransactionHandler;
 use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Logger\TransactionLogger;
@@ -73,7 +74,21 @@ class AfterpayBusinessFactory extends AbstractBusinessFactory
     public function createCaptureTransactionHandler()
     {
         return new CaptureTransactionHandler(
-            $this->createCaptureTransaction()
+            $this->createCaptureTransaction(),
+            $this->createPaymentReader(),
+            $this->createPaymentWriter(),
+            $this->createCaptureRequestBuilder()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Capture\CaptureRequestBuilderInterface
+     */
+    protected function createCaptureRequestBuilder()
+    {
+        return new CaptureRequestBuilder(
+            $this->createOrderToRequestMapper(),
+            $this->getAfterpayToMoneyBridge()
         );
     }
 
@@ -237,6 +252,14 @@ class AfterpayBusinessFactory extends AbstractBusinessFactory
     protected function getAfterpayToCustomerBridge()
     {
         return $this->getProvidedDependency(AfterpayDependencyProvider::FACADE_CUSTOMER);
+    }
+
+    /**
+     * @return \SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToSalesInterface
+     */
+    protected function getAfterpayToSalesBridge()
+    {
+        return $this->getProvidedDependency(AfterpayDependencyProvider::FACADE_SALES);
     }
 
     /**

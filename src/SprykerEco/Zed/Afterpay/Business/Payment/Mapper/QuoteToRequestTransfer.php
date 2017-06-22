@@ -94,7 +94,8 @@ class QuoteToRequestTransfer implements QuoteToRequestTransferInterface
     protected function buildOrderRequestTransfer(QuoteTransfer $quoteTransfer)
     {
         $orderRequestTransfer = new AfterpayRequestOrderTransfer();
-        $orderRequestTransfer->setTotalGrossAmount($this->getDecimalQuoteTotal($quoteTransfer));
+        $orderRequestTransfer->setTotalGrossAmount($this->getStringDecimalQuoteGrossTotal($quoteTransfer));
+        $orderRequestTransfer->setTotalNetAmount($this->getStringDecimalQuoteNetTotal($quoteTransfer));
 
         foreach ($quoteTransfer->getItems() as $itemTransfer) {
             $orderRequestTransfer->addItem(
@@ -117,7 +118,8 @@ class QuoteToRequestTransfer implements QuoteToRequestTransferInterface
         $orderItemRequestTransfer
             ->setProductId($itemTransfer->getSku())
             ->setDescription($itemTransfer->getName())
-            ->setGrossUnitPrice($this->getDecimalItemGrossUnitPrice($itemTransfer))
+            ->setGrossUnitPrice($this->getStringDecimalItemGrossUnitPrice($itemTransfer))
+            ->setNetUnitPrice($this->getStringDecimalItemNetUnitPrice($itemTransfer))
             ->setQuantity($itemTransfer->getQuantity());
 
         return $orderItemRequestTransfer;
@@ -154,25 +156,53 @@ class QuoteToRequestTransfer implements QuoteToRequestTransferInterface
     /**
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
-     * @return float
+     * @return string
      */
-    protected function getDecimalQuoteTotal(QuoteTransfer $quoteTransfer)
+    protected function getStringDecimalQuoteGrossTotal(QuoteTransfer $quoteTransfer)
     {
         $quoteTotal = $quoteTransfer->getTotals()->getGrandTotal();
 
-        return $this->money->convertIntegerToDecimal($quoteTotal);
+        return (string)$this->money->convertIntegerToDecimal($quoteTotal);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     *
+     * @return string
+     */
+    protected function getStringDecimalQuoteNetTotal(QuoteTransfer $quoteTransfer)
+    {
+        $quoteGrossTotal = $quoteTransfer->getTotals()->getGrandTotal();
+        $quoteTaxTotal = $quoteTransfer->getTotals()->getTaxTotal()->getAmount();
+        $quoteNetTotal = $quoteGrossTotal - $quoteTaxTotal;
+
+        return (string)$this->money->convertIntegerToDecimal($quoteNetTotal);
     }
 
     /**
      * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
      *
-     * @return float
+     * @return string
      */
-    protected function getDecimalItemGrossUnitPrice(ItemTransfer $itemTransfer)
+    protected function getStringDecimalItemGrossUnitPrice(ItemTransfer $itemTransfer)
     {
         $itemUnitGrossPrice = $itemTransfer->getUnitPriceToPayAggregation();
 
-        return $this->money->convertIntegerToDecimal($itemUnitGrossPrice);
+        return (string)$this->money->convertIntegerToDecimal($itemUnitGrossPrice);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
+     *
+     * @return string
+     */
+    protected function getStringDecimalItemNetUnitPrice(ItemTransfer $itemTransfer)
+    {
+        $itemUnitGrossPriceAmount = $itemTransfer->getUnitPriceToPayAggregation();
+        $itemUnitTaxAmount = $itemTransfer->getUnitTaxAmountFullAggregation();
+        $itemUnitNetAmount = $itemUnitGrossPriceAmount - $itemUnitTaxAmount;
+
+        return (string)$this->money->convertIntegerToDecimal($itemUnitNetAmount);
     }
 
 }

@@ -7,10 +7,8 @@
 
 namespace SprykerEco\Zed\Afterpay\Business\Payment\Transaction;
 
-use Generated\Shared\Transfer\AfterpayApiResponseTransfer;
-use Generated\Shared\Transfer\AfterpayAuthorizeRequestTransfer;
-use Generated\Shared\Transfer\AfterpayItemCaptureRequestTransfer;
-use Generated\Shared\Transfer\AfterpayFullCaptureResponseTransfer;
+use Generated\Shared\Transfer\AfterpayCaptureRequestTransfer;
+use Generated\Shared\Transfer\AfterpayCaptureResponseTransfer;
 use SprykerEco\Shared\Afterpay\AfterpayConstants;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\AdapterInterface;
 use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Logger\TransactionLoggerInterface;
@@ -18,7 +16,7 @@ use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Logger\TransactionLogge
 class CaptureTransaction implements CaptureTransactionInterface
 {
 
-    const TRANSACTION_TYPE = AfterpayConstants::TRANSACTION_TYPE_FULL_CAPTURE;
+    const TRANSACTION_TYPE = AfterpayConstants::TRANSACTION_TYPE_CAPTURE;
 
     /**
      * @var \SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Logger\TransactionLoggerInterface
@@ -43,32 +41,33 @@ class CaptureTransaction implements CaptureTransactionInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\AfterpayItemCaptureRequestTransfer $fullCaptureRequestTransfer
+     * @param \Generated\Shared\Transfer\AfterpayCaptureRequestTransfer $captureRequestTransfer
      *
-     * @return \Generated\Shared\Transfer\AfterpayApiResponseTransfer
+     * @return \Generated\Shared\Transfer\AfterpayCaptureResponseTransfer
      */
-    public function executeTransaction(AfterpayItemCaptureRequestTransfer $fullCaptureRequestTransfer)
+    public function executeTransaction(AfterpayCaptureRequestTransfer $captureRequestTransfer)
     {
-        $fullCaptureResponseTransfer = $this->apiAdapter->sendFullCaptureRequest($fullCaptureRequestTransfer);
-        $this->logTransaction($fullCaptureRequestTransfer, $fullCaptureResponseTransfer);
+        $captureResponseTransfer = $this->apiAdapter->sendCaptureRequest($captureRequestTransfer);
+        $this->logTransaction($captureRequestTransfer, $captureResponseTransfer);
 
-        return $fullCaptureResponseTransfer;
+        return $captureResponseTransfer;
     }
 
     /**
-     * @param \Generated\Shared\Transfer\AfterpayItemCaptureRequestTransfer $fullCaptureRequestTransfer
-     * @param \Generated\Shared\Transfer\AfterpayApiResponseTransfer $apiResponseTransfer
+     * @param \Generated\Shared\Transfer\AfterpayCaptureRequestTransfer $captureRequestTransfer
+     * @param \Generated\Shared\Transfer\AfterpayCaptureResponseTransfer $captureResponseTransfer
      *
      * @return void
      */
     protected function logTransaction(
-        AfterpayItemCaptureRequestTransfer $fullCaptureRequestTransfer,
-        AfterpayApiResponseTransfer $apiResponseTransfer
+        AfterpayCaptureRequestTransfer $captureRequestTransfer,
+        AfterpayCaptureResponseTransfer $captureResponseTransfer
     ) {
         $this->transactionLogger->logTransaction(
             static::TRANSACTION_TYPE,
-            $fullCaptureRequestTransfer,
-            $apiResponseTransfer
+            $captureRequestTransfer->getIdSalesOrder(),
+            $captureRequestTransfer,
+            $captureResponseTransfer->getApiResponse()
         );
     }
 }

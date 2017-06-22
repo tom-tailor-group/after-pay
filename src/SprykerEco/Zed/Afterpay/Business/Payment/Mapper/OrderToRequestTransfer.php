@@ -8,6 +8,7 @@
 namespace SprykerEco\Zed\Afterpay\Business\Payment\Mapper;
 
 use Generated\Shared\Transfer\AfterpayAuthorizeRequestTransfer;
+use Generated\Shared\Transfer\AfterpayCaptureRequestTransfer;
 use Generated\Shared\Transfer\AfterpayRequestAddressTransfer;
 use Generated\Shared\Transfer\AfterpayRequestCustomerTransfer;
 use Generated\Shared\Transfer\AfterpayRequestOrderItemTransfer;
@@ -59,7 +60,9 @@ class OrderToRequestTransfer implements OrderToRequestTransferInterface
         $requestTransfer = new AfterpayAuthorizeRequestTransfer();
 
         $requestTransfer
-            ->setFkSalesOrder($orderWithPaymentTransfer->getIdSalesOrder())
+            ->setIdSalesOrder(
+                $orderWithPaymentTransfer->getIdSalesOrder()
+            )
             ->setPayment(
                 $this->buildPaymentRequestTransfer($orderWithPaymentTransfer)
             )
@@ -67,10 +70,40 @@ class OrderToRequestTransfer implements OrderToRequestTransferInterface
                 $this->buildCustomerRequestTransfer($orderWithPaymentTransfer)
             )
             ->setOrder(
-                $this->buildOrderRequestTransfer($orderWithPaymentTransfer)
+                $this->buildOrderWithItemsRequestTransfer($orderWithPaymentTransfer)
             );
 
         return $requestTransfer;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
+     *
+     * @return \Generated\Shared\Transfer\AfterpayCaptureRequestTransfer
+     */
+    public function orderToBaseCaptureRequest(OrderTransfer $orderTransfer)
+    {
+        $requestTransfer = new AfterpayCaptureRequestTransfer();
+
+        $requestTransfer
+            ->setIdSalesOrder($orderTransfer->getIdSalesOrder())
+            ->setOrderDetails(
+                $this->buildOrderRequestTransfer($orderTransfer)
+                    ->setTotalGrossAmount(0)
+                    ->setTotalNetAmount(0)
+            );
+
+        return $requestTransfer;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
+     *
+     * @return \Generated\Shared\Transfer\AfterpayRequestOrderItemTransfer
+     */
+    public function orderItemToAfterpayItemRequest(ItemTransfer $itemTransfer)
+    {
+        return $this->buildOrderItemRequestTransfer($itemTransfer);
     }
 
     /**
@@ -103,18 +136,30 @@ class OrderToRequestTransfer implements OrderToRequestTransferInterface
      *
      * @return \Generated\Shared\Transfer\AfterpayRequestOrderTransfer
      */
-    protected function buildOrderRequestTransfer(OrderTransfer $orderWithPaymentTransfer)
+    protected function buildOrderWithItemsRequestTransfer(OrderTransfer $orderWithPaymentTransfer)
     {
-        $orderRequestTransfer = new AfterpayRequestOrderTransfer();
-        $orderRequestTransfer
-            ->setNumber($orderWithPaymentTransfer->getOrderReference())
-            ->setTotalGrossAmount($this->getDecimalOrderTotal($orderWithPaymentTransfer));
+        $orderRequestTransfer = $this->buildOrderRequestTransfer($orderWithPaymentTransfer);
 
         foreach ($orderWithPaymentTransfer->getItems() as $itemTransfer) {
             $orderRequestTransfer->addItem(
                 $this->buildOrderItemRequestTransfer($itemTransfer)
             );
         }
+
+        return $orderRequestTransfer;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\OrderTransfer $orderWithPaymentTransfer
+     * @return \Generated\Shared\Transfer\AfterpayRequestOrderTransfer
+     */
+    protected function buildOrderRequestTransfer(OrderTransfer $orderWithPaymentTransfer)
+    {
+        $orderRequestTransfer = new AfterpayRequestOrderTransfer();
+        $orderRequestTransfer
+            ->setNumber($orderWithPaymentTransfer->getOrderReference())
+            ->setTotalGrossAmount($this->getStringDecimalOrderGrossTotal($orderWithPaymentTransfer))
+            ->setTotalNetAmount($this->getStringDecimalOrderNetTotal($orderWithPaymentTransfer));
 
         return $orderRequestTransfer;
     }
@@ -146,7 +191,8 @@ class OrderToRequestTransfer implements OrderToRequestTransferInterface
         $orderItemRequestTransfer
             ->setProductId($itemTransfer->getSku())
             ->setDescription($itemTransfer->getName())
-            ->setGrossUnitPrice($this->getDecimalItemGrossUnitPrice($itemTransfer))
+            ->setGrossUnitPrice($this->getStringDecimalItemGrossUnitPrice($itemTransfer))
+            ->setNetUnitPrice($this->getStringDecimalItemNetUnitPrice($itemTransfer))
             ->setQuantity($itemTransfer->getQuantity());
 
         return $orderItemRequestTransfer;
@@ -183,13 +229,27 @@ class OrderToRequestTransfer implements OrderToRequestTransferInterface
     /**
      * @param \Generated\Shared\Transfer\OrderTransfer $orderWithPaymentTransfer
      *
+     * @return string
+     */
+    protected function getStringDecimalOrderGrossTotal(OrderTransfer $orderWithPaymentTransfer)
+    {
+        $orderGrossTotal = $orderWithPaymentTransfer->getTotals()->getGrandTotal();
+
+        return (string)$this->money->convertIntegerToDecimal($orderGrossTotal);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\OrderTransfer $orderWithPaymentTransfer
+     *
      * @return float
      */
-    protected function getDecimalOrderTotal(OrderTransfer $orderWithPaymentTransfer)
+    protected function getStringDecimalOrderNetTotal(OrderTransfer $orderWithPaymentTransfer)
     {
-        $orderTotal = $orderWithPaymentTransfer->getTotals()->getGrandTotal();
+        $orderGrossTotal = $orderWithPaymentTransfer->getTotals()->getGrandTotal();
+        $orderTaxTotal = $orderWithPaymentTransfer->getTotals()->getTaxTotal()->getAmount();
+        $orderNetTotal = $orderGrossTotal - $orderTaxTotal;
 
-        return $this->money->convertIntegerToDecimal($orderTotal);
+        return (string)$this->money->convertIntegerToDecimal($orderNetTotal);
     }
 
     /**
@@ -197,11 +257,25 @@ class OrderToRequestTransfer implements OrderToRequestTransferInterface
      *
      * @return float
      */
-    protected function getDecimalItemGrossUnitPrice(ItemTransfer $itemTransfer)
+    protected function getStringDecimalItemGrossUnitPrice(ItemTransfer $itemTransfer)
     {
-        $itemUnitGrossPrice = $itemTransfer->getUnitGrossPriceWithProductOptionAndDiscountAmounts();
+        $itemUnitGrossPrice = $itemTransfer->getUnitPriceToPayAggregation();
 
-        return $this->money->convertIntegerToDecimal($itemUnitGrossPrice);
+        return (string)$this->money->convertIntegerToDecimal($itemUnitGrossPrice);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
+     *
+     * @return float
+     */
+    protected function getStringDecimalItemNetUnitPrice(ItemTransfer $itemTransfer)
+    {
+        $itemUnitGrossPriceAmount = $itemTransfer->getUnitPriceToPayAggregation();
+        $itemUnitTaxAmount = $itemTransfer->getUnitTaxAmountFullAggregation();
+        $itemUnitNetAmount = $itemUnitGrossPriceAmount - $itemUnitTaxAmount;
+
+        return (string)$this->money->convertIntegerToDecimal($itemUnitNetAmount);
     }
 
 }

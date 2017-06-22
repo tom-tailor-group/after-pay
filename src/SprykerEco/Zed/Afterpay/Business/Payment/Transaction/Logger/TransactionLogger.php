@@ -30,19 +30,21 @@ class TransactionLogger implements TransactionLoggerInterface
 
     /**
      * @param string $transactionType
-     * @param \Spryker\Shared\Kernel\Transfer\AbstractTransfer|\Generated\Shared\Transfer\AfterpayAuthorizeRequestTransfer $transactionRequest
+     * @param int $idSalesOrder
+     * @param \Spryker\Shared\Kernel\Transfer\AbstractTransfer $transactionRequest
      * @param \Generated\Shared\Transfer\AfterpayApiResponseTransfer $transactionResponse
      *
      * @return void
      */
     public function logTransaction(
         $transactionType,
+        $idSalesOrder,
         AbstractTransfer $transactionRequest,
         AfterpayApiResponseTransfer $transactionResponse
     ) {
         $transactionLog = new SpyPaymentAfterpayTransactionLog();
         $transactionLog
-            ->setFkSalesOrder($transactionRequest->getFkSalesOrder())
+            ->setFkSalesOrder($idSalesOrder)
             ->setTransactionType($transactionType)
             ->setOutcome($transactionResponse->getOutcome())
             ->setRequestPayload($this->getRequestTransferEncoded($transactionRequest))

@@ -32,9 +32,11 @@ class CapturePlugin extends AbstractPlugin implements CommandByOrderInterface
      */
     public function run(array $orderItems, SpySalesOrder $orderEntity, ReadOnlyArrayObject $data)
     {
+        $orderTransfer = $this->getOrderTransfer($orderEntity);
+
         foreach ($orderItems as $orderItem) {
             $itemTransfer = $this->getOrderItemTransfer($orderItem);
-            $this->getFacade()->capturePayment($itemTransfer);
+            $this->getFacade()->capturePayment($itemTransfer, $orderTransfer);
         }
 
         return [];
@@ -48,22 +50,32 @@ class CapturePlugin extends AbstractPlugin implements CommandByOrderInterface
     protected function getOrderItemTransfer(SpySalesOrderItem $orderItem)
     {
         $itemTransfer = new ItemTransfer();
-        $itemTransfer->fromArray($orderItem->toArray());
+        $itemTransfer->fromArray($orderItem->toArray(), true);
+
+        $itemTransfer->setUnitGrossPrice($orderItem->getGrossPrice());
+        $itemTransfer->setUnitNetPrice($orderItem->getNetPrice());
+
+        $itemTransfer->setUnitPriceToPayAggregation($orderItem->getPriceToPayAggregation());
+        $itemTransfer->setUnitTaxAmountFullAggregation($orderItem->getTaxAmountFullAggregation());
 
         return $itemTransfer;
     }
 
-//    /**
-//     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
-//     *
-//     * @return \Generated\Shared\Transfer\OrderTransfer
-//     */
-//    protected function hydrateAfterpayPayment(OrderTransfer $orderTransfer)
-//    {
-//        $paymentTransfer = $this->getFacade()->getPaymentByIdSalesOrder($orderTransfer->getIdSalesOrder());
-//        $orderTransfer->setAfterpayPayment($paymentTransfer);
-//
-//        return $orderTransfer;
-//    }
+    /**
+     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $order
+     *
+     * @return \Generated\Shared\Transfer\OrderTransfer
+     */
+    protected function getOrderTransfer(SpySalesOrder $order)
+    {
+        $orderTransfer = $this
+            ->getFactory()
+            ->getSalesFacade()
+            ->getOrderByIdSalesOrder(
+                $order->getIdSalesOrder()
+            );
+
+        return $orderTransfer;
+    }
 
 }
