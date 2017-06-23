@@ -13,6 +13,12 @@
         <property name="expenseTotal" type="int" />
     </transfer>
 
+    <transfer name="AfterpayTransactionLog">
+        <property name="transactionType" type="string"/>
+        <property name="outcome" type="string"/>
+        <property name="fkSalesOrder" type="int"/>
+    </transfer>
+
     <transfer name="AfterpayAuthorizeRequest">
         <property name="idSalesOrder" type="int" />
         <property name="fkPayment" type="int" />

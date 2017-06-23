@@ -7,8 +7,6 @@
 
 namespace SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall;
 
-use Generated\Shared\Transfer\AfterpayCustomerLookupRequestTransfer;
-use Generated\Shared\Transfer\AfterpayCustomerLookupResponseTransfer;
 use Generated\Shared\Transfer\AfterpayValidateBankAccountRequestTransfer;
 use Generated\Shared\Transfer\AfterpayValidateBankAccountResponseTransfer;
 use SprykerEco\Shared\Afterpay\AfterpayApiConstants;
@@ -91,4 +89,5 @@ class ValidateBankAccountCall extends AbstractApiCall implements ValidateBankAcc
 
         return $responseTransfer;
     }
+
 }

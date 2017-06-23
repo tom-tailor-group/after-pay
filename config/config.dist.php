@@ -13,6 +13,7 @@ use Spryker\Shared\Oms\OmsConstants;
 use Spryker\Shared\Sales\SalesConstants;
 use Spryker\Zed\Oms\OmsConfig;
 use SprykerEco\Shared\Afterpay\AfterpayConstants;
+use Spryker\Shared\Application\ApplicationConstants;
 
 // Afterpay configuration
 
@@ -52,6 +53,12 @@ $config[OmsConstants::ACTIVE_PROCESSES] = [
 $config[SalesConstants::PAYMENT_METHOD_STATEMACHINE_MAPPING] = [
     AfterpayConstants::PAYMENT_METHOD_INVOICE => 'AfterpayInvoice01',
 ];
+
+$config[AfterpayConstants::HOST_SSL_YVES] = $config[ApplicationConstants::HOST_SSL_YVES];
+$config[AfterpayConstants::HOST_YVES] = $config[ApplicationConstants::HOST_YVES];
+
+$config[AfterpayConstants::AFTERPAY_YVES_AUTHORIZE_PAYMENT_FAILED_URL] = 'http://' . $config[AfterpayConstants::HOST_YVES] . '/checkout/payment';
+
 
 $config[AfterpayConstants::AFTERPAY_AUTHORIZE_WORKFLOW] = AfterpayConstants::AFTERPAY_AUTHORIZE_WORKFLOW_TWO_STEPS;
 

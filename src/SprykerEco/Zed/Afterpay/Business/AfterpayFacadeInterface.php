@@ -120,6 +120,20 @@ interface AfterpayFacadeInterface
 
     /**
      * Specification:
+     *  - Executes a post save hook for the following payment methods:
+     *    Sofort / authorize: checks for an external redirect URL in transaction log and redirects customer to the payment system
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
+     * @param \Generated\Shared\Transfer\CheckoutResponseTransfer $checkoutResponseTransfer
+     *
+     * @return \Generated\Shared\Transfer\CheckoutResponseTransfer
+     */
+    public function postSaveHook(QuoteTransfer $quoteTransfer, CheckoutResponseTransfer $checkoutResponseTransfer);
+
+    /**
+     * Specification:
      *  - Requests Afterpay API version and returns the result.
      *
      * @api

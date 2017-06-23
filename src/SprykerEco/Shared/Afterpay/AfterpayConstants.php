@@ -17,6 +17,11 @@ interface AfterpayConstants
     const AFTERPAY_AUTHORIZE_WORKFLOW_ONE_STEP = 'one step authorize workflow';
     const AFTERPAY_AUTHORIZE_WORKFLOW_TWO_STEPS = 'two steps authorize workflow';
 
+    const HOST_YVES = 'HOST_YVES';
+    const HOST_SSL_YVES = 'HOST_SSL_YVES';
+
+    const AFTERPAY_YVES_AUTHORIZE_PAYMENT_FAILED_URL = 'AFTERPAY_YVES_AUTHORIZE_PAYMENT_FAILED_URL';
+
     const VENDOR_ROOT = 'VENDOR_ROOT';
     const PAYMENT_TYPE_INVOICE = 'Invoice';
     const PAYMENT_METHOD_INVOICE = self::PROVIDER_NAME . self::PAYMENT_TYPE_INVOICE;

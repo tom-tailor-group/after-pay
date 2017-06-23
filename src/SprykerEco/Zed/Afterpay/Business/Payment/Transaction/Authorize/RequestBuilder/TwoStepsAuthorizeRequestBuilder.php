@@ -12,6 +12,7 @@ use Generated\Shared\Transfer\AfterpayRequestOrderTransfer;
 use Generated\Shared\Transfer\AfterpayRequestPaymentTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
 use SprykerEco\Shared\Afterpay\AfterpayConstants;
+use SprykerEco\Zed\Afterpay\Business\Payment\Mapper\OrderToRequestTransferInterface;
 
 class TwoStepsAuthorizeRequestBuilder implements AuthorizeRequestBuilderInterface
 {
@@ -24,21 +25,38 @@ class TwoStepsAuthorizeRequestBuilder implements AuthorizeRequestBuilderInterfac
     ];
 
     /**
+     * @var \SprykerEco\Zed\Afterpay\Business\Payment\Mapper\OrderToRequestTransferInterface
+     */
+    private $orderToRequestMapper;
+
+    /**
+     * TwoStepsAuthorizeRequestBuilder constructor.
+     * @param \SprykerEco\Zed\Afterpay\Business\Payment\Mapper\OrderToRequestTransferInterface $orderToRequestMapper
+     */
+    public function __construct(OrderToRequestTransferInterface $orderToRequestMapper)
+    {
+        $this->orderToRequestMapper = $orderToRequestMapper;
+    }
+
+    /**
      * @param \Generated\Shared\Transfer\OrderTransfer $orderWithPaymentTransfer
      *
      * @return \Generated\Shared\Transfer\AfterpayAuthorizeRequestTransfer
      */
     public function buildAuthorizeRequest(OrderTransfer $orderWithPaymentTransfer)
     {
-        $authorizeRequestTransfer = new AfterpayAuthorizeRequestTransfer();
+        $authorizeRequestTransfer = $this
+            ->orderToRequestMapper
+            ->orderToAuthorizeRequest($orderWithPaymentTransfer);
+
         $authorizeRequestTransfer
             ->setIdSalesOrder(
                 $orderWithPaymentTransfer->getIdSalesOrder()
             );
 
-        $this->addOrderNumber($authorizeRequestTransfer, $orderWithPaymentTransfer);
+//        $this->addOrderNumber($authorizeRequestTransfer, $orderWithPaymentTransfer);
         $this->addCheckoutId($authorizeRequestTransfer, $orderWithPaymentTransfer);
-        $this->addPaymentDetails($authorizeRequestTransfer, $orderWithPaymentTransfer);
+//        $this->addPaymentDetails($authorizeRequestTransfer, $orderWithPaymentTransfer);
 
         return $authorizeRequestTransfer;
     }

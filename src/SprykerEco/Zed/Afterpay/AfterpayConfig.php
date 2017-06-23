@@ -137,4 +137,9 @@ class AfterpayConfig extends AbstractBundleConfig
         }
     }
 
+    public function getPaymentAuthorizationFailedUrl()
+    {
+        return $this->get(AfterpayConstants::AFTERPAY_YVES_AUTHORIZE_PAYMENT_FAILED_URL);
+    }
+
 }

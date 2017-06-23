@@ -12,6 +12,7 @@ use Spryker\Zed\Kernel\Dependency\Injector\AbstractDependencyInjector;
 use Spryker\Zed\Payment\Dependency\Plugin\Checkout\CheckoutPluginCollection;
 use Spryker\Zed\Payment\PaymentDependencyProvider;
 use SprykerEco\Shared\Afterpay\AfterpayConstants;
+use SprykerEco\Zed\Afterpay\Communication\Plugin\Checkout\AfterpayPostCheckPlugin;
 use SprykerEco\Zed\Afterpay\Communication\Plugin\Checkout\AfterpaySaveOrderPlugin;
 
 class PaymentDependencyInjector extends AbstractDependencyInjector
@@ -38,7 +39,8 @@ class PaymentDependencyInjector extends AbstractDependencyInjector
     {
         $container->extend(PaymentDependencyProvider::CHECKOUT_PLUGINS, function (CheckoutPluginCollection $pluginCollection) {
             $pluginCollection->add(new AfterpaySaveOrderPlugin(), AfterpayConstants::PROVIDER_NAME, PaymentDependencyProvider::CHECKOUT_ORDER_SAVER_PLUGINS);
-
+            $pluginCollection->add(new AfterpayPostCheckPlugin(), AfterpayConstants::PROVIDER_NAME, PaymentDependencyProvider::CHECKOUT_POST_SAVE_PLUGINS);
+            
             return $pluginCollection;
         });
 
