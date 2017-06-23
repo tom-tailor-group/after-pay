@@ -26,6 +26,16 @@ interface AdapterFactoryInterface
     public function createValidateCustomerCall();
 
     /**
+     * @return \SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\ValidateBankAccountCallInterface
+     */
+    public function createValidateBankAccountCall();
+
+    /**
+     * @return \SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\LookupCustomerCallInterface
+     */
+    public function createLookupCustomerCall();
+
+    /**
      * @return \SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\CaptureCallInterface
      */
     public function createFullCaptureCall();

@@ -7,6 +7,8 @@
 
 namespace SprykerEco\Client\Afterpay;
 
+use Generated\Shared\Transfer\AfterpayCustomerLookupRequestTransfer;
+use Generated\Shared\Transfer\AfterpayValidateBankAccountRequestTransfer;
 use Generated\Shared\Transfer\AfterpayValidateCustomerRequestTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 
@@ -38,6 +40,33 @@ interface AfterpayClientInterface
      * @return \Generated\Shared\Transfer\AfterpayValidateCustomerResponseTransfer
      */
     public function validateCustomerAddress(AfterpayValidateCustomerRequestTransfer $validateCustomerRequestTransfer);
+
+    /**
+     * Specification:
+     *  - Makes "customer-lookup" call to the afterpay API, to find customer based on social security number or mobile number.
+     *  Response contains customer's account with list of addresses
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\AfterpayCustomerLookupRequestTransfer $customerLookupRequestTransfer
+     *
+     * @return \Generated\Shared\Transfer\AfterpayCustomerLookupResponseTransfer
+     */
+    public function lookupCustomer(AfterpayCustomerLookupRequestTransfer $customerLookupRequestTransfer);
+
+    /**
+     * Specification:
+     *  - Makes "validate bank-account" call to the afterpay API, to validate and evaluates the account and bank details
+     *  in the context of direct debit payment. It is possible to transfer either the combination of BankCode and AccountNumber or IBAN and BIC
+     *  Response contains validation result and list of risk-check messages
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\AfterpayValidateBankAccountRequestTransfer $bankAccountValidationRequestTransfer
+     *
+     * @return \Generated\Shared\Transfer\AfterpayValidateBankAccountResponseTransfer
+     */
+    public function validateBankAccount(AfterpayValidateBankAccountRequestTransfer $bankAccountValidationRequestTransfer);
 
     /**
      * Specification:

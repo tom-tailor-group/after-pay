@@ -14,6 +14,8 @@ use SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\ApiVersionCall;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\AuthorizePaymentCall;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\AvailablePaymentMethodsCall;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\CaptureCall;
+use SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\LookupCustomerCall;
+use SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\ValidateBankAccountCall;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\ValidateCustomerCall;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\Client\Http\Guzzle;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\Converter\TransferToCamelCaseArrayConverter;
@@ -60,6 +62,32 @@ class AdapterFactory extends AbstractBusinessFactory implements AdapterFactoryIn
             $this->createTransferToCamelCaseArrayConverter(),
             $this->getUtilEncodingService(),
             $this->getUtilTextService(),
+            $this->getConfig()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\ValidateBankAccountCallInterface
+     */
+    public function createValidateBankAccountCall()
+    {
+        return new ValidateBankAccountCall(
+            $this->createHttpClient(),
+            $this->createTransferToCamelCaseArrayConverter(),
+            $this->getUtilEncodingService(),
+            $this->getConfig()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\LookupCustomerCallInterface
+     */
+    public function createLookupCustomerCall()
+    {
+        return new LookupCustomerCall(
+            $this->createHttpClient(),
+            $this->createTransferToCamelCaseArrayConverter(),
+            $this->getUtilEncodingService(),
             $this->getConfig()
         );
     }
@@ -142,5 +170,4 @@ class AdapterFactory extends AbstractBusinessFactory implements AdapterFactoryIn
     {
         return $this->getProvidedDependency(AfterpayDependencyProvider::SERVICE_UTIL_TEXT);
     }
-
 }

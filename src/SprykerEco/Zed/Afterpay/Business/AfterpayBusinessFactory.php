@@ -10,6 +10,8 @@ namespace SprykerEco\Zed\Afterpay\Business;
 use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 use SprykerEco\Shared\Afterpay\AfterpayConstants;
 use SprykerEco\Zed\Afterpay\AfterpayDependencyProvider;
+use SprykerEco\Zed\Afterpay\Business\AdditionalServices\Handler\LookupCustomerHandler;
+use SprykerEco\Zed\Afterpay\Business\AdditionalServices\Handler\ValidateBankAccountHandler;
 use SprykerEco\Zed\Afterpay\Business\AdditionalServices\Handler\ValidateCustomerHandler;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\AdapterFactory;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\AfterpayApiAdapter;
@@ -125,6 +127,26 @@ class AfterpayBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
+     * @return \SprykerEco\Zed\Afterpay\Business\AdditionalServices\Handler\ValidateBankAccountHandlerInterface
+     */
+    public function createValidateBankAccountHandler()
+    {
+        return new ValidateBankAccountHandler(
+            $this->createApiAdapter()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\Afterpay\Business\AdditionalServices\Handler\LookupCustomerHandler
+     */
+    public function createLookupCustomerHandler()
+    {
+        return new LookupCustomerHandler(
+            $this->createApiAdapter()
+        );
+    }
+
+    /**
      * @return \SprykerEco\Zed\Afterpay\Business\Payment\PaymentWriterInterface
      */
     protected function createPaymentWriter()
@@ -154,6 +176,7 @@ class AfterpayBusinessFactory extends AbstractBusinessFactory
             $this->getUtilEncodingService()
         );
     }
+
 
     /**
      * @return \SprykerEco\Zed\Afterpay\Business\Api\Adapter\AdapterInterface

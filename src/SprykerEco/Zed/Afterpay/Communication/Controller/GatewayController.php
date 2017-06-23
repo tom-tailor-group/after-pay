@@ -7,6 +7,8 @@
 
 namespace SprykerEco\Zed\Afterpay\Communication\Controller;
 
+use Generated\Shared\Transfer\AfterpayCustomerLookupRequestTransfer;
+use Generated\Shared\Transfer\AfterpayValidateBankAccountRequestTransfer;
 use Generated\Shared\Transfer\AfterpayValidateCustomerRequestTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Spryker\Zed\Kernel\Communication\Controller\AbstractGatewayController;
@@ -36,6 +38,28 @@ class GatewayController extends AbstractGatewayController
         AfterpayValidateCustomerRequestTransfer $validateCustomerRequestTransfer
     ) {
         return $this->getFacade()->validateCustomerAddress($validateCustomerRequestTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\AfterpayValidateBankAccountRequestTransfer $validateBankAccountRequestTransfer
+     *
+     * @return \Generated\Shared\Transfer\AfterpayValidateBankAccountResponseTransfer
+     */
+    public function validateBankAccountAction(
+        AfterpayValidateBankAccountRequestTransfer $validateBankAccountRequestTransfer
+    ) {
+        return $this->getFacade()->validateBankAccount($validateBankAccountRequestTransfer);
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\AfterpayCustomerLookupRequestTransfer $customerLookupTransfer
+     *
+     * @return \Generated\Shared\Transfer\AfterpayCustomerLookupResponseTransfer
+     */
+    public function lookupCustomerAction(
+        AfterpayCustomerLookupRequestTransfer $customerLookupTransfer
+    ) {
+        return $this->getFacade()->lookupCustomer($customerLookupTransfer);
     }
 
 }

@@ -7,6 +7,8 @@
 
 namespace SprykerEco\Client\Afterpay\Zed;
 
+use Generated\Shared\Transfer\AfterpayCustomerLookupRequestTransfer;
+use Generated\Shared\Transfer\AfterpayValidateBankAccountRequestTransfer;
 use Generated\Shared\Transfer\AfterpayValidateCustomerRequestTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 
@@ -26,5 +28,19 @@ interface AfterpayStubInterface
      * @return \Generated\Shared\Transfer\AfterpayValidateCustomerResponseTransfer
      */
     public function validateCustomerAddress(AfterpayValidateCustomerRequestTransfer $validateCustomerRequestTransfer);
+
+    /**
+     * @param \Generated\Shared\Transfer\AfterpayCustomerLookupRequestTransfer $customerLookupRequestTransfer
+     *
+     * @return \Generated\Shared\Transfer\AfterpayCustomerLookupResponseTransfer
+     */
+    public function lookupCustomer(AfterpayCustomerLookupRequestTransfer $customerLookupRequestTransfer);
+
+    /**
+     * @param \Generated\Shared\Transfer\AfterpayValidateBankAccountRequestTransfer $bankAccountValidationRequestTransfer
+     *
+     * @return \Generated\Shared\Transfer\AfterpayValidateBankAccountResponseTransfer
+     */
+    public function validateBankAccount(AfterpayValidateBankAccountRequestTransfer $bankAccountValidationRequestTransfer);
 
 }

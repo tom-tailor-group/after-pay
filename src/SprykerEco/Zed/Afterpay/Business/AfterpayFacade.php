@@ -7,6 +7,8 @@
 
 namespace SprykerEco\Zed\Afterpay\Business;
 
+use Generated\Shared\Transfer\AfterpayCustomerLookupRequestTransfer;
+use Generated\Shared\Transfer\AfterpayValidateBankAccountRequestTransfer;
 use Generated\Shared\Transfer\AfterpayValidateCustomerRequestTransfer;
 use Generated\Shared\Transfer\CheckoutResponseTransfer;
 use Generated\Shared\Transfer\ItemTransfer;
@@ -51,6 +53,40 @@ class AfterpayFacade extends AbstractFacade implements AfterpayFacadeInterface
         return $this->getFactory()
             ->createValidateCustomerHandler()
             ->validateCustomer($validateCustomerRequestTransfer);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\AfterpayValidateBankAccountRequestTransfer $validateBankAccountRequestTransfer
+     *
+     * @return \Generated\Shared\Transfer\AfterpayValidateBankAccountResponseTransfer
+     */
+    public function validateBankAccount(
+        AfterpayValidateBankAccountRequestTransfer $validateBankAccountRequestTransfer
+    ) {
+        return $this->getFactory()
+            ->createValidateBankAccountHandler()
+            ->validateBankAccount($validateBankAccountRequestTransfer);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\AfterpayCustomerLookupRequestTransfer $customerLookupRequestTransfer
+     *
+     * @return \Generated\Shared\Transfer\AfterpayCustomerLookupResponseTransfer
+     */
+    public function lookupCustomer(
+        AfterpayCustomerLookupRequestTransfer $customerLookupRequestTransfer
+    ) {
+        return $this->getFactory()
+            ->createLookupCustomerHandler()
+            ->lookupCustomer($customerLookupRequestTransfer);
     }
 
     /**
@@ -146,5 +182,4 @@ class AfterpayFacade extends AbstractFacade implements AfterpayFacadeInterface
             ->createApiAdapter()
             ->getApiStatus();
     }
-
 }

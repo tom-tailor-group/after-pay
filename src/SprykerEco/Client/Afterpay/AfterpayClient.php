@@ -7,6 +7,8 @@
 
 namespace SprykerEco\Client\Afterpay;
 
+use Generated\Shared\Transfer\AfterpayCustomerLookupRequestTransfer;
+use Generated\Shared\Transfer\AfterpayValidateBankAccountRequestTransfer;
 use Generated\Shared\Transfer\AfterpayValidateCustomerRequestTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Spryker\Client\Kernel\AbstractClient;
@@ -63,4 +65,35 @@ class AfterpayClient extends AbstractClient implements AfterpayClientInterface
             ->validateCustomerAddress($validateCustomerRequestTransfer);
     }
 
+    /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\AfterpayCustomerLookupRequestTransfer $customerLookupRequestTransfer
+     *
+     * @return \Generated\Shared\Transfer\AfterpayCustomerLookupResponseTransfer
+     */
+    public function lookupCustomer(AfterpayCustomerLookupRequestTransfer $customerLookupRequestTransfer)
+    {
+        return $this->getFactory()
+            ->createZedStub()
+            ->lookupCustomer($customerLookupRequestTransfer);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\AfterpayValidateBankAccountRequestTransfer $bankAccountValidationRequestTransfer
+     *
+     * @return \Generated\Shared\Transfer\AfterpayValidateBankAccountResponseTransfer
+     */
+    public function validateBankAccount(AfterpayValidateBankAccountRequestTransfer $bankAccountValidationRequestTransfer)
+    {
+        return $this->getFactory()
+            ->createZedStub()
+            ->validateBankAccount($bankAccountValidationRequestTransfer);
+    }
 }

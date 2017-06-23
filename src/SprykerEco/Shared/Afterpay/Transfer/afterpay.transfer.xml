@@ -22,6 +22,67 @@
         <property name="order" type="AfterpayRequestOrder" />
     </transfer>
 
+    <transfer name="AfterpayValidateBankAccountRequest">
+        <property name="bankAccount" type="string" />
+        <property name="bankCode" type="string" />
+        <property name="bankNumber" type="string" />
+    </transfer>
+
+    <transfer name="AfterpayValidateBankAccountResponse">
+        <property name="isValid" type="bool" />
+        <property name="riskCheckMessages" type="AfterpayRiskCheckMessage[]" singular="riskCheckMessage" />
+    </transfer>
+
+    <transfer name="AfterpayRiskCheckMessage">
+        <property name="type" type="string" />
+        <property name="code" type="string" />
+        <property name="message" type="string" />
+        <property name="customerFacingMessage" type="string" />
+        <property name="actionCode" type="string" />
+        <property name="fieldReference" type="string" />
+    </transfer>
+
+    <transfer name="AfterpayValidateBankAccountRequest">
+        <property name="bankAccount" type="string" />
+        <property name="bankCode" type="string" />
+        <property name="bankNumber" type="string" />
+    </transfer>
+
+    <transfer name="AfterpayCustomerLookupRequest">
+        <property name="mobilePhone" type="string" />
+        <property name="countryCode" type="string" />
+        <property name="email" type="string" />
+        <property name="postalCode" type="string" />
+        <property name="identificationNumber" type="string" />
+    </transfer>
+
+    <transfer name="AfterpayCustomerLookupResponse">
+        <property name="userProfiles" type="AfterpayUserProfile[]" singular="userProfile" />
+    </transfer>
+
+    <transfer name="AfterpayUserProfile">
+        <property name="firstName" type="string" />
+        <property name="lastName" type="string" />
+        <property name="mobileNumber" type="string" />
+        <property name="email" type="string" />
+        <property name="languageCode" type="string" />
+        <property name="addressList" type="AfterpayLookupAddress[]" singular="lookupAddress" />
+    </transfer>
+
+    <transfer name="AfterpayLookupAddress">
+        <property name="street" type="string" />
+        <property name="street2" type="string" />
+        <property name="street3" type="string" />
+        <property name="street4" type="string" />
+        <property name="streetNumber" type="string" />
+        <property name="flatNo" type="string" />
+        <property name="entrance" type="string" />
+        <property name="city" type="string" />
+        <property name="postalCode" type="string" />
+        <property name="country" type="string" />
+        <property name="countryCode" type="string" />
+    </transfer>
+
     <transfer name="AfterpayValidateCustomerRequest">
         <property name="customer" type="AfterpayRequestCustomer" />
     </transfer>
