@@ -50,4 +50,9 @@ interface AdapterFactoryInterface
      */
     public function createGetApiStatusCall();
 
+    /**
+     * @return \SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\LookupInstallmentPlansCallInterface
+     */
+    public function createLookupInstallmentPlansCall();
+
 }

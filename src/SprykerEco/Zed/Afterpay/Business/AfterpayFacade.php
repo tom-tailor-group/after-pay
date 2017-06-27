@@ -8,6 +8,7 @@
 namespace SprykerEco\Zed\Afterpay\Business;
 
 use Generated\Shared\Transfer\AfterpayCustomerLookupRequestTransfer;
+use Generated\Shared\Transfer\AfterpayInstallmentPlansRequestTransfer;
 use Generated\Shared\Transfer\AfterpayValidateBankAccountRequestTransfer;
 use Generated\Shared\Transfer\AfterpayValidateCustomerRequestTransfer;
 use Generated\Shared\Transfer\CheckoutResponseTransfer;
@@ -87,6 +88,23 @@ class AfterpayFacade extends AbstractFacade implements AfterpayFacadeInterface
         return $this->getFactory()
             ->createLookupCustomerHandler()
             ->lookupCustomer($customerLookupRequestTransfer);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\AfterpayInstallmentPlansRequestTransfer $installmentPlansRequestTransfer
+     *
+     * @return \Generated\Shared\Transfer\AfterpayInstallmentPlansResponseTransfer
+     */
+    public function lookupInstallmentPlans(
+        AfterpayInstallmentPlansRequestTransfer $installmentPlansRequestTransfer
+    ) {
+        return $this->getFactory()
+            ->createLookupInstallmentPlansHandler()
+            ->lookupInstallmentPlans($installmentPlansRequestTransfer);
     }
 
     /**
@@ -199,4 +217,5 @@ class AfterpayFacade extends AbstractFacade implements AfterpayFacadeInterface
             ->createApiAdapter()
             ->getApiStatus();
     }
+
 }

@@ -26,6 +26,7 @@ class PaymentSubformsFilter implements PaymentSubformsFilterInterface
 
     /**
      * @param \SprykerEco\Yves\Afterpay\AfterpayConfig $config
+     * @param \SprykerEco\Client\Afterpay\AfterpayClientInterface $afterpayClient
      */
     public function __construct(AfterpayConfig $config, AfterpayClientInterface $afterpayClient)
     {

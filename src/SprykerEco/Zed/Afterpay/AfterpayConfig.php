@@ -41,7 +41,6 @@ class AfterpayConfig extends AbstractBundleConfig
         return
             $this->getApiEndpointBaseUrl() .
             AfterpayConstants::API_ENDPOINT_AUTHORIZE_PATH;
-
     }
 
     /**
@@ -52,7 +51,6 @@ class AfterpayConfig extends AbstractBundleConfig
         return
             $this->getApiEndpointBaseUrl() .
             AfterpayConstants::API_ENDPOINT_VALIDATE_ADDRESS_PATH;
-
     }
 
     /**
@@ -63,6 +61,16 @@ class AfterpayConfig extends AbstractBundleConfig
         return
             $this->getApiEndpointBaseUrl() .
             AfterpayConstants::API_ENDPOINT_LOOKUP_CUSTOMER_PATH;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLookupInstallmentPlansApiEndpointUrl()
+    {
+        return
+            $this->getApiEndpointBaseUrl() .
+            AfterpayConstants::API_ENDPOINT_LOOKUP_INSTALLMENT_PLANS_PATH;
     }
 
     /**
@@ -84,7 +92,6 @@ class AfterpayConfig extends AbstractBundleConfig
             $this->getApiEndpointBaseUrl() .
             AfterpayConstants::API_ENDPOINT_API_STATUS_PATH;
     }
-
 
     /**
      * @return string
@@ -137,6 +144,9 @@ class AfterpayConfig extends AbstractBundleConfig
         }
     }
 
+    /**
+     * @return string
+     */
     public function getPaymentAuthorizationFailedUrl()
     {
         return $this->get(AfterpayConstants::AFTERPAY_YVES_AUTHORIZE_PAYMENT_FAILED_URL);

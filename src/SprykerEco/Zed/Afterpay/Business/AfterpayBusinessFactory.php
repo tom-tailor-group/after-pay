@@ -11,6 +11,7 @@ use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 use SprykerEco\Shared\Afterpay\AfterpayConstants;
 use SprykerEco\Zed\Afterpay\AfterpayDependencyProvider;
 use SprykerEco\Zed\Afterpay\Business\AdditionalServices\Handler\LookupCustomerHandler;
+use SprykerEco\Zed\Afterpay\Business\AdditionalServices\Handler\LookupInstallmentPlansHandler;
 use SprykerEco\Zed\Afterpay\Business\AdditionalServices\Handler\ValidateBankAccountHandler;
 use SprykerEco\Zed\Afterpay\Business\AdditionalServices\Handler\ValidateCustomerHandler;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\AdapterFactory;
@@ -28,8 +29,8 @@ use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\AuthorizeTransaction;
 use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Capture\CaptureRequestBuilder;
 use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\CaptureTransaction;
 use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Handler\AuthorizeTransactionHandler;
-use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Logger\TransactionLogger;
 use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Handler\CaptureTransactionHandler;
+use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Logger\TransactionLogger;
 use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\TransactionLogReader;
 
 /**
@@ -160,6 +161,16 @@ class AfterpayBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
+     * @return \SprykerEco\Zed\Afterpay\Business\AdditionalServices\Handler\LookupInstallmentPlansHandlerInterface
+     */
+    public function createLookupInstallmentPlansHandler()
+    {
+        return new LookupInstallmentPlansHandler(
+            $this->createApiAdapter()
+        );
+    }
+
+    /**
      * @return \SprykerEco\Zed\Afterpay\Business\Payment\PaymentWriterInterface
      */
     protected function createPaymentWriter()
@@ -189,7 +200,6 @@ class AfterpayBusinessFactory extends AbstractBusinessFactory
             $this->getUtilEncodingService()
         );
     }
-
 
     /**
      * @return \SprykerEco\Zed\Afterpay\Business\Api\Adapter\AdapterInterface

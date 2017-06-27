@@ -15,6 +15,7 @@ use SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\AuthorizePaymentCall;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\AvailablePaymentMethodsCall;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\CaptureCall;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\LookupCustomerCall;
+use SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\LookupInstallmentPlansCall;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\ValidateBankAccountCall;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\ValidateCustomerCall;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\Client\Http\Guzzle;
@@ -88,6 +89,20 @@ class AdapterFactory extends AbstractBusinessFactory implements AdapterFactoryIn
             $this->createHttpClient(),
             $this->createTransferToCamelCaseArrayConverter(),
             $this->getUtilEncodingService(),
+            $this->getConfig()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\LookupInstallmentPlansCallInterface
+     */
+    public function createLookupInstallmentPlansCall()
+    {
+        return new LookupInstallmentPlansCall(
+            $this->createHttpClient(),
+            $this->createTransferToCamelCaseArrayConverter(),
+            $this->getUtilEncodingService(),
+            $this->getAfterpayToMoneyBridge(),
             $this->getConfig()
         );
     }
@@ -170,4 +185,5 @@ class AdapterFactory extends AbstractBusinessFactory implements AdapterFactoryIn
     {
         return $this->getProvidedDependency(AfterpayDependencyProvider::SERVICE_UTIL_TEXT);
     }
+
 }

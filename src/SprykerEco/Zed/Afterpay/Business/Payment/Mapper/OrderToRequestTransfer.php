@@ -151,6 +151,7 @@ class OrderToRequestTransfer implements OrderToRequestTransferInterface
 
     /**
      * @param \Generated\Shared\Transfer\OrderTransfer $orderWithPaymentTransfer
+     *
      * @return \Generated\Shared\Transfer\AfterpayRequestOrderTransfer
      */
     protected function buildOrderRequestTransfer(OrderTransfer $orderWithPaymentTransfer)

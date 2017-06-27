@@ -9,7 +9,6 @@ namespace SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall;
 
 use Generated\Shared\Transfer\AfterpayApiResponseTransfer;
 use Generated\Shared\Transfer\AfterpayAuthorizeRequestTransfer;
-use SprykerEco\Shared\Afterpay\AfterpayApiConstants;
 use SprykerEco\Shared\Afterpay\AfterpayConstants;
 use SprykerEco\Zed\Afterpay\AfterpayConfig;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\Client\ClientInterface;
@@ -24,6 +23,7 @@ class AuthorizePaymentCall extends AbstractApiCall implements AuthorizePaymentCa
      * @var \SprykerEco\Zed\Afterpay\Business\Api\Adapter\Client\ClientInterface
      */
     protected $client;
+
     /**
      * @var \SprykerEco\Zed\Afterpay\AfterpayConfig
      */

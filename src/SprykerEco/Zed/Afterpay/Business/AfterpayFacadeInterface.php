@@ -8,6 +8,7 @@
 namespace SprykerEco\Zed\Afterpay\Business;
 
 use Generated\Shared\Transfer\AfterpayCustomerLookupRequestTransfer;
+use Generated\Shared\Transfer\AfterpayInstallmentPlansRequestTransfer;
 use Generated\Shared\Transfer\AfterpayValidateBankAccountRequestTransfer;
 use Generated\Shared\Transfer\AfterpayValidateCustomerRequestTransfer;
 use Generated\Shared\Transfer\CheckoutResponseTransfer;
@@ -75,6 +76,19 @@ interface AfterpayFacadeInterface
      */
     public function lookupCustomer(
         AfterpayCustomerLookupRequestTransfer $customerLookupRequestTransfer
+    );
+
+    /**
+     * Specification:
+     *  - Makes "lookup/installment-plans" call to the afterpay API, to get the available installment plans for the specific
+     *  product/basket value. Returns monthly installment amount, interest and fees.
+     *
+     * @param \Generated\Shared\Transfer\AfterpayInstallmentPlansRequestTransfer $installmentPlansRequestTransfer
+     *
+     * @return \Generated\Shared\Transfer\AfterpayInstallmentPlansResponseTransfer
+     */
+    public function lookupInstallmentPlans(
+        AfterpayInstallmentPlansRequestTransfer $installmentPlansRequestTransfer
     );
 
     /**

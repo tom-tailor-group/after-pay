@@ -19,4 +19,22 @@ interface AfterpayApiConstants
     /** Validate bank account call */
     const VALIDATE_BANK_ACCOUNT_IS_VALID = 'isValid';
 
+    /** Lookup installment plans call */
+    const AVAILABLE_PLANS = 'availableInstallmentPlans';
+
+    const BASKET_AMOUNT = "basketAmount";
+    const NUMBER_OF_INSTALLMENTS = "numberOfInstallments";
+    const INSTALLMENT_AMOUNT = "installmentAmount";
+    const FIRST_INSTALLMENT_AMOUNT = "firstInstallmentAmount";
+    const LAST_INSTALLMENT_AMOUNT = "lastInstallmentAmount";
+    const INTEREST_RATE = "interestRate";
+    const EFFECTIVE_INTEREST_RATE = "effectiveInterestRate";
+    const EFFECTIVE_ANNUAL_PERCENTAGE_RATE = "effectiveAnnualPercentageRate";
+    const TOTAL_INTEREST_AMOUNT = "totalInterestAmount";
+    const STARTUP_FEE = "startupFee";
+    const MONTHLY_FEE = "monthlyFee";
+    const TOTAL_AMOUNT = "totalAmount";
+    const INSTALLMENT_PROFILE_NUMBER = "installmentProfileNumber";
+    const READ_MORE = "readMore";
+
 }

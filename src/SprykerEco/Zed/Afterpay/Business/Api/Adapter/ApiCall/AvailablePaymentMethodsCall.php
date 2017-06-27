@@ -22,6 +22,7 @@ class AvailablePaymentMethodsCall extends AbstractApiCall implements AvailablePa
      * @var \SprykerEco\Zed\Afterpay\Business\Api\Adapter\Client\ClientInterface
      */
     protected $client;
+
     /**
      * @var \SprykerEco\Zed\Afterpay\AfterpayConfig
      */
@@ -111,6 +112,7 @@ class AvailablePaymentMethodsCall extends AbstractApiCall implements AvailablePa
 
         return $riskCheckResultCode;
     }
+
     /**
      * @param array $jsonResponseArray
      *

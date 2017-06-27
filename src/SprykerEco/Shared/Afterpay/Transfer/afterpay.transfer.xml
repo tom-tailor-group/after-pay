@@ -66,6 +66,31 @@
         <property name="userProfiles" type="AfterpayUserProfile[]" singular="userProfile" />
     </transfer>
 
+    <transfer name="AfterpayInstallmentPlansRequest">
+        <property name="amount" type="int" />
+    </transfer>
+
+    <transfer name="AfterpayInstallmentPlansResponse">
+        <property name="installmentPlans" type="AfterpayInstallmentPlan[]" singular="installmentPlan" />
+    </transfer>
+
+    <transfer name="AfterpayInstallmentPlan">
+        <property name="basketAmount" type="int" />
+        <property name="numberOfInstallments" type="int" />
+        <property name="installmentAmount" type="int" />
+        <property name="firstInstallmentAmount" type="int" />
+        <property name="lastInstallmentAmount" type="int" />
+        <property name="interestRate" type="string" />
+        <property name="effectiveInterestRate" type="string" />
+        <property name="effectiveAnnualPercentageRate" type="string" />
+        <property name="totalInterestAmount" type="int" />
+        <property name="startupFee" type="string" />
+        <property name="monthlyFee" type="int" />
+        <property name="totalAmount" type="int" />
+        <property name="installmentProfileNumber" type="int" />
+        <property name="readMore" type="string" />
+    </transfer>
+
     <transfer name="AfterpayUserProfile">
         <property name="firstName" type="string" />
         <property name="lastName" type="string" />

@@ -26,7 +26,6 @@ interface PaymentWriterInterface
      */
     public function setAuthorizedTotalByIdSalesOrder($authorizedTotal, $idSalesOrder);
 
-
     /**
      * @param int $amountToAdd
      * @param int $idSalesOrder

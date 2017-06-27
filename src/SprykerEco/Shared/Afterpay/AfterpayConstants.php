@@ -38,6 +38,7 @@ interface AfterpayConstants
     const API_ENDPOINT_AUTHORIZE_PATH = 'checkout/authorize';
     const API_ENDPOINT_VALIDATE_ADDRESS_PATH = 'validate/address';
     const API_ENDPOINT_LOOKUP_CUSTOMER_PATH = 'lookup/customer';
+    const API_ENDPOINT_LOOKUP_INSTALLMENT_PLANS_PATH = 'lookup/installment-plans';
     const API_ENDPOINT_VALIDATE_BANK_ACCOUNT_PATH = 'validate/bank-account';
     const API_ENDPOINT_API_STATUS_PATH = 'status';
     const API_ENDPOINT_API_VERSION_PATH = 'version';

@@ -72,7 +72,6 @@ class PaymentWriter implements PaymentWriterInterface
             ->save();
     }
 
-
     /**
      * @param int $idSalesOrder
      *
@@ -86,4 +85,5 @@ class PaymentWriter implements PaymentWriterInterface
 
         return $afterpayPaymentEntity;
     }
+
 }

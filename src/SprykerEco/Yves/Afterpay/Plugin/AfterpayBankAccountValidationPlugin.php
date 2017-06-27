@@ -7,9 +7,7 @@
 
 namespace SprykerEco\Yves\Afterpay\Plugin;
 
-use Generated\Shared\Transfer\AfterpayCustomerLookupRequestTransfer;
 use Generated\Shared\Transfer\AfterpayValidateBankAccountRequestTransfer;
-use Generated\Shared\Transfer\AfterpayValidateCustomerRequestTransfer;
 use Spryker\Yves\Kernel\AbstractPlugin;
 
 /**

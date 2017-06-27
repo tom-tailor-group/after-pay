@@ -23,7 +23,7 @@ class OneStepAuthorizeWorkflow extends AbstractAfterpayAuthorizeWorkflow impleme
     }
 
     /**
-     * @param \Spryker\Yves\StepEngine\Dependency\Form\SubFormInterface[]
+     * @param \Spryker\Yves\StepEngine\Dependency\Form\SubFormInterface[] $paymentSubforms
      *
      * @return \Spryker\Yves\StepEngine\Dependency\Form\SubFormInterface[]
      */

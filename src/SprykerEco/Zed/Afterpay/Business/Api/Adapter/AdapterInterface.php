@@ -11,6 +11,7 @@ use Generated\Shared\Transfer\AfterpayAuthorizeRequestTransfer;
 use Generated\Shared\Transfer\AfterpayAvailablePaymentMethodsRequestTransfer;
 use Generated\Shared\Transfer\AfterpayCaptureRequestTransfer;
 use Generated\Shared\Transfer\AfterpayCustomerLookupRequestTransfer;
+use Generated\Shared\Transfer\AfterpayInstallmentPlansRequestTransfer;
 use Generated\Shared\Transfer\AfterpayValidateBankAccountRequestTransfer;
 use Generated\Shared\Transfer\AfterpayValidateCustomerRequestTransfer;
 
@@ -62,6 +63,15 @@ interface AdapterInterface
      */
     public function sendLookupCustomerRequest(
         AfterpayCustomerLookupRequestTransfer $customerLookupRequestTransfer
+    );
+
+    /**
+     * @param \Generated\Shared\Transfer\AfterpayInstallmentPlansRequestTransfer $installmentPlansRequestTransfer
+     *
+     * @return \Generated\Shared\Transfer\AfterpayInstallmentPlansResponseTransfer
+     */
+    public function sendLookupInstallmentPlansRequest(
+        AfterpayInstallmentPlansRequestTransfer $installmentPlansRequestTransfer
     );
 
     /**
