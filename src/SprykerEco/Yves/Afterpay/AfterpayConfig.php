@@ -14,7 +14,7 @@ class AfterpayConfig extends AbstractBundleConfig
 {
 
     /**
-     * @return string
+     * @return array
      */
     public function getSubformToPaymentMethodMapping()
     {

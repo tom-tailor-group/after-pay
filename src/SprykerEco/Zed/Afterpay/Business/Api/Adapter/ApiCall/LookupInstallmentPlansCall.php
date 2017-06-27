@@ -108,6 +108,10 @@ class LookupInstallmentPlansCall extends AbstractApiCall implements LookupInstal
 
         $responseTransfer = new AfterpayInstallmentPlansResponseTransfer();
 
+        if (!isset($jsonResponseArray[AfterpayApiConstants::AVAILABLE_PLANS])) {
+            return $responseTransfer;
+        }
+
         foreach ($jsonResponseArray[AfterpayApiConstants::AVAILABLE_PLANS] as $planArray) {
             $responseTransfer->addInstallmentPlan(
                 $this->buildInstallmentPlanTransfer($planArray)

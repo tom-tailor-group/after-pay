@@ -33,11 +33,4 @@ interface AfterpayAuthorizeWorkflowInterface
      */
     public function addPaymentDataToQuote(QuoteTransfer $quoteTransfer);
 
-    /**
-     * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
-     *
-     * @return \Generated\Shared\Transfer\QuoteTransfer
-     */
-    public function expandQuoteAfterPaymentStep(QuoteTransfer $quoteTransfer);
-
 }

@@ -11,7 +11,7 @@ use Spryker\Yves\StepEngine\Dependency\Form\SubFormInterface;
 use SprykerEco\Client\Afterpay\AfterpayClientInterface;
 use SprykerEco\Yves\Afterpay\AfterpayConfig;
 
-class PaymentSubformsFilter implements PaymentSubformsFilterInterface
+class PaymentSubformsFilterStep implements PaymentSubformsFilterStepInterface
 {
 
     /**

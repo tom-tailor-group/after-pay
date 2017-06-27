@@ -11,7 +11,7 @@ use Spryker\Yves\Kernel\AbstractFactory;
 use SprykerEco\Shared\Afterpay\AfterpayConstants;
 use SprykerEco\Yves\Afterpay\AuthorizeWorkflow\OneStepAuthorizeWorkflow;
 use SprykerEco\Yves\Afterpay\AuthorizeWorkflow\Steps\AvailablePaymentMethodsStep;
-use SprykerEco\Yves\Afterpay\AuthorizeWorkflow\Steps\PaymentSubformsFilter;
+use SprykerEco\Yves\Afterpay\AuthorizeWorkflow\Steps\PaymentSubformsFilterStep;
 use SprykerEco\Yves\Afterpay\AuthorizeWorkflow\TwoStepsAuthorizeWorkflow;
 use SprykerEco\Yves\Afterpay\Form\DataProvider\InvoiceDataProvider;
 use SprykerEco\Yves\Afterpay\Form\InvoiceSubForm;
@@ -112,11 +112,11 @@ class AfterpayFactory extends AbstractFactory
     }
 
     /**
-     * @return \SprykerEco\Yves\Afterpay\AuthorizeWorkflow\Steps\PaymentSubformsFilterInterface
+     * @return \SprykerEco\Yves\Afterpay\AuthorizeWorkflow\Steps\PaymentSubformsFilterStepInterface
      */
     protected function createPaymentSubformsFilter()
     {
-        return new PaymentSubformsFilter(
+        return new PaymentSubformsFilterStep(
             $this->getYvesConfig(),
             $this->getAfterpayClient()
         );
