@@ -55,9 +55,7 @@ class TwoStepsAuthorizeRequestBuilder implements AuthorizeRequestBuilderInterfac
                 $orderWithPaymentTransfer->getIdSalesOrder()
             );
 
-//        $this->addOrderNumber($authorizeRequestTransfer, $orderWithPaymentTransfer);
         $this->addCheckoutId($authorizeRequestTransfer, $orderWithPaymentTransfer);
-//        $this->addPaymentDetails($authorizeRequestTransfer, $orderWithPaymentTransfer);
 
         return $authorizeRequestTransfer;
     }

@@ -10,6 +10,7 @@ namespace SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall;
 use Generated\Shared\Transfer\AfterpayRequestAddressTransfer;
 use Generated\Shared\Transfer\AfterpayValidateCustomerRequestTransfer;
 use Generated\Shared\Transfer\AfterpayValidateCustomerResponseTransfer;
+use SprykerEco\Shared\Afterpay\AfterpayApiConstants;
 use SprykerEco\Zed\Afterpay\AfterpayConfig;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\Client\ClientInterface;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\Converter\TransferToCamelCaseArrayConverterInterface;
@@ -93,7 +94,7 @@ class ValidateCustomerCall extends AbstractApiCall implements ValidateCustomerCa
             ->setCorrectedAddress(
                 $this->parseCorrectedAddress($jsonResponseArray)
             )
-            ->setIsValid($jsonResponseArray['isValid'] ?? false)
+            ->setIsValid($jsonResponseArray[AfterpayApiConstants::VALIDATE_ADDRESS_IS_VALID] ?? false)
             ->setResponsePayload($jsonResponse);
 
         return $responseTransfer;
@@ -121,12 +122,12 @@ class ValidateCustomerCall extends AbstractApiCall implements ValidateCustomerCa
      */
     protected function extractAddressDataWithUnderscoreKeys(array $jsonResponseArray)
     {
-        if (!isset($jsonResponseArray['correctedAddress'])) {
+        if (!isset($jsonResponseArray[AfterpayApiConstants::CORRECTED_ADDRESS])) {
             return [];
         }
 
         $addressWithUnderscoreKeys = [];
-        foreach ($jsonResponseArray['correctedAddress'] as $key => $value) {
+        foreach ($jsonResponseArray[AfterpayApiConstants::CORRECTED_ADDRESS] as $key => $value) {
             $keyWithUnderscore = $this->utilText->camelCaseToSeparator($key, '_');
             $addressWithUnderscoreKeys[$keyWithUnderscore] = $value;
         }

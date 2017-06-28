@@ -10,6 +10,18 @@ namespace SprykerEco\Shared\Afterpay;
 interface AfterpayApiConstants
 {
 
+    /** Transactional calls */
+    const TRANSACTION_OUTCOME = 'outcome';
+    const TRANSACTION_RESERVATION_ID = 'reservationId';
+    const TRANSACTION_CHECKOUT_ID = 'checkoutId';
+
+    /** Available payment methods */
+    const PAYMENT_METHODS = 'paymentMethods';
+    const ADDITIONAL_RESPONSE_INFO = 'additionalResponseInfo';
+    const RISK_CHECK_CODE = 'rsS_RiskCheck_ResultCode';
+    const CUSTOMER = 'customer';
+    const CUSTOMER_NUMBER = 'customer';
+
     /** Capture call */
     const CAPTURE_CAPTURED_AMOUNT = 'capturedAmount';
     const CAPTURE_AUTHORIZED_AMOUNT = 'authorizedAmount';
@@ -18,6 +30,10 @@ interface AfterpayApiConstants
 
     /** Validate bank account call */
     const VALIDATE_BANK_ACCOUNT_IS_VALID = 'isValid';
+
+    /** Validate address call */
+    const VALIDATE_ADDRESS_IS_VALID = 'isValid';
+    const CORRECTED_ADDRESS = 'correctedAddress';
 
     /** Lookup customer call */
     const USER_PROFILES = 'userProfiles';
@@ -57,5 +73,7 @@ interface AfterpayApiConstants
     const INSTALLMENT_PROFILE_NUMBER = "installmentProfileNumber";
     const READ_MORE = "readMore";
 
+    /** Technical calls */
+    const API_VERSION = 'version';
 
 }
