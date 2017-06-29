@@ -18,10 +18,10 @@ use SprykerEco\Shared\Afterpay\AfterpayConstants;
  * @method \SprykerEco\Zed\Afterpay\Persistence\AfterpayQueryContainer getQueryContainer()
  * @method \SprykerEco\Zed\Afterpay\Communication\AfterpayCommunicationFactory getFactory()
  */
-class IsCaptureCompletedPlugin extends AbstractPlugin implements ConditionInterface
+class IsCancellationCompletedPlugin extends AbstractPlugin implements ConditionInterface
 {
 
-    const CAPTURE_TRANSACTION_ACCEPTED = AfterpayConstants::API_TRANSACTION_OUTCOME_ACCEPTED;
+    const CANCEL_TRANSACTION_ACCEPTED = AfterpayConstants::API_TRANSACTION_OUTCOME_ACCEPTED;
 
     /**
      * @api
@@ -32,7 +32,7 @@ class IsCaptureCompletedPlugin extends AbstractPlugin implements ConditionInterf
      */
     public function check(SpySalesOrderItem $orderItem)
     {
-        return $this->isCaptureTransactionSuccessful($orderItem->getFkSalesOrder());
+        return $this->isCancelTransactionSuccessful($orderItem->getFkSalesOrder());
     }
 
     /**
@@ -40,14 +40,14 @@ class IsCaptureCompletedPlugin extends AbstractPlugin implements ConditionInterf
      *
      * @return bool
      */
-    protected function isCaptureTransactionSuccessful($idSalesOrder)
+    protected function isCancelTransactionSuccessful($idSalesOrder)
     {
-        $captureTransactionLog = $this->getFullCaptureTransactionLogEntry($idSalesOrder);
-        if ($captureTransactionLog === null) {
+        $fullCancelTransactionLog = $this->getCancelTransactionLogEntry($idSalesOrder);
+        if ($fullCancelTransactionLog === null) {
             return false;
         }
 
-        return $this->isTransactionSuccessful($captureTransactionLog);
+        return $this->isTransactionSuccessful($fullCancelTransactionLog);
     }
 
     /**
@@ -55,21 +55,21 @@ class IsCaptureCompletedPlugin extends AbstractPlugin implements ConditionInterf
      *
      * @return \Orm\Zed\Afterpay\Persistence\SpyPaymentAfterpayTransactionLog|null
      */
-    protected function getFullCaptureTransactionLogEntry($idSalesOrder)
+    protected function getCancelTransactionLogEntry($idSalesOrder)
     {
-        $transactionLogQuery = $this->getQueryContainer()->queryCaptureTransactionLog($idSalesOrder);
+        $transactionLogQuery = $this->getQueryContainer()->queryCancelTransactionLog($idSalesOrder);
 
         return $transactionLogQuery->findOne();
     }
 
     /**
-     * @param \Orm\Zed\Afterpay\Persistence\SpyPaymentAfterpayTransactionLog $captureTransactionLog
+     * @param \Orm\Zed\Afterpay\Persistence\SpyPaymentAfterpayTransactionLog $fullCancelTransactionLog
      *
      * @return bool
      */
-    protected function isTransactionSuccessful(SpyPaymentAfterpayTransactionLog $captureTransactionLog)
+    protected function isTransactionSuccessful(SpyPaymentAfterpayTransactionLog $fullCancelTransactionLog)
     {
-        return $captureTransactionLog->getOutcome() === static::CAPTURE_TRANSACTION_ACCEPTED;
+        return $fullCancelTransactionLog->getOutcome() === static::CANCEL_TRANSACTION_ACCEPTED;
     }
 
 }

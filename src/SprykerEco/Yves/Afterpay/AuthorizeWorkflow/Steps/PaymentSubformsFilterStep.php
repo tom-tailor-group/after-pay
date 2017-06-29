@@ -90,7 +90,7 @@ class PaymentSubformsFilterStep implements PaymentSubformsFilterStepInterface
      */
     protected function getSubformPaymentMethod(SubFormInterface $subform)
     {
-        $subformNameToPaymentMethodMapping = $this->config->getSubformToPaymentMethodMapping();
+        $subformNameToPaymentMethodMapping = $this->config->getSubFormToPaymentMethodMapping();
         $subformName = $subform->getName();
 
         return $subformNameToPaymentMethodMapping[$subformName] ?? null;

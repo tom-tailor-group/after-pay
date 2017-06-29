@@ -71,6 +71,9 @@ class AuthorizePaymentCall extends AbstractApiCall implements AuthorizePaymentCa
     }
 
     /**
+     *
+     * @todo think about renaming jsonResponseArray to for example apiResponse
+     *
      * @param string $jsonResponse
      *
      * @return \Generated\Shared\Transfer\AfterpayApiResponseTransfer

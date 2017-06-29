@@ -13,6 +13,11 @@ interface AddressValidationPluginInterface
 {
 
     /**
+     *
+     * @todo all plugins should have api tag
+     *
+     * @api
+     *
      * @param \Generated\Shared\Transfer\AfterpayValidateCustomerRequestTransfer $validateCustomerRequestTransfer
      *
      * @return \Generated\Shared\Transfer\AfterpayValidateCustomerResponseTransfer

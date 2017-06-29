@@ -36,11 +36,11 @@ class AfterpayDependencyProvider extends AbstractBundleDependencyProvider
     protected function provideClients(Container $container)
     {
         $container[static::CLIENT_AFTERPAY] = function (Container $container) {
-            return $container->getLocator()->afterpay()->client();
+            return $container->getLocator()->afterpay()->client(); //@todo same module clients are accessible by module factory.
         };
 
         $container[static::CLIENT_QUOTE] = function (Container $container) {
-            return $container->getLocator()->quote()->client();
+            return $container->getLocator()->quote()->client(); //@todo use bridge
         };
 
         return $container;

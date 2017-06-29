@@ -18,7 +18,7 @@ class AfterpayDependencyProvider extends AbstractDependencyProvider
 {
 
     const CLIENT_LOCALE = 'client locale';
-    const CLIENT_SESSION = SessionClientServiceProvider::CLIENT_SESSION;
+    const CLIENT_SESSION = SessionClientServiceProvider::CLIENT_SESSION; // todo remove mentioning of SessionClientServiceProvider
     const CLIENT_ZED_REQUEST = ZedRequestClientServiceProvider::CLIENT_ZED_REQUEST;
     const CLIENT_QUOTE = 'client quote';
 
@@ -38,7 +38,7 @@ class AfterpayDependencyProvider extends AbstractDependencyProvider
         };
 
         $container[static::CLIENT_ZED_REQUEST] = function (Container $container) {
-            return $container->getLocator()->zedRequest()->client();
+            return $container->getLocator()->zedRequest()->client(); //bridge missing
         };
 
         return $container;

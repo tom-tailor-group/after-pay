@@ -18,6 +18,9 @@ use Spryker\Shared\Kernel\Store;
 use SprykerEco\Shared\Afterpay\AfterpayConstants;
 use SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToMoneyInterface;
 
+
+//@todo extract shared behaviour between quote and order transfers if possible
+
 class QuoteToRequestTransfer implements QuoteToRequestTransferInterface
 {
 

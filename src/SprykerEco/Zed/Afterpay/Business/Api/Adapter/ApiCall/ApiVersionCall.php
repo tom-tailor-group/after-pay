@@ -84,6 +84,9 @@ class ApiVersionCall implements ApiVersionCallInterface
     }
 
     /**
+     *
+     * @todo extract logging to custom logger trait
+     *
      * @param \SprykerEco\Zed\Afterpay\Business\Exception\ApiHttpRequestException $apiHttpRequestException
      *
      * @return void

@@ -10,6 +10,8 @@
         <property name="customerNumber" type="string" />
         <property name="idReservation" type="string" />
         <property name="capturedTotal" type="int" />
+        <property name="authorizedTotal" type="int" />
+        <property name="cancelledTotal" type="int" />
         <property name="expenseTotal" type="int" />
     </transfer>
 
@@ -140,6 +142,20 @@
         <property name="remainingAuthorizedAmount" type="int" />
     </transfer>
 
+    <transfer name="AfterpayCancelRequest">
+        <property name="idSalesOrder" type="int" />
+        <property name="fkPayment" type="int" />
+        <property name="orderNumber" type="string" />
+        <property name="cancellationDetails" type="AfterpayRequestOrder" />
+    </transfer>
+
+    <transfer name="AfterpayCancelResponse">
+        <property name="idSalesOrder" type="int" />
+        <property name="apiResponse" type="AfterpayApiResponse" />
+        <property name="totalAuthorizedAmount" type="int" />
+        <property name="totalCapturedAmount" type="int" />
+    </transfer>
+
     <transfer name="AfterpayRequestPayment">
         <property name="type" type="string" />
     </transfer>
@@ -224,6 +240,7 @@
     </transfer>
 
     <transfer name="Quote">
+        <!-- @todo check if possible to move that to payment property. -->
         <property name="afterpayAvailablePaymentMethods" type="AfterpayAvailablePaymentMethods" />
     </transfer>
 

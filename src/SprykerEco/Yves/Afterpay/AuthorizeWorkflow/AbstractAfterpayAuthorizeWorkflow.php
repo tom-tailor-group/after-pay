@@ -23,6 +23,7 @@ class AbstractAfterpayAuthorizeWorkflow
     ];
 
     /**
+     * @todo check why its similar to \SprykerEco\Yves\Afterpay\Handler\AfterpayHandler, extract what varies.
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
      *
      * @return \Generated\Shared\Transfer\QuoteTransfer

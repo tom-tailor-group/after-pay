@@ -121,6 +121,21 @@ interface AfterpayFacadeInterface
 
     /**
      * Specification:
+     * - Sends "void" request to Afterpay gateway, to cancel payment for a specific order item, before payment is captured
+     * - If it is the last item cancellation request for given order, cancels also full expense amount.
+     * - Saves the transaction result in DB and updates payment with new total cancelled amount.
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
+     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
+     *
+     * @return \Generated\Shared\Transfer\AfterpayResponseTransfer
+     */
+    public function cancelPayment(ItemTransfer $itemTransfer, OrderTransfer $orderTransfer);
+
+    /**
+     * Specification:
      * - Saves order payment method data according to quote and checkout response transfer data.
      *
      * @api

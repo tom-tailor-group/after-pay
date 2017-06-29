@@ -25,6 +25,7 @@ class AfterpayDependencyProvider extends AbstractBundleDependencyProvider
 
     const SERVICE_UTIL_ENCODING = 'util encoding service';
     const SERVICE_UTIL_TEXT = 'util text service';
+
     const CURRENT_STORE = 'current store';
 
     /**
@@ -38,27 +39,35 @@ class AfterpayDependencyProvider extends AbstractBundleDependencyProvider
             return new AfterpayToMoneyBridge($container->getLocator()->money()->facade());
         };
 
-        $container[self::FACADE_SALES] = function (Container $container) {
+        $container[static::FACADE_SALES] = function (Container $container) {
             return new AfterpayToSalesBridge($container->getLocator()->sales()->facade());
         };
 
-        $container[self::FACADE_CUSTOMER] = function (Container $container) {
+        $container[static::FACADE_CUSTOMER] = function (Container $container) {
             return new AfterpayToCustomerBridge($container->getLocator()->customer()->facade());
         };
 
-        $container[self::SERVICE_UTIL_ENCODING] = function (Container $container) {
+        $container[static::SERVICE_UTIL_ENCODING] = function (Container $container) {
             return new AfterpayToUtilEncodingBridge($container->getLocator()->utilEncoding()->service());
         };
 
-        $container[self::SERVICE_UTIL_TEXT] = function (Container $container) {
+        $container[static::SERVICE_UTIL_TEXT] = function (Container $container) {
             return new AfterpayToUtilTextBridge($container->getLocator()->utilText()->service());
         };
 
-        $container[self::CURRENT_STORE] = function (Container $container) {
-            return Store::getInstance();
+        $container[static::CURRENT_STORE] = function (Container $container) {
+            return $this->getStore();
         };
 
         return $container;
+    }
+
+    /**
+     * @return \Spryker\Shared\Kernel\Store
+     */
+    protected function getStore()
+    {
+        return Store::getInstance();
     }
 
     /**
@@ -68,7 +77,7 @@ class AfterpayDependencyProvider extends AbstractBundleDependencyProvider
      */
     public function provideCommunicationLayerDependencies(Container $container)
     {
-        $container[self::FACADE_SALES] = function (Container $container) {
+        $container[static::FACADE_SALES] = function (Container $container) {
             return new AfterpayToSalesBridge($container->getLocator()->sales()->facade());
         };
 

@@ -22,6 +22,8 @@ class AfterpayConfig extends AbstractBundleConfig
     }
 
     /**
+     * @todo maybe extract concatenation to method
+     *
      * @param string $orderNumber
      *
      * @return string
@@ -31,6 +33,20 @@ class AfterpayConfig extends AbstractBundleConfig
         return
             $this->getApiEndpointBaseUrl() .
             sprintf(AfterpayConstants::API_ENDPOINT_CAPTURE_PATH, $orderNumber);
+    }
+
+    /**
+     * @todo maybe extract concatenation to method
+     *
+     * @param string $orderNumber
+     *
+     * @return string
+     */
+    public function getCancelApiEndpointUrl($orderNumber)
+    {
+        return
+            $this->getApiEndpointBaseUrl() .
+            sprintf(AfterpayConstants::API_ENDPOINT_CANCEL_PATH, $orderNumber);
     }
 
     /**

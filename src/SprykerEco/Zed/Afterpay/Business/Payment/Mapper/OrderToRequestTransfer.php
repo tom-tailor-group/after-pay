@@ -8,6 +8,7 @@
 namespace SprykerEco\Zed\Afterpay\Business\Payment\Mapper;
 
 use Generated\Shared\Transfer\AfterpayAuthorizeRequestTransfer;
+use Generated\Shared\Transfer\AfterpayCancelRequestTransfer;
 use Generated\Shared\Transfer\AfterpayCaptureRequestTransfer;
 use Generated\Shared\Transfer\AfterpayRequestAddressTransfer;
 use Generated\Shared\Transfer\AfterpayRequestCustomerTransfer;
@@ -88,6 +89,26 @@ class OrderToRequestTransfer implements OrderToRequestTransferInterface
         $requestTransfer
             ->setIdSalesOrder($orderTransfer->getIdSalesOrder())
             ->setOrderDetails(
+                $this->buildOrderRequestTransfer($orderTransfer)
+                    ->setTotalGrossAmount(0)
+                    ->setTotalNetAmount(0)
+            );
+
+        return $requestTransfer;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
+     *
+     * @return \Generated\Shared\Transfer\AfterpayCancelRequestTransfer
+     */
+    public function orderToBaseCancelRequest(OrderTransfer $orderTransfer)
+    {
+        $requestTransfer = new AfterpayCancelRequestTransfer();
+
+        $requestTransfer
+            ->setIdSalesOrder($orderTransfer->getIdSalesOrder())
+            ->setCancellationDetails(
                 $this->buildOrderRequestTransfer($orderTransfer)
                     ->setTotalGrossAmount(0)
                     ->setTotalNetAmount(0)

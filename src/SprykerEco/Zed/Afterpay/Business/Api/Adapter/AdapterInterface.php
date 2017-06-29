@@ -9,6 +9,7 @@ namespace SprykerEco\Zed\Afterpay\Business\Api\Adapter;
 
 use Generated\Shared\Transfer\AfterpayAuthorizeRequestTransfer;
 use Generated\Shared\Transfer\AfterpayAvailablePaymentMethodsRequestTransfer;
+use Generated\Shared\Transfer\AfterpayCancelRequestTransfer;
 use Generated\Shared\Transfer\AfterpayCaptureRequestTransfer;
 use Generated\Shared\Transfer\AfterpayCustomerLookupRequestTransfer;
 use Generated\Shared\Transfer\AfterpayInstallmentPlansRequestTransfer;
@@ -81,6 +82,15 @@ interface AdapterInterface
      */
     public function sendCaptureRequest(
         AfterpayCaptureRequestTransfer $captureRequestTransfer
+    );
+
+    /**
+     * @param \Generated\Shared\Transfer\AfterpayCancelRequestTransfer $cancelRequestTransfer
+     *
+     * @return \Generated\Shared\Transfer\AfterpayCancelResponseTransfer
+     */
+    public function sendCancelRequest(
+        AfterpayCancelRequestTransfer $cancelRequestTransfer
     );
 
     /**

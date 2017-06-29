@@ -5,9 +5,9 @@
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
 
-namespace SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Capture;
+namespace SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Cancel;
 
-use Generated\Shared\Transfer\AfterpayCaptureRequestTransfer;
+use Generated\Shared\Transfer\AfterpayCancelRequestTransfer;
 use Generated\Shared\Transfer\AfterpayRequestOrderItemTransfer;
 use Generated\Shared\Transfer\ItemTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
@@ -15,7 +15,7 @@ use SprykerEco\Shared\Afterpay\AfterpayConstants;
 use SprykerEco\Zed\Afterpay\Business\Payment\Mapper\OrderToRequestTransferInterface;
 use SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToMoneyInterface;
 
-class CaptureRequestBuilder implements CaptureRequestBuilderInterface
+class CancelRequestBuilder implements CancelRequestBuilderInterface
 {
 
     /**
@@ -43,75 +43,75 @@ class CaptureRequestBuilder implements CaptureRequestBuilderInterface
     /**
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
      *
-     * @return \Generated\Shared\Transfer\AfterpayCaptureRequestTransfer
+     * @return \Generated\Shared\Transfer\AfterpayCancelRequestTransfer
      */
-    public function buildBaseCaptureRequestForOrder(OrderTransfer $orderTransfer)
+    public function buildBaseCancelRequestForOrder(OrderTransfer $orderTransfer)
     {
-        $captureRequestTransfer = $this->orderToRequestMapper
-            ->orderToBaseCaptureRequest($orderTransfer);
+        $cancelRequestTransfer = $this->orderToRequestMapper
+            ->orderToBaseCancelRequest($orderTransfer);
 
-        return $captureRequestTransfer;
+        return $cancelRequestTransfer;
     }
 
     /**
      * @param \Generated\Shared\Transfer\ItemTransfer $orderItemTransfer
-     * @param \Generated\Shared\Transfer\AfterpayCaptureRequestTransfer $captureRequestTransfer
+     * @param \Generated\Shared\Transfer\AfterpayCancelRequestTransfer $cancelRequestTransfer
      *
      * @return $this
      */
-    public function addOrderItemToCaptureRequest(
+    public function addOrderItemToCancelRequest(
         ItemTransfer $orderItemTransfer,
-        AfterpayCaptureRequestTransfer $captureRequestTransfer
+        AfterpayCancelRequestTransfer $cancelRequestTransfer
     ) {
         $orderItemRequestTransfer = $this->orderToRequestMapper->orderItemToAfterpayItemRequest($orderItemTransfer);
 
-        $this->addOrderItemToOrderDetails($orderItemRequestTransfer, $captureRequestTransfer);
-        $this->increaseTotalToCaptureAmounts($orderItemRequestTransfer, $captureRequestTransfer);
+        $this->addOrderItemToOrderDetails($orderItemRequestTransfer, $cancelRequestTransfer);
+        $this->increaseTotalToCancelAmounts($orderItemRequestTransfer, $cancelRequestTransfer);
 
         return $this;
     }
 
     /**
      * @param int $expenseAmount
-     * @param \Generated\Shared\Transfer\AfterpayCaptureRequestTransfer $captureRequestTransfer
+     * @param \Generated\Shared\Transfer\AfterpayCancelRequestTransfer $cancelRequestTransfer
      *
      * @return $this
      */
-    public function addOrderExpenseToCaptureRequest(
+    public function addOrderExpenseToCancelRequest(
         $expenseAmount,
-        AfterpayCaptureRequestTransfer $captureRequestTransfer
+        AfterpayCancelRequestTransfer $cancelRequestTransfer
     ) {
         $expenseItemRequestTransfer = $this->buildExpenseItemTransfer($expenseAmount);
-        $this->addOrderItemToCaptureRequest($expenseItemRequestTransfer, $captureRequestTransfer);
+        $this->addOrderItemToCancelRequest($expenseItemRequestTransfer, $cancelRequestTransfer);
 
         return $this;
     }
 
     /**
      * @param \Generated\Shared\Transfer\AfterpayRequestOrderItemTransfer $orderItemRequestTransfer
-     * @param \Generated\Shared\Transfer\AfterpayCaptureRequestTransfer $captureRequestTransfer
+     * @param \Generated\Shared\Transfer\AfterpayCancelRequestTransfer $cancelRequestTransfer
      *
      * @return void
      */
     protected function addOrderItemToOrderDetails(
         AfterpayRequestOrderItemTransfer $orderItemRequestTransfer,
-        AfterpayCaptureRequestTransfer $captureRequestTransfer
+        AfterpayCancelRequestTransfer $cancelRequestTransfer
     ) {
-        $captureRequestTransfer->getOrderDetails()->addItem($orderItemRequestTransfer);
+        $cancelRequestTransfer->getCancellationDetails()->addItem($orderItemRequestTransfer);
     }
 
     /**
      * @param \Generated\Shared\Transfer\AfterpayRequestOrderItemTransfer $orderItemRequestTransfer
-     * @param \Generated\Shared\Transfer\AfterpayCaptureRequestTransfer $captureRequestTransfer
+     * @param \Generated\Shared\Transfer\AfterpayCancelRequestTransfer $cancelRequestTransfer
      *
      * @return void
      */
-    protected function increaseTotalToCaptureAmounts(
+    protected function increaseTotalToCancelAmounts(
         AfterpayRequestOrderItemTransfer $orderItemRequestTransfer,
-        AfterpayCaptureRequestTransfer $captureRequestTransfer
+        AfterpayCancelRequestTransfer $cancelRequestTransfer
     ) {
-        $this->increaseTotalNetAmount($orderItemRequestTransfer, $captureRequestTransfer);
-        $this->increaseTotalGrossAmount($orderItemRequestTransfer, $captureRequestTransfer);
+        $this->increaseTotalNetAmount($orderItemRequestTransfer, $cancelRequestTransfer);
+        $this->increaseTotalGrossAmount($orderItemRequestTransfer, $cancelRequestTransfer);
     }
 
     /**
@@ -122,8 +122,8 @@ class CaptureRequestBuilder implements CaptureRequestBuilderInterface
     protected function buildExpenseItemTransfer($expenseAmount)
     {
         return (new ItemTransfer())
-            ->setSku(AfterpayConstants::CAPTURE_EXPENSE_SKU)
-            ->setName(AfterpayConstants::CAPTURE_EXPENSE_DESCRIPTION)
+            ->setSku(AfterpayConstants::CANCEL_EXPENSE_SKU)
+            ->setName(AfterpayConstants::CANCEL_EXPENSE_DESCRIPTION)
             ->setUnitGrossPrice($expenseAmount)
             ->setUnitPriceToPayAggregation($expenseAmount)
             ->setUnitTaxAmountFullAggregation(0)
@@ -132,44 +132,44 @@ class CaptureRequestBuilder implements CaptureRequestBuilderInterface
 
     /**
      * @param \Generated\Shared\Transfer\AfterpayRequestOrderItemTransfer $orderItemRequestTransfer
-     * @param \Generated\Shared\Transfer\AfterpayCaptureRequestTransfer $captureRequestTransfer
+     * @param \Generated\Shared\Transfer\AfterpayCancelRequestTransfer $cancelRequestTransfer
      *
      * @return void
      */
     protected function increaseTotalNetAmount(
         AfterpayRequestOrderItemTransfer $orderItemRequestTransfer,
-        AfterpayCaptureRequestTransfer $captureRequestTransfer
+        AfterpayCancelRequestTransfer $cancelRequestTransfer
     ) {
-        $oldNetAmountDecimal = $this->decimalToInt((float)$captureRequestTransfer->getOrderDetails()->getTotalNetAmount());
+        $oldNetAmountDecimal = $this->decimalToInt((float)$cancelRequestTransfer->getCancellationDetails()->getTotalNetAmount());
         $itemNetAmountDecimal = $this->decimalToInt((float)$orderItemRequestTransfer->getNetUnitPrice());
 
         $newNetAmountDecimal = $oldNetAmountDecimal + $itemNetAmountDecimal;
-        $captureRequestTransfer->getOrderDetails()->setTotalNetAmount(
+        $cancelRequestTransfer->getCancellationDetails()->setTotalNetAmount(
             $this->intToDecimalString($newNetAmountDecimal)
         );
     }
 
     /**
      * @param \Generated\Shared\Transfer\AfterpayRequestOrderItemTransfer $orderItemRequestTransfer
-     * @param \Generated\Shared\Transfer\AfterpayCaptureRequestTransfer $captureRequestTransfer
+     * @param \Generated\Shared\Transfer\AfterpayCancelRequestTransfer $cancelRequestTransfer
      *
      * @return void
      */
     protected function increaseTotalGrossAmount(
         AfterpayRequestOrderItemTransfer $orderItemRequestTransfer,
-        AfterpayCaptureRequestTransfer $captureRequestTransfer
+        AfterpayCancelRequestTransfer $cancelRequestTransfer
     ) {
-        $oldGrossAmountDecimal = $this->decimalToInt((float)$captureRequestTransfer->getOrderDetails()->getTotalGrossAmount());
+        $oldGrossAmountDecimal = $this->decimalToInt((float)$cancelRequestTransfer->getCancellationDetails()->getTotalGrossAmount());
         $itemGrossAmountDecimal = $this->decimalToInt((float)$orderItemRequestTransfer->getGrossUnitPrice());
 
         $newGrossAmountDecimal = $oldGrossAmountDecimal + $itemGrossAmountDecimal;
-        $captureRequestTransfer->getOrderDetails()->setTotalGrossAmount(
+        $cancelRequestTransfer->getCancellationDetails()->setTotalGrossAmount(
             $this->intToDecimalString($newGrossAmountDecimal)
         );
     }
 
     /**
-     * @param float $decimalValue
+     * @param string $decimalValue
      *
      * @return int
      */

@@ -34,4 +34,12 @@ interface PaymentWriterInterface
      */
     public function increaseTotalCapturedAmountByIdSalesOrder($amountToAdd, $idSalesOrder);
 
+    /**
+     * @param int $amountToAdd
+     * @param int $idSalesOrder
+     *
+     * @return void
+     */
+    public function increaseTotalCancelledAmountByIdSalesOrder($amountToAdd, $idSalesOrder);
+
 }

@@ -13,6 +13,7 @@ use SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\ApiStatusCall;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\ApiVersionCall;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\AuthorizePaymentCall;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\AvailablePaymentMethodsCall;
+use SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\CancelCall;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\CaptureCall;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\LookupCustomerCall;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\LookupInstallmentPlansCall;
@@ -110,9 +111,23 @@ class AdapterFactory extends AbstractBusinessFactory implements AdapterFactoryIn
     /**
      * @return \SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\CaptureCallInterface
      */
-    public function createFullCaptureCall()
+    public function createCaptureCall()
     {
         return new CaptureCall(
+            $this->createHttpClient(),
+            $this->createTransferToCamelCaseArrayConverter(),
+            $this->getUtilEncodingService(),
+            $this->getAfterpayToMoneyBridge(),
+            $this->getConfig()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\CancelCallInterface
+     */
+    public function createCancelCall()
+    {
+        return new CancelCall(
             $this->createHttpClient(),
             $this->createTransferToCamelCaseArrayConverter(),
             $this->getUtilEncodingService(),

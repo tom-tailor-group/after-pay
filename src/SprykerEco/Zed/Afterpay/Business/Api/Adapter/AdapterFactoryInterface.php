@@ -38,7 +38,12 @@ interface AdapterFactoryInterface
     /**
      * @return \SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\CaptureCallInterface
      */
-    public function createFullCaptureCall();
+    public function createCaptureCall();
+
+    /**
+     * @return \SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\CancelCallInterface
+     */
+    public function createCancelCall();
 
     /**
      * @return \SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\ApiVersionCallInterface

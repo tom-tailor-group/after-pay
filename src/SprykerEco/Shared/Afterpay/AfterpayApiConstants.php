@@ -28,6 +28,10 @@ interface AfterpayApiConstants
     const CAPTURE_REMAINING_AUTHORIZED_AMOUNT = 'remainingAuthorizedAmount';
     const CAPTURE_CAPTURE_NUMBER = 'captureNumber';
 
+    /** Cancellation (void) call */
+    const CANCEL_CAPTURED_AMOUNT = 'totalCapturedAmount';
+    const CANCEL_AUTHORIZED_AMOUNT = 'totalAuthorizedAmount';
+
     /** Validate bank account call */
     const VALIDATE_BANK_ACCOUNT_IS_VALID = 'isValid';
 
