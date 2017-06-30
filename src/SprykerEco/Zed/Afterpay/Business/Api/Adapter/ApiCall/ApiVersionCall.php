@@ -64,7 +64,7 @@ class ApiVersionCall implements ApiVersionCallInterface
 
         } catch (ApiHttpRequestException $apiHttpRequestException) {
             $this->logApiException($apiHttpRequestException);
-            $jsonResponse = '';
+            $jsonResponse = '[]';
         }
 
         return $this->parseVersion($jsonResponse);

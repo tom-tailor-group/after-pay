@@ -72,7 +72,7 @@ class ValidateCustomerCall extends AbstractApiCall implements ValidateCustomerCa
             );
         } catch (ApiHttpRequestException $apiHttpRequestException) {
             $this->logApiException($apiHttpRequestException);
-            $jsonResponse = '';
+            $jsonResponse = '[]';
         }
 
         return $this->buildValidateCustomerResponseTransfer($jsonResponse);

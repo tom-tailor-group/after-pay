@@ -67,7 +67,7 @@ class LookupCustomerCall extends AbstractApiCall implements LookupCustomerCallIn
             );
         } catch (ApiHttpRequestException $apiHttpRequestException) {
             $this->logApiException($apiHttpRequestException);
-            $jsonResponse = '';
+            $jsonResponse = '[]';
         }
 
         return $this->buildLookupCustomerResponseTransfer($jsonResponse);
