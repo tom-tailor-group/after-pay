@@ -62,6 +62,8 @@ class AvailablePaymentMethodsCall extends AbstractApiCall implements AvailablePa
                 $jsonRequest
             );
         } catch (ApiHttpRequestException $apiHttpRequestException) {
+            // @todo do a proper error handling. Afterpay cam provide some more details about business errors
+            // Make sure to get these messages, parse them into transfer objects and assign to API response transfer.
             $this->logApiException($apiHttpRequestException);
             $jsonResponse = '[]';
         }

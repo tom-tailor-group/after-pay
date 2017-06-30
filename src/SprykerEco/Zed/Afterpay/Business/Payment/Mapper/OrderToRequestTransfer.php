@@ -52,6 +52,8 @@ class OrderToRequestTransfer implements OrderToRequestTransferInterface
     }
 
     /**
+     * @todo consider to split this class into separate one-s, like orderToAuthorizeRequest, orderToCaptureRequest, etc.
+     *
      * @param \Generated\Shared\Transfer\OrderTransfer $orderWithPaymentTransfer
      *
      * @return \Generated\Shared\Transfer\AfterpayAuthorizeRequestTransfer
@@ -249,6 +251,14 @@ class OrderToRequestTransfer implements OrderToRequestTransferInterface
     }
 
     /**
+     * @todo think about moving such int-to-decimal and back operations to the Api layer. Do all the operations
+     * in integers, on the business side, and translate ints to decimal-strings right before building json requests.
+     * ! Make sure to pass the right request payload to the transaction logs (with floats, not ints) !
+     * To do this, it may be necessary to duplicate all request transfer objects:
+     * "business" one-s will contain totals as ints
+     * "api" one-s will contain totals as strings
+     * Like this it will be easier to see, what's happening with the data.
+     *
      * @param \Generated\Shared\Transfer\OrderTransfer $orderWithPaymentTransfer
      *
      * @return string

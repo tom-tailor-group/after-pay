@@ -240,7 +240,6 @@
     </transfer>
 
     <transfer name="Quote">
-        <!-- @todo check if possible to move that to payment property. -->
         <property name="afterpayAvailablePaymentMethods" type="AfterpayAvailablePaymentMethods" />
     </transfer>
 
