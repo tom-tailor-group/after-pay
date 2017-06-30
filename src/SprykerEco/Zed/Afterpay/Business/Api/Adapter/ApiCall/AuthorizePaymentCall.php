@@ -64,7 +64,7 @@ class AuthorizePaymentCall extends AbstractApiCall implements AuthorizePaymentCa
             );
         } catch (ApiHttpRequestException $apiHttpRequestException) {
             $this->logApiException($apiHttpRequestException);
-            $jsonResponse = '';
+            $jsonResponse = '[]';
         }
 
         return $this->buildAuthorizeResponseTransfer($jsonResponse);

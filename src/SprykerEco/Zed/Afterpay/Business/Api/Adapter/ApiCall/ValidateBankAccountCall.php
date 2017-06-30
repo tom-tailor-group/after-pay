@@ -68,7 +68,7 @@ class ValidateBankAccountCall extends AbstractApiCall implements ValidateBankAcc
             );
         } catch (ApiHttpRequestException $apiHttpRequestException) {
             $this->logApiException($apiHttpRequestException);
-            $jsonResponse = '';
+            $jsonResponse = '[]';
         }
 
         return $this->buildValidateBankAccountResponseTransfer($jsonResponse);

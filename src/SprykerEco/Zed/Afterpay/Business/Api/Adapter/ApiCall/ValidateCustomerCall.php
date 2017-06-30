@@ -73,7 +73,7 @@ class ValidateCustomerCall extends AbstractApiCall implements ValidateCustomerCa
             );
         } catch (ApiHttpRequestException $apiHttpRequestException) {
             $this->logApiException($apiHttpRequestException);
-            $jsonResponse = '';
+            $jsonResponse = '[]';
         }
 
         return $this->buildValidateCustomerResponseTransfer($jsonResponse);
@@ -91,10 +91,10 @@ class ValidateCustomerCall extends AbstractApiCall implements ValidateCustomerCa
         $responseTransfer = new AfterpayValidateCustomerResponseTransfer();
 
         $responseTransfer
+            ->setIsValid($jsonResponseArray[AfterpayApiConstants::VALIDATE_ADDRESS_IS_VALID] ?? false)
             ->setCorrectedAddress(
                 $this->parseCorrectedAddress($jsonResponseArray)
             )
-            ->setIsValid($jsonResponseArray[AfterpayApiConstants::VALIDATE_ADDRESS_IS_VALID] ?? false)
             ->setResponsePayload($jsonResponse);
 
         return $responseTransfer;

@@ -63,7 +63,7 @@ class AvailablePaymentMethodsCall extends AbstractApiCall implements AvailablePa
             );
         } catch (ApiHttpRequestException $apiHttpRequestException) {
             $this->logApiException($apiHttpRequestException);
-            $jsonResponse = '';
+            $jsonResponse = '[]';
         }
 
         return $this->buildAvailablePaymentMethodsResponseTransfer($jsonResponse);

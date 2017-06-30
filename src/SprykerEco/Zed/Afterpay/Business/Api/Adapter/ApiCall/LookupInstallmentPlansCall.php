@@ -79,7 +79,7 @@ class LookupInstallmentPlansCall extends AbstractApiCall implements LookupInstal
             );
         } catch (ApiHttpRequestException $apiHttpRequestException) {
             $this->logApiException($apiHttpRequestException);
-            $jsonResponse = '';
+            $jsonResponse = '[]';
         }
 
         return $this->buildLookupCustomerResponseTransfer($jsonResponse);
