@@ -17,6 +17,10 @@ class AfterpayInstallmentPlansPlugin extends AbstractPlugin implements Installme
 {
 
     /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
      * @param \Generated\Shared\Transfer\AfterpayInstallmentPlansRequestTransfer $installmentPlansRequestTransfer
      *
      * @return \Generated\Shared\Transfer\AfterpayInstallmentPlansResponseTransfer

@@ -24,16 +24,6 @@ class AfterpayFactory extends AbstractFactory
 {
 
     /**
-     * @return \SprykerEco\Yves\Afterpay\Handler\AfterpayHandlerInterface
-     */
-    public function createAfterpayHandler()
-    {
-        return new AfterpayHandler(
-            $this->getAfterpayClient()
-        );
-    }
-
-    /**
      * @return \Spryker\Yves\StepEngine\Dependency\Form\SubFormInterface
      */
     public function createInvoiceForm()
@@ -67,11 +57,11 @@ class AfterpayFactory extends AbstractFactory
     }
 
     /**
-     * @return \SprykerEco\Client\Afterpay\AfterpayClientInterface
+     * @return \Spryker\Client\Kernel\AbstractClient|\SprykerEco\Client\Afterpay\AfterpayClientInterface
      */
     public function getAfterpayClient()
     {
-        return $this->getProvidedDependency(AfterpayDependencyProvider::CLIENT_AFTERPAY);
+        return $this->getClient();
     }
 
     /**

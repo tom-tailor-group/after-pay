@@ -9,8 +9,6 @@ namespace SprykerEco\Client\Afterpay;
 
 use Spryker\Client\Kernel\AbstractDependencyProvider;
 use Spryker\Client\Kernel\Container;
-use Spryker\Client\Session\ServiceProvider\SessionClientServiceProvider;
-use Spryker\Client\ZedRequest\ServiceProvider\ZedRequestClientServiceProvider;
 use SprykerEco\Client\Afterpay\Dependency\Client\AfterpayToLocaleBridge;
 use SprykerEco\Client\Afterpay\Dependency\Client\AfterpayToQuoteBridge;
 
@@ -18,8 +16,8 @@ class AfterpayDependencyProvider extends AbstractDependencyProvider
 {
 
     const CLIENT_LOCALE = 'client locale';
-    const CLIENT_SESSION = SessionClientServiceProvider::CLIENT_SESSION; // todo remove mentioning of SessionClientServiceProvider
-    const CLIENT_ZED_REQUEST = ZedRequestClientServiceProvider::CLIENT_ZED_REQUEST;
+    const CLIENT_SESSION = 'client session';
+    const CLIENT_ZED_REQUEST = 'zed request client';
     const CLIENT_QUOTE = 'client quote';
 
     /**
@@ -38,7 +36,7 @@ class AfterpayDependencyProvider extends AbstractDependencyProvider
         };
 
         $container[static::CLIENT_ZED_REQUEST] = function (Container $container) {
-            return $container->getLocator()->zedRequest()->client(); //bridge missing
+            return $container->getLocator()->zedRequest()->client();
         };
 
         return $container;

@@ -13,8 +13,9 @@ interface AddressValidationPluginInterface
 {
 
     /**
-     *
-     * @todo all plugins should have api tag
+     * Specification:
+     *  - Makes "validate-address" call to the afterpay API, in order to validate customer address.
+     *  Response contains isValid flag along with correctedAddress.
      *
      * @api
      *

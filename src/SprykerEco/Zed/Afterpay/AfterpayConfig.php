@@ -14,39 +14,27 @@ class AfterpayConfig extends AbstractBundleConfig
 {
 
     /**
-     * @return string
-     */
-    public function getApiEndpointBaseUrl()
-    {
-        return $this->get(AfterpayConstants::API_ENDPOINT_BASE_URL);
-    }
-
-    /**
-     * @todo maybe extract concatenation to method
-     *
      * @param string $orderNumber
      *
      * @return string
      */
     public function getCaptureApiEndpointUrl($orderNumber)
     {
-        return
-            $this->getApiEndpointBaseUrl() .
-            sprintf(AfterpayConstants::API_ENDPOINT_CAPTURE_PATH, $orderNumber);
+        return $this->getApiEndpointUrl(
+            sprintf(AfterpayConstants::API_ENDPOINT_CAPTURE_PATH, $orderNumber)
+        );
     }
 
     /**
-     * @todo maybe extract concatenation to method
-     *
      * @param string $orderNumber
      *
      * @return string
      */
     public function getCancelApiEndpointUrl($orderNumber)
     {
-        return
-            $this->getApiEndpointBaseUrl() .
-            sprintf(AfterpayConstants::API_ENDPOINT_CANCEL_PATH, $orderNumber);
+        return $this->getApiEndpointUrl(
+            sprintf(AfterpayConstants::API_ENDPOINT_CANCEL_PATH, $orderNumber)
+        );
     }
 
     /**
@@ -54,9 +42,9 @@ class AfterpayConfig extends AbstractBundleConfig
      */
     public function getAuthorizeApiEndpointUrl()
     {
-        return
-            $this->getApiEndpointBaseUrl() .
-            AfterpayConstants::API_ENDPOINT_AUTHORIZE_PATH;
+        return $this->getApiEndpointUrl(
+            AfterpayConstants::API_ENDPOINT_AUTHORIZE_PATH
+        );
     }
 
     /**
@@ -64,9 +52,9 @@ class AfterpayConfig extends AbstractBundleConfig
      */
     public function getValidateAddressApiEndpointUrl()
     {
-        return
-            $this->getApiEndpointBaseUrl() .
-            AfterpayConstants::API_ENDPOINT_VALIDATE_ADDRESS_PATH;
+        return $this->getApiEndpointUrl(
+            AfterpayConstants::API_ENDPOINT_VALIDATE_ADDRESS_PATH
+        );
     }
 
     /**
@@ -74,9 +62,9 @@ class AfterpayConfig extends AbstractBundleConfig
      */
     public function getLookupCustomerApiEndpointUrl()
     {
-        return
-            $this->getApiEndpointBaseUrl() .
-            AfterpayConstants::API_ENDPOINT_LOOKUP_CUSTOMER_PATH;
+        return $this->getApiEndpointUrl(
+            AfterpayConstants::API_ENDPOINT_LOOKUP_CUSTOMER_PATH
+        );
     }
 
     /**
@@ -84,9 +72,9 @@ class AfterpayConfig extends AbstractBundleConfig
      */
     public function getLookupInstallmentPlansApiEndpointUrl()
     {
-        return
-            $this->getApiEndpointBaseUrl() .
-            AfterpayConstants::API_ENDPOINT_LOOKUP_INSTALLMENT_PLANS_PATH;
+        return $this->getApiEndpointUrl(
+            AfterpayConstants::API_ENDPOINT_LOOKUP_INSTALLMENT_PLANS_PATH
+        );
     }
 
     /**
@@ -94,9 +82,9 @@ class AfterpayConfig extends AbstractBundleConfig
      */
     public function getValidateBankAccountApiEndpointUrl()
     {
-        return
-            $this->getApiEndpointBaseUrl() .
-            AfterpayConstants::API_ENDPOINT_VALIDATE_BANK_ACCOUNT_PATH;
+        return $this->getApiEndpointUrl(
+            AfterpayConstants::API_ENDPOINT_VALIDATE_BANK_ACCOUNT_PATH
+        );
     }
 
     /**
@@ -104,9 +92,9 @@ class AfterpayConfig extends AbstractBundleConfig
      */
     public function getStatusApiEndpointUrl()
     {
-        return
-            $this->getApiEndpointBaseUrl() .
-            AfterpayConstants::API_ENDPOINT_API_STATUS_PATH;
+        return $this->getApiEndpointUrl(
+            AfterpayConstants::API_ENDPOINT_API_STATUS_PATH
+        );
     }
 
     /**
@@ -114,9 +102,9 @@ class AfterpayConfig extends AbstractBundleConfig
      */
     public function getVersionApiEndpointUrl()
     {
-        return
-            $this->getApiEndpointBaseUrl() .
-            AfterpayConstants::API_ENDPOINT_API_VERSION_PATH;
+        return $this->getApiEndpointUrl(
+            AfterpayConstants::API_ENDPOINT_API_VERSION_PATH
+        );
     }
 
     /**
@@ -124,9 +112,9 @@ class AfterpayConfig extends AbstractBundleConfig
      */
     public function getAvailablePaymentMethodsApiEndpointUrl()
     {
-        return
-            $this->getApiEndpointBaseUrl() .
-            AfterpayConstants::API_ENDPOINT_AVAILABLE_PAYMENT_METHODS_PATH;
+        return $this->getApiEndpointUrl(
+            AfterpayConstants::API_ENDPOINT_AVAILABLE_PAYMENT_METHODS_PATH
+        );
     }
 
     /**
@@ -166,6 +154,16 @@ class AfterpayConfig extends AbstractBundleConfig
     public function getPaymentAuthorizationFailedUrl()
     {
         return $this->get(AfterpayConstants::AFTERPAY_YVES_AUTHORIZE_PAYMENT_FAILED_URL);
+    }
+
+    /**
+     * @param string $endpointPath
+     *
+     * @return string
+     */
+    protected function getApiEndpointUrl($endpointPath)
+    {
+        return $this->get(AfterpayConstants::API_ENDPOINT_BASE_URL) . $endpointPath;
     }
 
 }

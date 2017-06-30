@@ -17,6 +17,10 @@ class AfterpayBankAccountValidationPlugin extends AbstractPlugin implements Bank
 {
 
     /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
      * @param \Generated\Shared\Transfer\AfterpayValidateBankAccountRequestTransfer $validateBankAccountRequestTransfer
      *
      * @return \Generated\Shared\Transfer\AfterpayValidateBankAccountResponseTransfer
