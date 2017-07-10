@@ -119,6 +119,20 @@ interface AfterpayFacadeInterface
      */
     public function capturePayment(ItemTransfer $itemTransfer, OrderTransfer $orderTransfer);
 
+
+    /**
+     * Specification:
+     * - Sends "refund" request to Afterpay gateway, to refund payment for a specific order item.
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
+     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
+     *
+     * @return \Generated\Shared\Transfer\AfterpayResponseTransfer
+     */
+    public function refundPayment(ItemTransfer $itemTransfer, OrderTransfer $orderTransfer);
+
     /**
      * Specification:
      * - Sends "void" request to Afterpay gateway, to cancel payment for a specific order item, before payment is captured

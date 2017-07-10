@@ -10,6 +10,7 @@ namespace SprykerEco\Zed\Afterpay\Business\Payment\Mapper;
 use Generated\Shared\Transfer\AfterpayAuthorizeRequestTransfer;
 use Generated\Shared\Transfer\AfterpayCancelRequestTransfer;
 use Generated\Shared\Transfer\AfterpayCaptureRequestTransfer;
+use Generated\Shared\Transfer\AfterpayRefundRequestTransfer;
 use Generated\Shared\Transfer\AfterpayRequestAddressTransfer;
 use Generated\Shared\Transfer\AfterpayRequestCustomerTransfer;
 use Generated\Shared\Transfer\AfterpayRequestOrderItemTransfer;
@@ -111,6 +112,26 @@ class OrderToRequestTransfer implements OrderToRequestTransferInterface
         $requestTransfer
             ->setIdSalesOrder($orderTransfer->getIdSalesOrder())
             ->setCancellationDetails(
+                $this->buildOrderRequestTransfer($orderTransfer)
+                    ->setTotalGrossAmount(0)
+                    ->setTotalNetAmount(0)
+            );
+
+        return $requestTransfer;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
+     *
+     * @return \Generated\Shared\Transfer\AfterpayRefundRequestTransfer
+     */
+    public function orderToBaseRefundRequest(OrderTransfer $orderTransfer)
+    {
+        $requestTransfer = new AfterpayRefundRequestTransfer();
+
+        $requestTransfer
+            ->setIdSalesOrder($orderTransfer->getIdSalesOrder())
+            ->setOrderItems(
                 $this->buildOrderRequestTransfer($orderTransfer)
                     ->setTotalGrossAmount(0)
                     ->setTotalNetAmount(0)
@@ -309,5 +330,4 @@ class OrderToRequestTransfer implements OrderToRequestTransferInterface
 
         return (string)$this->money->convertIntegerToDecimal($itemUnitNetAmount);
     }
-
 }

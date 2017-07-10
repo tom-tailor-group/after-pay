@@ -17,6 +17,7 @@ use SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\CancelCall;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\CaptureCall;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\LookupCustomerCall;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\LookupInstallmentPlansCall;
+use SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\RefundCall;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\ValidateBankAccountCall;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\ValidateCustomerCall;
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\Client\Http\Guzzle;
@@ -128,6 +129,20 @@ class AdapterFactory extends AbstractBusinessFactory implements AdapterFactoryIn
     public function createCancelCall()
     {
         return new CancelCall(
+            $this->createHttpClient(),
+            $this->createTransferToCamelCaseArrayConverter(),
+            $this->getUtilEncodingService(),
+            $this->getAfterpayToMoneyBridge(),
+            $this->getConfig()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\RefundCallInterface
+     */
+    public function createRefundCall()
+    {
+        return new RefundCall(
             $this->createHttpClient(),
             $this->createTransferToCamelCaseArrayConverter(),
             $this->getUtilEncodingService(),

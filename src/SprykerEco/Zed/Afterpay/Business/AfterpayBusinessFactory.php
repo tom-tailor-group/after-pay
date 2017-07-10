@@ -33,7 +33,10 @@ use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\CaptureTransaction;
 use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Handler\AuthorizeTransactionHandler;
 use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Handler\CancelTransactionHandler;
 use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Handler\CaptureTransactionHandler;
+use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Handler\RefundTransactionHandler;
 use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Logger\TransactionLogger;
+use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Refund\RefundRequestBuilder;
+use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\RefundTransaction;
 use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\TransactionLogReader;
 
 /**
@@ -90,6 +93,19 @@ class AfterpayBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
+     * @return \SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Handler\RefundTransactionHandlerInterface
+     */
+    public function createRefundTransactionHandler()
+    {
+        return new RefundTransactionHandler(
+            $this->createRefundTransaction(),
+            $this->createPaymentReader(),
+            $this->createPaymentWriter(),
+            $this->createRefundRequestBuilder()
+        );
+    }
+
+    /**
      * @return \SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Handler\CancelTransactionHandlerInterface
      */
     public function createCancelTransactionHandler()
@@ -141,6 +157,17 @@ class AfterpayBusinessFactory extends AbstractBusinessFactory
     protected function createCaptureTransaction()
     {
         return new CaptureTransaction(
+            $this->createTransactionLogger(),
+            $this->createApiAdapter()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\Afterpay\Business\Payment\Transaction\RefundTransactionInterface
+     */
+    protected function createRefundTransaction()
+    {
+        return new RefundTransaction(
             $this->createTransactionLogger(),
             $this->createApiAdapter()
         );
@@ -270,6 +297,17 @@ class AfterpayBusinessFactory extends AbstractBusinessFactory
     protected function createCancelRequestBuilder()
     {
         return new CancelRequestBuilder(
+            $this->createOrderToRequestMapper(),
+            $this->getAfterpayToMoneyBridge()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Refund\RefundRequestBuilderInterface
+     */
+    protected function createRefundRequestBuilder()
+    {
+        return new RefundRequestBuilder(
             $this->createOrderToRequestMapper(),
             $this->getAfterpayToMoneyBridge()
         );

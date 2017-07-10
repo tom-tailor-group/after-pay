@@ -19,6 +19,7 @@ class AfterpayQueryContainer extends AbstractQueryContainer implements AfterpayQ
     const TRANSACTION_TYPE_AUTHORIZE = AfterpayConstants::TRANSACTION_TYPE_AUTHORIZE;
     const TRANSACTION_TYPE_CAPTURE = AfterpayConstants::TRANSACTION_TYPE_CAPTURE;
     const TRANSACTION_TYPE_CANCEL = AfterpayConstants::TRANSACTION_TYPE_CANCEL;
+    const TRANSACTION_TYPE_REFUND = AfterpayConstants::TRANSACTION_TYPE_REFUND;
 
     /**
      * @api
@@ -63,6 +64,21 @@ class AfterpayQueryContainer extends AbstractQueryContainer implements AfterpayQ
             ->createPaymentAfterpayTransactionLogQuery()
             ->filterByFkSalesOrder($idSalesOrder)
             ->filterByTransactionType(static::TRANSACTION_TYPE_CANCEL);
+    }
+
+    /**
+     * @api
+     *
+     * @param int $idSalesOrder
+     *
+     * @return \Orm\Zed\Afterpay\Persistence\SpyPaymentAfterpayTransactionLogQuery
+     */
+    public function queryRefundTransactionLog($idSalesOrder)
+    {
+        return $this->getFactory()
+            ->createPaymentAfterpayTransactionLogQuery()
+            ->filterByFkSalesOrder($idSalesOrder)
+            ->filterByTransactionType(static::TRANSACTION_TYPE_REFUND);
     }
 
     /**

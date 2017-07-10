@@ -46,6 +46,11 @@ interface AdapterFactoryInterface
     public function createCancelCall();
 
     /**
+     * @return \SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\RefundCallInterface
+     */
+    public function createRefundCall();
+
+    /**
      * @return \SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\ApiVersionCallInterface
      */
     public function createGetApiVersionCall();

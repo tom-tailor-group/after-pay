@@ -41,4 +41,12 @@ interface OrderToRequestTransferInterface
      */
     public function orderToBaseCancelRequest(OrderTransfer $orderTransfer);
 
+    /**
+     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
+     *
+     * @return \Generated\Shared\Transfer\AfterpayRefundRequestTransfer
+     */
+    public function orderToBaseRefundRequest(OrderTransfer $orderTransfer);
+
+
 }
