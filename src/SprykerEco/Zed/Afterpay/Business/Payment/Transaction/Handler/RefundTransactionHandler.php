@@ -15,6 +15,7 @@ use SprykerEco\Zed\Afterpay\Business\Payment\PaymentReaderInterface;
 use SprykerEco\Zed\Afterpay\Business\Payment\PaymentWriterInterface;
 use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Refund\RefundRequestBuilderInterface;
 use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\RefundTransactionInterface;
+use SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToMoneyInterface;
 
 class RefundTransactionHandler implements RefundTransactionHandlerInterface
 {
@@ -40,6 +41,11 @@ class RefundTransactionHandler implements RefundTransactionHandlerInterface
     private $paymentWriter;
 
     /**
+     * @var \SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToMoneyInterface
+     */
+    private $money;
+
+    /**
      * @param \SprykerEco\Zed\Afterpay\Business\Payment\Transaction\RefundTransactionInterface $transaction
      * @param \SprykerEco\Zed\Afterpay\Business\Payment\PaymentReaderInterface $paymentReader
      * @param \SprykerEco\Zed\Afterpay\Business\Payment\PaymentWriterInterface $paymentWriter
@@ -49,11 +55,13 @@ class RefundTransactionHandler implements RefundTransactionHandlerInterface
         RefundTransactionInterface $transaction,
         PaymentReaderInterface $paymentReader,
         PaymentWriterInterface $paymentWriter,
+        AfterpayToMoneyInterface $money,
         RefundRequestBuilderInterface $refundRequestBuilder
     ) {
         $this->transaction = $transaction;
         $this->paymentReader = $paymentReader;
         $this->refundRequestBuilder = $refundRequestBuilder;
+        $this->money = $money;
         $this->paymentWriter = $paymentWriter;
     }
 
@@ -77,6 +85,7 @@ class RefundTransactionHandler implements RefundTransactionHandlerInterface
 
         $this->updateOrderPayment(
             $refundResponseTransfer,
+            $refundRequestTransfer,
             $orderTransfer->getIdSalesOrder()
         );
     }
@@ -133,18 +142,31 @@ class RefundTransactionHandler implements RefundTransactionHandlerInterface
 
     /**
      * @param \Generated\Shared\Transfer\AfterpayRefundResponseTransfer $refundResponseTransfer
+     * @param \Generated\Shared\Transfer\AfterpayRefundRequestTransfer $refundRequestTransfer
      * @param int $idSalesOrder
      *
      * @return void
      */
-    protected function updateOrderPayment(AfterpayRefundResponseTransfer $refundResponseTransfer, $idSalesOrder)
+    protected function updateOrderPayment(
+        AfterpayRefundResponseTransfer $refundResponseTransfer,
+        AfterpayRefundRequestTransfer $refundRequestTransfer,
+        $idSalesOrder
+    )
     {
         if (!$refundResponseTransfer->getTotalCapturedAmount()) {
             return;
         }
 
-        $this->paymentWriter->saveTotalCapturedAmountByIdSalesOrder(
-            $refundResponseTransfer->getTotalCapturedAmount(),
+        $refundedAmountDecimal = (float)0;
+        $refundedAmountInt = $this->money->convertDecimalToInteger($refundedAmountDecimal);
+
+        foreach ($refundRequestTransfer->getOrderItems() as $item) {
+            $itemGrossPriceDecimal = (float)$item->getGrossUnitPrice();
+            $refundedAmountInt += $this->money->convertDecimalToInteger($itemGrossPriceDecimal);
+        }
+
+        $this->paymentWriter->increaseRefundedTotalByIdSalesOrder(
+            $refundedAmountInt,
             $idSalesOrder
         );
     }
@@ -157,8 +179,10 @@ class RefundTransactionHandler implements RefundTransactionHandlerInterface
      */
     protected function isLastItemToRefund($itemTransfer, $paymentTransfer)
     {
-        return $itemTransfer->getRefundableAmount() + $paymentTransfer->getExpenseTotal()
-            === $paymentTransfer->getCapturedTotal();
+        return $paymentTransfer->getAuthorizedTotal() -
+            $paymentTransfer->getCancelledTotal() -
+            $paymentTransfer->getRefundedTotal() -
+            $paymentTransfer->getExpenseTotal() === $itemTransfer->getRefundableAmount();
     }
 
 }

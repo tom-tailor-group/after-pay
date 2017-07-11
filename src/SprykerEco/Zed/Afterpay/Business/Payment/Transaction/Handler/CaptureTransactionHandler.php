@@ -108,7 +108,7 @@ class CaptureTransactionHandler implements CaptureTransactionHandlerInterface
      */
     protected function isFirstItemToCapture(AfterpayPaymentTransfer $paymentTransfer)
     {
-        return $paymentTransfer->getCapturedTotal() === null;
+        return $paymentTransfer->getCapturedTotal() - $paymentTransfer->getRefundedTotal() == 0;
     }
 
     /**

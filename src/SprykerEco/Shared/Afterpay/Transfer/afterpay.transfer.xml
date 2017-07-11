@@ -12,6 +12,7 @@
         <property name="capturedTotal" type="int" />
         <property name="authorizedTotal" type="int" />
         <property name="cancelledTotal" type="int" />
+        <property name="refundedTotal" type="int" />
         <property name="expenseTotal" type="int" />
         <property name="captureNumber" type="string" />
     </transfer>

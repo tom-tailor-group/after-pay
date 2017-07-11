@@ -73,18 +73,20 @@ class PaymentWriter implements PaymentWriterInterface
     }
 
     /**
-     * @param int $amountLeft
+     * @param int $refundedAmount
      * @param int $idSalesOrder
      *
      * @return void
      */
-    public function saveTotalCapturedAmountByIdSalesOrder($amountLeft, $idSalesOrder)
+    public function increaseRefundedTotalByIdSalesOrder($refundedAmount, $idSalesOrder)
     {
         $afterpayPaymentEntity = $this->getPaymentEntityByIdSalesOrder($idSalesOrder);
 
+        $refundedTotal = $afterpayPaymentEntity->getRefundedTotal();
+
         $afterpayPaymentEntity
-            ->setCapturedTotal(
-                $amountLeft
+            ->setRefundedTotal(
+                $refundedTotal + $refundedAmount
             )
             ->save();
     }

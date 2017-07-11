@@ -101,6 +101,7 @@ class AfterpayBusinessFactory extends AbstractBusinessFactory
             $this->createRefundTransaction(),
             $this->createPaymentReader(),
             $this->createPaymentWriter(),
+            $this->getAfterpayToMoneyBridge(),
             $this->createRefundRequestBuilder()
         );
     }
