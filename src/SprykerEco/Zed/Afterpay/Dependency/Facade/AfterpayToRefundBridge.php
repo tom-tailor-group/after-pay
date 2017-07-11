@@ -11,19 +11,20 @@ use Generated\Shared\Transfer\OrderTransfer;
 use Generated\Shared\Transfer\RefundTransfer;
 use Orm\Zed\Sales\Persistence\SpySalesOrder;
 use Spryker\Zed\Refund\Business\RefundFacade;
+use Spryker\Zed\Refund\Business\RefundFacadeInterface;
 
 class AfterpayToRefundBridge implements AfterpayToRefundInterface
 {
 
     /**
-     * @var \Spryker\Zed\Refund\Business\RefundFacade
+     * @var \Spryker\Zed\Refund\Business\RefundFacadeInterface
      */
     protected $refundFacade;
 
     /**
-     * @param \Spryker\Zed\Refund\Business\RefundFacade $refundFacade
+     * @param \Spryker\Zed\Refund\Business\RefundFacadeInterface $refundFacade
      */
-    public function __construct(RefundFacade $refundFacade)
+    public function __construct(RefundFacadeInterface $refundFacade)
     {
         $this->refundFacade = $refundFacade;
     }

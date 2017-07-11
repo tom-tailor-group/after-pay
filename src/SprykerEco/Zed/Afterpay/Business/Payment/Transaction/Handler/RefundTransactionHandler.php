@@ -16,6 +16,7 @@ use SprykerEco\Zed\Afterpay\Business\Payment\PaymentWriterInterface;
 use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Refund\RefundRequestBuilderInterface;
 use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\RefundTransactionInterface;
 use SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToMoneyInterface;
+use SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToRefundInterface;
 
 class RefundTransactionHandler implements RefundTransactionHandlerInterface
 {
@@ -46,9 +47,15 @@ class RefundTransactionHandler implements RefundTransactionHandlerInterface
     private $money;
 
     /**
+     * @var \SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToRefundInterface
+     */
+    private $refund;
+
+    /**
      * @param \SprykerEco\Zed\Afterpay\Business\Payment\Transaction\RefundTransactionInterface $transaction
      * @param \SprykerEco\Zed\Afterpay\Business\Payment\PaymentReaderInterface $paymentReader
      * @param \SprykerEco\Zed\Afterpay\Business\Payment\PaymentWriterInterface $paymentWriter
+     * @param \SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToMoneyInterface $money
      * @param \SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Refund\RefundRequestBuilderInterface $refundRequestBuilder
      */
     public function __construct(

@@ -44,6 +44,7 @@ class RefundPlugin extends AbstractPlugin implements CommandByOrderInterface
             $itemTransfer = $this->getOrderItemTransfer($orderItem);
             $this->getFacade()->refundPayment($itemTransfer, $orderTransfer);
         }
+        $this->storeRefund($orderItems, $orderEntity);
 
         return [];
     }
@@ -105,6 +106,18 @@ class RefundPlugin extends AbstractPlugin implements CommandByOrderInterface
         $orderTransfer->setAfterpayPayment($paymentTransfer);
 
         return $orderTransfer;
+    }
+
+    /**
+     * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem[] $orderItems
+     * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $orderEntity
+     *
+     * @return void
+     */
+    protected function storeRefund(array $orderItems, $orderEntity)
+    {
+        $refundTransfer = $this->getFactory()->createRefundFacade()->calculateRefund($orderItems, $orderEntity);
+        $this->getFactory()->createRefundFacade()->saveRefund($refundTransfer);
     }
 
 }

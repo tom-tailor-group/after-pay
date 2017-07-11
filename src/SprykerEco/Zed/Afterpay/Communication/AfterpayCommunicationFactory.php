@@ -25,4 +25,12 @@ class AfterpayCommunicationFactory extends AbstractCommunicationFactory
         return $this->getProvidedDependency(AfterpayDependencyProvider::FACADE_SALES);
     }
 
+    /**
+     * @return \SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToRefundInterface
+     */
+    public function createRefundFacade()
+    {
+        return $this->getProvidedDependency(AfterpayDependencyProvider::FACADE_REFUND);
+    }
+
 }
