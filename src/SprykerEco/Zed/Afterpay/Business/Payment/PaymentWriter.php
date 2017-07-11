@@ -73,6 +73,36 @@ class PaymentWriter implements PaymentWriterInterface
     }
 
     /**
+     * @param int $amountLeft
+     * @param int $idSalesOrder
+     *
+     * @return void
+     */
+    public function saveTotalCapturedAmountByIdSalesOrder($amountLeft, $idSalesOrder)
+    {
+        $afterpayPaymentEntity = $this->getPaymentEntityByIdSalesOrder($idSalesOrder);
+
+        $afterpayPaymentEntity
+            ->setCapturedTotal(
+                $amountLeft
+            )
+            ->save();
+    }
+
+    /**
+     * @param $captureNumber
+     * @param $idSalesOrder
+     *
+     * @return void
+     */
+    public function setCaptureNumberByIdSalesOrder($captureNumber, $idSalesOrder)
+    {
+        $afterpayPaymentEntity = $this->getPaymentEntityByIdSalesOrder($idSalesOrder);
+
+        $afterpayPaymentEntity->setCaptureNumber($captureNumber)->save();
+    }
+
+    /**
      * @param int $amountToAdd
      * @param int $idSalesOrder
      *

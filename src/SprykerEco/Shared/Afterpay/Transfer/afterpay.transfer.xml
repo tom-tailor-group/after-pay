@@ -13,6 +13,7 @@
         <property name="authorizedTotal" type="int" />
         <property name="cancelledTotal" type="int" />
         <property name="expenseTotal" type="int" />
+        <property name="captureNumber" type="string" />
     </transfer>
 
     <transfer name="AfterpayTransactionLog">
@@ -161,7 +162,7 @@
         <property name="fkPayment" type="int" />
         <property name="orderNumber" type="int" />
         <property name="captureNumber" type="string" />
-        <property name="orderItems" type="AfterpayRequestOrder" />
+        <property name="orderItems" type="AfterpayRequestOrderItem[]"  singular="orderItem" />
     </transfer>
 
     <transfer name="AfterpayRefundResponse">

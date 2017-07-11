@@ -157,6 +157,11 @@ class CaptureTransactionHandler implements CaptureTransactionHandlerInterface
             $capturedResponseTransfer->getCapturedAmount(),
             $idSalesOrder
         );
+
+        $this->paymentWriter->setCaptureNumberByIdSalesOrder(
+            $capturedResponseTransfer->getCaptureNumber(),
+            $idSalesOrder
+        );
     }
 
 }

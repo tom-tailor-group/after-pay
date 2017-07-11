@@ -98,7 +98,7 @@ class RefundRequestBuilder implements RefundRequestBuilderInterface
         AfterpayRequestOrderItemTransfer $orderItemRequestTransfer,
         AfterpayRefundRequestTransfer $refundRequestTransfer
     ) {
-        $refundRequestTransfer->getOrderItems()->addItem($orderItemRequestTransfer);
+        $refundRequestTransfer->addOrderItem($orderItemRequestTransfer);
     }
 
     /**
@@ -110,7 +110,7 @@ class RefundRequestBuilder implements RefundRequestBuilderInterface
     {
         return (new ItemTransfer())
             ->setSku(AfterpayConstants::REFUND_EXPENSE_SKU)
-            ->setName(AfterpayConstants::REFUND_EXPENSE_DESCRIPTION)
+            ->setName(AfterpayConstants::REFUND_EXPENSE_DECRIPTION)
             ->setUnitGrossPrice($expenseAmount)
             ->setUnitPriceToPayAggregation($expenseAmount)
             ->setUnitTaxAmountFullAggregation(0)

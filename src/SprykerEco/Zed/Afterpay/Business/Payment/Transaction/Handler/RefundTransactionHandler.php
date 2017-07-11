@@ -69,7 +69,7 @@ class RefundTransactionHandler implements RefundTransactionHandlerInterface
         $paymentTransfer = $this->getPaymentTransferForItem($itemTransfer);
 
         // Refund expences with the last order item.
-        if ($this->isLastItemToRefund($paymentTransfer)) {
+        if ($this->isLastItemToRefund($itemTransfer, $paymentTransfer)) {
             $this->addExpensesToRefundRequest($paymentTransfer->getExpenseTotal(), $refundRequestTransfer);
         }
 
@@ -139,22 +139,26 @@ class RefundTransactionHandler implements RefundTransactionHandlerInterface
      */
     protected function updateOrderPayment(AfterpayRefundResponseTransfer $refundResponseTransfer, $idSalesOrder)
     {
-        if (!$refundResponseTransfer->getRefundedAmount()) {
+        if (!$refundResponseTransfer->getTotalCapturedAmount()) {
             return;
         }
 
-        $this->paymentWriter->increaseTotalRefundedAmountByIdSalesOrder(
-            $refundResponseTransfer->getRefundedAmount(),
+        $this->paymentWriter->saveTotalCapturedAmountByIdSalesOrder(
+            $refundResponseTransfer->getTotalCapturedAmount(),
             $idSalesOrder
         );
     }
 
     /**
-     * @return \Generated\Shared\Transfer\AfterpayPaymentTransfer $paymentTransfer
+     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
+     * @param \Generated\Shared\Transfer\AfterpayPaymentTransfer $paymentTransfer
+     *
+     * @return bool
      */
-    protected function isLastItemToRefund()
+    protected function isLastItemToRefund($itemTransfer, $paymentTransfer)
     {
-
+        return $itemTransfer->getRefundableAmount() + $paymentTransfer->getExpenseTotal()
+            === $paymentTransfer->getCapturedTotal();
     }
 
 }

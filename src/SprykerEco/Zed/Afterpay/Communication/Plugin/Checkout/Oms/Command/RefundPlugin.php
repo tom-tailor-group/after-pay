@@ -8,6 +8,7 @@
 namespace SprykerEco\Zed\Afterpay\Communication\Plugin\Checkout\Oms\Command;
 
 use Generated\Shared\Transfer\ItemTransfer;
+use Generated\Shared\Transfer\OrderTransfer;
 use Orm\Zed\Sales\Persistence\SpySalesOrder;
 use Orm\Zed\Sales\Persistence\SpySalesOrderItem;
 use Spryker\Zed\Kernel\Communication\AbstractPlugin;
@@ -37,6 +38,7 @@ class RefundPlugin extends AbstractPlugin implements CommandByOrderInterface
     public function run(array $orderItems, SpySalesOrder $orderEntity, ReadOnlyArrayObject $data)
     {
         $orderTransfer = $this->getOrderTransfer($orderEntity);
+        $this->hydrateAfterpayPayment($orderTransfer);
 
         foreach ($orderItems as $orderItem) {
             $itemTransfer = $this->getOrderItemTransfer($orderItem);
@@ -90,6 +92,19 @@ class RefundPlugin extends AbstractPlugin implements CommandByOrderInterface
         $itemTransfer->setUnitTaxAmountFullAggregation($orderItem->getTaxAmountFullAggregation());
 
         return $itemTransfer;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
+     *
+     * @return \Generated\Shared\Transfer\OrderTransfer
+     */
+    protected function hydrateAfterpayPayment(OrderTransfer $orderTransfer)
+    {
+        $paymentTransfer = $this->getFacade()->getPaymentByIdSalesOrder($orderTransfer->getIdSalesOrder());
+        $orderTransfer->setAfterpayPayment($paymentTransfer);
+
+        return $orderTransfer;
     }
 
 }

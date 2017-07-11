@@ -65,7 +65,7 @@ interface AfterpayConstants
     const CAPTURE_EXPENSE_DESCRIPTION = 'Expense total amount';
 
     const REFUND_EXPENSE_SKU = 'REFUND_EXPENSE';
-    const REFUND_EXPENCE_DECRIPTION = 'Refund expence total amount';
+    const REFUND_EXPENSE_DECRIPTION = 'Refund expence total amount';
 
 
     const CANCEL_EXPENSE_SKU = 'EXPENSE';

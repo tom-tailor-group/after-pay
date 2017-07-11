@@ -11,7 +11,7 @@
         </states>
 
         <transitions>
-            <transition happy="true" condition="Payolution/IsRefundApproved">
+            <transition happy="true" condition="Afterpay/IsRefundCompleted">
                 <source>ready for refund</source>
                 <target>refund succeeded</target>
                 <event>refund payment</event>

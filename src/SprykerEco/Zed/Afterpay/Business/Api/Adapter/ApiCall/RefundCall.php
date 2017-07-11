@@ -89,7 +89,7 @@ class RefundCall extends AbstractApiCall implements RefundCallInterface
     protected function getRefundEndpointUrl(AfterpayRefundRequestTransfer $requestTransfer)
     {
         return $this->config->getRefundApiEndpointUrl(
-            $requestTransfer->getOrderDetails()->getNumber()
+            $requestTransfer->getOrderNumber()
         );
     }
 
@@ -120,14 +120,14 @@ class RefundCall extends AbstractApiCall implements RefundCallInterface
         $refundResponseTransfer = new AfterpayRefundResponseTransfer();
 
         $refundResponseTransfer
-            ->setCapturedAmount(
+            ->setTotalCapturedAmount(
                 $this->money->convertDecimalToInteger(
-                    $jsonResponseArray[AfterpayApiConstants::CAPTURE_CAPTURED_AMOUNT]
+                    $jsonResponseArray[AfterpayApiConstants::REFUND_TOTAL_CAPTURED_AMOUNT]
                 )
             )
-            ->setAuthorizedAmount(
+            ->setTotalAuthorizedAmount(
                 $this->money->convertDecimalToInteger(
-                    $jsonResponseArray[AfterpayApiConstants::CAPTURE_AUTHORIZED_AMOUNT]
+                    $jsonResponseArray[AfterpayApiConstants::REFUND_TOTAL_AUTHORIZE_AMOUNT]
                 )
             );
 
@@ -145,7 +145,7 @@ class RefundCall extends AbstractApiCall implements RefundCallInterface
 
         $apiResponseTransfer = new AfterpayApiResponseTransfer();
 
-        $outcome = $jsonResponseArray[AfterpayApiConstants::CAPTURE_CAPTURE_NUMBER]
+        $outcome = $jsonResponseArray[AfterpayApiConstants::REFUND_TOTAL_CAPTURED_AMOUNT]
             ? AfterpayConstants::API_TRANSACTION_OUTCOME_ACCEPTED
             : AfterpayConstants::API_TRANSACTION_OUTCOME_REJECTED;
 
