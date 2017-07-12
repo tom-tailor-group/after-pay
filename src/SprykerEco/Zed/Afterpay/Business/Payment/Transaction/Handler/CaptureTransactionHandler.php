@@ -75,9 +75,11 @@ class CaptureTransactionHandler implements CaptureTransactionHandlerInterface
 
         $captureResponseTransfer = $this->transaction->executeTransaction($captureRequestTransfer);
 
-        $this->updateOrderPayment(
+        $this->updateOrderPayment($captureResponseTransfer, $orderTransfer->getIdSalesOrder());
+        $this->updatePaymentOrderItem(
             $captureResponseTransfer,
-            $orderTransfer->getIdSalesOrder()
+            $itemTransfer,
+            $paymentTransfer
         );
     }
 
@@ -157,10 +159,25 @@ class CaptureTransactionHandler implements CaptureTransactionHandlerInterface
             $capturedResponseTransfer->getCapturedAmount(),
             $idSalesOrder
         );
+    }
 
-        $this->paymentWriter->setCaptureNumberByIdSalesOrder(
-            $capturedResponseTransfer->getCaptureNumber(),
-            $idSalesOrder
+    /**
+     * @param \Generated\Shared\Transfer\AfterpayCaptureResponseTransfer $captureResponseTransfer
+     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
+     * @param \Generated\Shared\Transfer\AfterpayPaymentTransfer $paymentTransfer
+     *
+     * @return void
+     */
+    protected function updatePaymentOrderItem(
+        $captureResponseTransfer,
+        $itemTransfer,
+        $paymentTransfer
+    )
+    {
+        $this->paymentWriter->setCaptureNumberByIdSalesOrderItemAndIdPayment(
+            $captureResponseTransfer->getCaptureNumber(),
+            $itemTransfer->getIdSalesOrderItem(),
+            $paymentTransfer->getIdPaymentAfterpay()
         );
     }
 

@@ -99,6 +99,23 @@ class AfterpayQueryContainer extends AbstractQueryContainer implements AfterpayQ
     /**
      * @api
      *
+     * @param int $idSalesOrderItem
+     * @param int $idPayment
+     *
+     * @return \Orm\Zed\Afterpay\Persistence\SpyPaymentAfterpayOrderItemQuery
+     */
+    public function queryPaymentOrderItemByIdSalesOrderAndIdPayment($idSalesOrderItem,$idPayment)
+    {
+        return $this
+            ->getFactory()
+            ->createPaymentAfterpayOrderItemQuery()
+            ->filterByFkSalesOrderItem($idSalesOrderItem)
+            ->filterByFkPaymentAfterpay($idPayment);
+    }
+
+    /**
+     * @api
+     *
      * @param int $idSalesOrder
      * @param string $transactionType
      *

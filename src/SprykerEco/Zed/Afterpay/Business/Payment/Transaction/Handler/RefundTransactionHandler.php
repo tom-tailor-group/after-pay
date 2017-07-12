@@ -81,6 +81,9 @@ class RefundTransactionHandler implements RefundTransactionHandlerInterface
     public function refund(ItemTransfer $itemTransfer, OrderTransfer $orderTransfer)
     {
         $refundRequestTransfer = $this->buildRefundRequestForOrderItem($itemTransfer, $orderTransfer);
+
+        $this->addCaptureNumberToRefundRequest($refundRequestTransfer, $itemTransfer);
+
         $paymentTransfer = $this->getPaymentTransferForItem($itemTransfer);
 
         // Refund expences with the last order item.
@@ -147,6 +150,16 @@ class RefundTransactionHandler implements RefundTransactionHandlerInterface
             );
     }
 
+    protected function getPaymentOrderItemTransferForItem(ItemTransfer $itemTransfer)
+    {
+        $paymentTransfer = $this->getPaymentTransferForItem($itemTransfer);
+        return $this->paymentReader
+            ->getPaymentOrderItemByIdSalesOrderItemAndIdPayment(
+                $itemTransfer->getIdSalesOrderItem(),
+                $paymentTransfer->getIdPaymentAfterpay()
+            );
+    }
+
     /**
      * @param \Generated\Shared\Transfer\AfterpayRefundResponseTransfer $refundResponseTransfer
      * @param \Generated\Shared\Transfer\AfterpayRefundRequestTransfer $refundRequestTransfer
@@ -190,6 +203,18 @@ class RefundTransactionHandler implements RefundTransactionHandlerInterface
             $paymentTransfer->getCancelledTotal() -
             $paymentTransfer->getRefundedTotal() -
             $paymentTransfer->getExpenseTotal() === $itemTransfer->getRefundableAmount();
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\AfterpayRefundRequestTransfer $refundRequestTransfer
+     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
+     *
+     * @return void
+     */
+    protected function addCaptureNumberToRefundRequest($refundRequestTransfer, $itemTransfer)
+    {
+        $paymentOrderItemTransfer = $this->getPaymentOrderItemTransferForItem($itemTransfer);
+        $refundRequestTransfer->setCaptureNumber($paymentOrderItemTransfer->getCaptureNumber());
     }
 
 }

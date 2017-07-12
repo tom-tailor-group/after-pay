@@ -92,16 +92,24 @@ class PaymentWriter implements PaymentWriterInterface
     }
 
     /**
-     * @param $captureNumber
-     * @param $idSalesOrder
+     * @param int $captureNumber
+     * @param int $idSalesOrderItem
+     * @param int $idPayment
      *
      * @return void
      */
-    public function setCaptureNumberByIdSalesOrder($captureNumber, $idSalesOrder)
+    public function setCaptureNumberByIdSalesOrderItemAndIdPayment(
+        $captureNumber,
+        $idSalesOrderItem,
+        $idPayment
+    )
     {
-        $afterpayPaymentEntity = $this->getPaymentEntityByIdSalesOrder($idSalesOrder);
+        $afterpayPaymentOrderItemEntity = $this->getPaymentOrderItemEntityByIdSalesOrderItemAndIdPayment(
+            $idSalesOrderItem,
+            $idPayment
+        );
 
-        $afterpayPaymentEntity->setCaptureNumber($captureNumber)->save();
+        $afterpayPaymentOrderItemEntity->setCaptureNumber($captureNumber)->save();
     }
 
     /**
@@ -133,5 +141,20 @@ class PaymentWriter implements PaymentWriterInterface
             ->findOne();
 
         return $afterpayPaymentEntity;
+    }
+
+    /**
+     * @param int $idSalesOrderItem
+     * @param int $idPayment
+     *
+     * @return \Orm\Zed\Afterpay\Persistence\SpyPaymentAfterpayOrderItem
+     */
+    protected function getPaymentOrderItemEntityByIdSalesOrderItemAndIdPayment($idSalesOrderItem, $idPayment)
+    {
+        $afterpayPaymentOrderItemEntity = $this->afterpayQueryContainer
+            ->queryPaymentOrderItemByIdSalesOrderAndIdPayment($idSalesOrderItem, $idPayment)
+            ->findOne();
+
+        return $afterpayPaymentOrderItemEntity;
     }
 }

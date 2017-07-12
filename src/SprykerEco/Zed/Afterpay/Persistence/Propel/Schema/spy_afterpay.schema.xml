@@ -18,8 +18,6 @@
 
         <column name="payment_method" required="true" type="VARCHAR"/>
 
-        <column name="capture_number" required="false" type="VARCHAR" />
-
         <column name="grand_total" required="false" type="INTEGER"/>
         <column name="expense_total" required="false" type="INTEGER"/>
         <column name="authorized_total" required="false" type="INTEGER"/>
@@ -38,6 +36,7 @@
     <table name="spy_payment_afterpay_order_item">
         <column name="fk_payment_afterpay" type="INTEGER" primaryKey="true"/>
         <column name="fk_sales_order_item" type="INTEGER" primaryKey="true"/>
+        <column name="capture_number" required="false" type="VARCHAR" />
         <behavior name="timestampable">
             <parameter name="disable_updated_at" value="true"/>
         </behavior>

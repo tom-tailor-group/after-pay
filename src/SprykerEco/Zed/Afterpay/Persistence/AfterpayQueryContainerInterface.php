@@ -24,6 +24,16 @@ interface AfterpayQueryContainerInterface extends QueryContainerInterface
     /**
      * @api
      *
+     * @param int $idSalesOrderItem
+     * @param int $idPayment
+     *
+     * @return \Orm\Zed\Afterpay\Persistence\SpyPaymentAfterpayOrderItemQuery
+     */
+    public function queryPaymentOrderItemByIdSalesOrderAndIdPayment($idSalesOrderItem,$idPayment);
+
+    /**
+     * @api
+     *
      * @param int $idSalesOrder
      * @param string $transactionType
      *

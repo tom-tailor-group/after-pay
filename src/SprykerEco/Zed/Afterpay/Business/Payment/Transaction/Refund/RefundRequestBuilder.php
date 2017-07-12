@@ -12,6 +12,7 @@ use Generated\Shared\Transfer\AfterpayRefundRequestTransfer;
 use Generated\Shared\Transfer\AfterpayRequestOrderItemTransfer;
 use Generated\Shared\Transfer\ItemTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
+use Predis\NotSupportedException;
 use SprykerEco\Shared\Afterpay\AfterpayConstants;
 use SprykerEco\Zed\Afterpay\Business\Payment\Mapper\OrderToRequestTransferInterface;
 use SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToMoneyInterface;
@@ -64,10 +65,10 @@ class RefundRequestBuilder implements RefundRequestBuilderInterface
         ItemTransfer $orderItemTransfer,
         AfterpayRefundRequestTransfer $refundRequestTransfer
     ) {
+
         $orderItemRequestTransfer = $this->orderToRequestMapper->orderItemToAfterpayItemRequest($orderItemTransfer);
 
         $this->addOrderItemToRefundDetails($orderItemRequestTransfer, $refundRequestTransfer);
-        //$this->increaseTotalToRefundAmounts($orderItemRequestTransfer, $refundRequestTransfer);
 
         return $this;
     }
@@ -136,59 +137,5 @@ class RefundRequestBuilder implements RefundRequestBuilderInterface
     {
         return (string)$this->money->convertIntegerToDecimal($intValue);
     }
-
-    /**
-     * @param \Generated\Shared\Transfer\AfterpayRequestOrderItemTransfer $orderItemRequestTransfer
-     * @param \Generated\Shared\Transfer\AfterpayCaptureRequestTransfer $refundRequestTransfer
-     *
-     * @return void
-     */
-    /*protected function increaseTotalNetAmount(
-        AfterpayRequestOrderItemTransfer $orderItemRequestTransfer,
-        AfterpayCaptureRequestTransfer $refundRequestTransfer
-    ) {
-        $oldNetAmountDecimal = $this->decimalToInt((float)$refundRequestTransfer->getOrderDetails()->getTotalNetAmount());
-        $itemNetAmountDecimal = $this->decimalToInt((float)$orderItemRequestTransfer->getNetUnitPrice());
-
-        $newNetAmountDecimal = $oldNetAmountDecimal + $itemNetAmountDecimal;
-        $refundRequestTransfer->getOrderDetails()->setTotalNetAmount(
-            $this->intToDecimalString($newNetAmountDecimal)
-        );
-    }*/
-
-    /**
-     * @param \Generated\Shared\Transfer\AfterpayRequestOrderItemTransfer $orderItemRequestTransfer
-     * @param \Generated\Shared\Transfer\AfterpayCaptureRequestTransfer $captureRequestTransfer
-     *
-     * @return void
-     */
-    /*protected function increaseTotalGrossAmount(
-        AfterpayRequestOrderItemTransfer $orderItemRequestTransfer,
-        AfterpayCaptureRequestTransfer $captureRequestTransfer
-    ) {
-        $oldGrossAmountDecimal = $this->decimalToInt((float)$captureRequestTransfer->getOrderDetails()->getTotalGrossAmount());
-        $itemGrossAmountDecimal = $this->decimalToInt((float)$orderItemRequestTransfer->getGrossUnitPrice());
-
-        $newGrossAmountDecimal = $oldGrossAmountDecimal + $itemGrossAmountDecimal;
-        $captureRequestTransfer->getOrderDetails()->setTotalGrossAmount(
-            $this->intToDecimalString($newGrossAmountDecimal)
-        );
-    }*/
-
-
-    /**
-     * @param \Generated\Shared\Transfer\AfterpayRequestOrderItemTransfer $orderItemRequestTransfer
-     * @param \Generated\Shared\Transfer\AfterpayCaptureRequestTransfer $refundRequestTransfer
-     *
-     * @return void
-     */
-    /*protected function increaseTotalToCaptureAmounts(
-        AfterpayRequestOrderItemTransfer $orderItemRequestTransfer,
-        AfterpayCaptureRequestTransfer $refundRequestTransfer
-    ) {
-        $this->increaseTotalNetAmount($orderItemRequestTransfer, $refundRequestTransfer);
-        $this->increaseTotalGrossAmount($orderItemRequestTransfer, $refundRequestTransfer);
-    }*/
-
 
 }
