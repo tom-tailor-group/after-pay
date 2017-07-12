@@ -45,7 +45,7 @@ class AbstractApiCall
     protected function logApiException(ApiHttpRequestException $apiHttpRequestException)
     {
         $this->getLogger()->error(
-            $apiHttpRequestException->getMessage(),
+            $apiHttpRequestException->getError()->getMessage(),
             ['exception' => $apiHttpRequestException]
         );
     }
