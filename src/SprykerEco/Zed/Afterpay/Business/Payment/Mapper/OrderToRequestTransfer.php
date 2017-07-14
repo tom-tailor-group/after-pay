@@ -305,12 +305,12 @@ class OrderToRequestTransfer implements OrderToRequestTransferInterface
         foreach ($this->getGiftcards($orderWithPaymentTransfer) as $index => $paymentTransfer) {
 
             $orderItemRequestTransfer = new AfterpayRequestOrderItemTransfer();
-            $amount = (string)$this->money->convertIntegerToDecimal($paymentTransfer->getAmount());
+            $amount = (string)$this->money->convertIntegerToDecimal(static::NEGATIVE_MULTIPLIER * $paymentTransfer->getAmount());
 
             $orderItemRequestTransfer
                 ->setProductId(static::GIFT_CARD_PROVIDER . $index)
                 ->setDescription(static::GIFT_CARD_PROVIDER . $index)
-                ->setGrossUnitPrice(static::NEGATIVE_MULTIPLIER * $amount)
+                ->setGrossUnitPrice($amount)
                 ->setQuantity(1);
 
             $orderRequestTransfer->addItem($orderItemRequestTransfer);
