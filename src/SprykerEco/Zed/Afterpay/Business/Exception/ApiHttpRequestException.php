@@ -19,6 +19,11 @@ class ApiHttpRequestException extends Exception
     protected $error;
 
     /**
+     * @var $detailedMessage
+     */
+    protected $detailedMessage;
+
+    /**
      * @param \Generated\Shared\Transfer\AfterpayApiResponseErrorTransfer $error
      *
      * @return void
@@ -34,6 +39,27 @@ class ApiHttpRequestException extends Exception
     public function getError()
     {
         return $this->error;
+    }
+
+    /**
+     * @param string $message
+     *
+     * @return void
+     */
+    public function setDetailedMessage(string $message)
+    {
+        $this->detailedMessage = $message;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDetailedMessage()
+    {
+        if (empty($this->detailedMessage)) {
+            return parent::getMessage();
+        }
+        return $this->detailedMessage;
     }
 
 }

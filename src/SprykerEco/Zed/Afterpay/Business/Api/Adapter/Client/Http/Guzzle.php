@@ -99,20 +99,26 @@ class Guzzle implements ClientInterface
             return $this->client->send($request, $options);
         } catch (RequestException $requestException) {
             $apiHttpRequestException = new ApiHttpRequestException($requestException->getMessage());
-            $errorResponseData = \GuzzleHttp\json_decode(
-                $requestException->getResponse()->getBody()->getContents(), true
-            );
-            if (is_array($errorResponseData[0])) {
-                $errorDetails = $errorResponseData[0];
-                $apiErrorTransfer = new AfterpayApiResponseErrorTransfer();
-                $apiErrorTransfer
-                    ->setActionCode($errorDetails['actionCode'])
-                    ->setCode($errorDetails['code'])
-                    ->setType($errorDetails['type'])
-                    ->setMessage($errorDetails['message'])
-                    ->setIsSuccess(false);
-                $apiHttpRequestException->setError($apiErrorTransfer);
+
+            $content = $requestException->getResponse()->getBody()->getContents();
+            if (!empty($content)) {
+                $errorResponseData = \GuzzleHttp\json_decode(
+                    $content, true
+                );
+                if (isset($errorResponseData[0])) {
+                    $errorDetails = $errorResponseData[0];
+                    $apiErrorTransfer = new AfterpayApiResponseErrorTransfer();
+                    $apiErrorTransfer
+                        ->setActionCode($errorDetails['actionCode'])
+                        ->setCode($errorDetails['code'])
+                        ->setType($errorDetails['type'])
+                        ->setMessage($errorDetails['message'])
+                        ->setIsSuccess(false);
+                    $apiHttpRequestException->setError($apiErrorTransfer);
+                    $apiHttpRequestException->setDetailedMessage($content);
+                }
             }
+
 
             throw $apiHttpRequestException;
         }
