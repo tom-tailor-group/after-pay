@@ -21,8 +21,8 @@ use Spryker\Shared\Application\ApplicationConstants;
 $config[AfterpayConstants::VENDOR_ROOT] = APPLICATION_ROOT_DIR . '/vendor/spryker-eco';
 
 $config[AfterpayConstants::API_ENDPOINT_BASE_URL] = 'https://sandboxapi.horizonafs.com/eCommerceServicesWebApi/api/v3/';
-$config[AfterpayConstants::API_CREDENTIALS_AUTH_KEY] = 'Ggv-L0_rrMrskEt4pa7SSIVUvgD9dM14njtWmHHE';
-$config[AfterpayConstants::PAYMENT_INVOICE_CHANNEL_ID] = 'ff8080135ce63bb0135d36854601127';
+$config[AfterpayConstants::API_CREDENTIALS_AUTH_KEY] = '';
+$config[AfterpayConstants::PAYMENT_INVOICE_CHANNEL_ID] = '';
 
 // OMS and payment
 
