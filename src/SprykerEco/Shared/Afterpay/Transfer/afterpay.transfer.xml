@@ -11,6 +11,7 @@
         <property name="customerNumber" type="string" />
         <property name="idReservation" type="string" />
         <property name="capturedTotal" type="int" />
+        <property name="expensesCaptureNumber" type="string" />
         <property name="authorizedTotal" type="int" />
         <property name="cancelledTotal" type="int" />
         <property name="refundedTotal" type="int" />

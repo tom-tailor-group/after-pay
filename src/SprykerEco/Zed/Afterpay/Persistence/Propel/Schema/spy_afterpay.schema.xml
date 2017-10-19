@@ -25,6 +25,8 @@
         <column name="cancelled_total" required="false" type="INTEGER"/>
         <column name="refunded_total" required="false" type="INTEGER" />
 
+        <column name="expenses_capture_number" required="false" type="VARCHAR" />
+
         <foreign-key name="spy_payment_afterpay-fk_sales_order" foreignTable="spy_sales_order" phpName="SpySalesOrder">
             <reference foreign="id_sales_order" local="fk_sales_order"/>
         </foreign-key>
