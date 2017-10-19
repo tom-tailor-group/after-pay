@@ -73,6 +73,22 @@ class PaymentWriter implements PaymentWriterInterface
     }
 
     /**
+     * @param string $captureNumber
+     * @param int $idSalesOrder
+     *
+     * @return void
+     */
+    public function updateExpensesCaptureNumber($captureNumber, $idSalesOrder)
+    {
+        $afterpayPaymentEntity = $this->getPaymentEntityByIdSalesOrder($idSalesOrder);
+        $afterpayPaymentEntity
+            ->setExpensesCaptureNumber(
+                $captureNumber
+            )
+            ->save();
+    }
+
+    /**
      * @param int $refundedAmount
      * @param int $idSalesOrder
      *

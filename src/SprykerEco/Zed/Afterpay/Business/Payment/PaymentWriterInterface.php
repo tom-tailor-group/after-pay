@@ -35,6 +35,14 @@ interface PaymentWriterInterface
     public function increaseTotalCapturedAmountByIdSalesOrder($amountToAdd, $idSalesOrder);
 
     /**
+     * @param string $captureNumber
+     * @param int $idSalesOrder
+     *
+     * @return void
+     */
+    public function updateExpensesCaptureNumber($captureNumber, $idSalesOrder);
+
+    /**
      * @param int $amountToAdd
      * @param int $idSalesOrder
      *
