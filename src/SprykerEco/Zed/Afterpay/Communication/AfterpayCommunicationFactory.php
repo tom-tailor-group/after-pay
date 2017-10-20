@@ -16,7 +16,6 @@ use SprykerEco\Zed\Afterpay\AfterpayDependencyProvider;
  */
 class AfterpayCommunicationFactory extends AbstractCommunicationFactory
 {
-
     /**
      * @return \SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToSalesInterface
      */
@@ -28,9 +27,8 @@ class AfterpayCommunicationFactory extends AbstractCommunicationFactory
     /**
      * @return \SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToRefundInterface
      */
-    public function createRefundFacade()
+    public function getRefundFacade()
     {
         return $this->getProvidedDependency(AfterpayDependencyProvider::FACADE_REFUND);
     }
-
 }

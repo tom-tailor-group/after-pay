@@ -9,7 +9,6 @@ namespace SprykerEco\Zed\Afterpay\Business\Api\Adapter;
 
 interface AdapterFactoryInterface
 {
-
     /**
      * @return \SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\AvailablePaymentMethodsCallInterface
      */
@@ -64,5 +63,4 @@ interface AdapterFactoryInterface
      * @return \SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\LookupInstallmentPlansCallInterface
      */
     public function createLookupInstallmentPlansCall();
-
 }

@@ -15,7 +15,6 @@ use Generated\Shared\Transfer\QuoteTransfer;
 
 interface AfterpayClientInterface
 {
-
     /**
      * Specification:
      *  - Makes "payment-methods" call to the afterpay API, in order to get list of available
@@ -89,5 +88,4 @@ interface AfterpayClientInterface
      * @return \Generated\Shared\Transfer\QuoteTransfer
      */
     public function getQuoteFromSession();
-
 }

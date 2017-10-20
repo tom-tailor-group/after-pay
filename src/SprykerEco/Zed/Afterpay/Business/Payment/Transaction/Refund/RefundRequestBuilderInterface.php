@@ -13,7 +13,6 @@ use Generated\Shared\Transfer\OrderTransfer;
 
 interface RefundRequestBuilderInterface
 {
-
     /**
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
      *
@@ -23,7 +22,7 @@ interface RefundRequestBuilderInterface
 
     /**
      * @param \Generated\Shared\Transfer\ItemTransfer $orderItemTransfer
-     * @param \Generated\Shared\Transfer\AfterpayRefundRequestTransfer $refundRequestTransfer
+     * @param \Generated\Shared\Transfer\AfterpayRefundRequestTransfer $captureRequestTransfer
      *
      * @return $this
      */
@@ -42,5 +41,4 @@ interface RefundRequestBuilderInterface
         $expenseAmount,
         AfterpayRefundRequestTransfer $refundRequestTransfer
     );
-
 }

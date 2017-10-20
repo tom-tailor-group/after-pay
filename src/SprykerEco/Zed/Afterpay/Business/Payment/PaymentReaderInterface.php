@@ -9,7 +9,6 @@ namespace SprykerEco\Zed\Afterpay\Business\Payment;
 
 interface PaymentReaderInterface
 {
-
     /**
      * @param int $idSalesOrder
      *
@@ -24,5 +23,4 @@ interface PaymentReaderInterface
      * @return \Generated\Shared\Transfer\AfterpayPaymentOrderItemTransfer
      */
     public function getPaymentOrderItemByIdSalesOrderItemAndIdPayment($idSalesOrderItem, $idPayment);
-
 }

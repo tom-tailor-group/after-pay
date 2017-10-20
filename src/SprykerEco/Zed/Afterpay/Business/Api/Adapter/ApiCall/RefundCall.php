@@ -21,7 +21,6 @@ use SprykerEco\Zed\Afterpay\Dependency\Service\AfterpayToUtilEncodingInterface;
 
 class RefundCall extends AbstractApiCall implements RefundCallInterface
 {
-
     /**
      * @var \SprykerEco\Zed\Afterpay\Business\Api\Adapter\Client\ClientInterface
      */
@@ -155,5 +154,4 @@ class RefundCall extends AbstractApiCall implements RefundCallInterface
 
         return $apiResponseTransfer;
     }
-
 }

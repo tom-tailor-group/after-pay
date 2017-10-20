@@ -23,7 +23,6 @@ use SprykerEco\Zed\Afterpay\Communication\Plugin\Checkout\Oms\Condition\IsRefund
 
 class OmsDependencyInjector extends AbstractDependencyInjector
 {
-
     /**
      * @param \Spryker\Zed\Kernel\Container $container
      *
@@ -76,5 +75,4 @@ class OmsDependencyInjector extends AbstractDependencyInjector
 
         return $container;
     }
-
 }

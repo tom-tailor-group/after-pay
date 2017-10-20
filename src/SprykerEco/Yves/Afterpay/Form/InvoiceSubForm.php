@@ -15,7 +15,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class InvoiceSubForm extends AbstractSubFormType implements SubFormInterface
 {
-
     const PAYMENT_METHOD = AfterpayConstants::PAYMENT_METHOD_INVOICE;
 
     /**
@@ -67,5 +66,4 @@ class InvoiceSubForm extends AbstractSubFormType implements SubFormInterface
     {
         return static::PAYMENT_PROVIDER . '/' . static::PAYMENT_METHOD;
     }
-
 }

@@ -19,7 +19,6 @@ use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\CaptureTransactionInter
 
 class CaptureTransactionHandler implements CaptureTransactionHandlerInterface
 {
-
     /**
      * @var \SprykerEco\Zed\Afterpay\Business\Payment\Transaction\CaptureTransactionInterface
      */
@@ -192,15 +191,14 @@ class CaptureTransactionHandler implements CaptureTransactionHandlerInterface
 
     /**
      * @param \Generated\Shared\Transfer\AfterpayCaptureResponseTransfer $capturedResponseTransfer
-     * @param $idSalesOrder
+     * @param int $idSalesOrder
      *
      * @return void
      */
     protected function updatePaymentWithExpensesCaptureNumber(
         AfterpayCaptureResponseTransfer $capturedResponseTransfer,
         $idSalesOrder
-    )
-    {
+    ) {
         if (!$capturedResponseTransfer->getCaptureNumber()) {
             return;
         }
@@ -222,13 +220,11 @@ class CaptureTransactionHandler implements CaptureTransactionHandlerInterface
         $captureResponseTransfer,
         $itemTransfer,
         $paymentTransfer
-    )
-    {
+    ) {
         $this->paymentWriter->setCaptureNumberByIdSalesOrderItemAndIdPayment(
             $captureResponseTransfer->getCaptureNumber(),
             $itemTransfer->getIdSalesOrderItem(),
             $paymentTransfer->getIdPaymentAfterpay()
         );
     }
-
 }

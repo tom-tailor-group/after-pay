@@ -18,7 +18,6 @@ use Generated\Shared\Transfer\QuoteTransfer;
 
 interface AfterpayFacadeInterface
 {
-
     /**
      * Specification:
      * - Makes a call to the "payment-methods" API endpoint, to get a list of payment methods,
@@ -119,7 +118,6 @@ interface AfterpayFacadeInterface
      */
     public function capturePayment(ItemTransfer $itemTransfer, OrderTransfer $orderTransfer);
 
-
     /**
      * Specification:
      * - Sends "refund" request to Afterpay gateway, to refund payment for a specific order item.
@@ -194,5 +192,4 @@ interface AfterpayFacadeInterface
      * @return int
      */
     public function getApiStatus();
-
 }

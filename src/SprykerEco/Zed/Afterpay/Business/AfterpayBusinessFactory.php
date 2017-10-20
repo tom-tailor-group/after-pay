@@ -45,7 +45,6 @@ use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\TransactionLogReader;
  */
 class AfterpayBusinessFactory extends AbstractBusinessFactory
 {
-
     /**
      * @return \SprykerEco\Zed\Afterpay\Business\Payment\Handler\RiskCheck\AvailablePaymentMethodsHandlerInterface
      */
@@ -405,5 +404,4 @@ class AfterpayBusinessFactory extends AbstractBusinessFactory
             $this->getQueryContainer()
         );
     }
-
 }

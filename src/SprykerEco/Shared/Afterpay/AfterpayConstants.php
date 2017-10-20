@@ -9,7 +9,6 @@ namespace SprykerEco\Shared\Afterpay;
 
 interface AfterpayConstants
 {
-
     const PROVIDER_NAME = 'afterpay';
 
     const AFTERPAY_AUTHORIZE_WORKFLOW = 'AFTERPAY_AUTHORIZE_WORKFLOW';
@@ -67,8 +66,6 @@ interface AfterpayConstants
     const REFUND_EXPENSE_SKU = 'REFUND_EXPENSE';
     const REFUND_EXPENSE_DECRIPTION = 'Refund expence total amount';
 
-
     const CANCEL_EXPENSE_SKU = 'EXPENSE';
     const CANCEL_EXPENSE_DESCRIPTION = 'Expense total amount';
-
 }

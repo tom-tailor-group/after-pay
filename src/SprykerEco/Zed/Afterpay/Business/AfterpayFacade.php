@@ -22,7 +22,6 @@ use Spryker\Zed\Kernel\Business\AbstractFacade;
  */
 class AfterpayFacade extends AbstractFacade implements AfterpayFacadeInterface
 {
-
     /**
      * {@inheritdoc}
      *
@@ -251,5 +250,4 @@ class AfterpayFacade extends AbstractFacade implements AfterpayFacadeInterface
             ->createApiAdapter()
             ->getApiStatus();
     }
-
 }

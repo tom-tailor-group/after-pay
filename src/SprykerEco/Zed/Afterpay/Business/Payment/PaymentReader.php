@@ -13,7 +13,6 @@ use SprykerEco\Zed\Afterpay\Persistence\AfterpayQueryContainerInterface;
 
 class PaymentReader implements PaymentReaderInterface
 {
-
     /**
      * @var \SprykerEco\Zed\Afterpay\Persistence\AfterpayQueryContainerInterface
      */
@@ -84,12 +83,10 @@ class PaymentReader implements PaymentReaderInterface
     protected function getPaymentOrderItemEntityByIdSalesOrderItemAndIdPayment(
         $idSalesOrderItem,
         $idPayment
-    )
-    {
+    ) {
         $afterpayPaymentOrderItemEntity = $this->afterpayQueryContainer
             ->queryPaymentOrderItemByIdSalesOrderAndIdPayment($idSalesOrderItem, $idPayment)
             ->findOne();
         return $afterpayPaymentOrderItemEntity;
     }
-
 }

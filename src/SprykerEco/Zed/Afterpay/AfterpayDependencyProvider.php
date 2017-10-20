@@ -19,7 +19,6 @@ use SprykerEco\Zed\Afterpay\Dependency\Service\AfterpayToUtilTextBridge;
 
 class AfterpayDependencyProvider extends AbstractBundleDependencyProvider
 {
-
     const FACADE_MONEY = 'money facade';
     const FACADE_SALES = 'sales facade';
     const FACADE_CUSTOMER = 'customer facade';
@@ -89,5 +88,4 @@ class AfterpayDependencyProvider extends AbstractBundleDependencyProvider
 
         return $container;
     }
-
 }

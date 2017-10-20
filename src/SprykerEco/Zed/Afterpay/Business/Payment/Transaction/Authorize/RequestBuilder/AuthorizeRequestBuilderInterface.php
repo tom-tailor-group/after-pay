@@ -11,12 +11,10 @@ use Generated\Shared\Transfer\OrderTransfer;
 
 interface AuthorizeRequestBuilderInterface
 {
-
     /**
      * @param \Generated\Shared\Transfer\OrderTransfer $orderWithPaymentTransfer
      *
      * @return \Generated\Shared\Transfer\AfterpayAuthorizeRequestTransfer
      */
     public function buildAuthorizeRequest(OrderTransfer $orderWithPaymentTransfer);
-
 }

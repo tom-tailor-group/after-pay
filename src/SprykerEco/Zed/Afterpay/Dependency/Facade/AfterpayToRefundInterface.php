@@ -13,7 +13,6 @@ use Orm\Zed\Sales\Persistence\SpySalesOrder;
 
 interface AfterpayToRefundInterface
 {
-
     /**
      * @param \Orm\Zed\Sales\Persistence\SpySalesOrderItem[] $salesOrderItems
      * @param \Orm\Zed\Sales\Persistence\SpySalesOrder $salesOrderEntity
@@ -40,12 +39,10 @@ interface AfterpayToRefundInterface
      */
     public function calculateRefundableExpenseAmount(RefundTransfer $refundTransfer, OrderTransfer $orderTransfer, array $salesOrderItems);
 
-
     /**
      * @param \Generated\Shared\Transfer\RefundTransfer $refundTransfer
      *
      * @return bool
      */
     public function saveRefund(RefundTransfer $refundTransfer);
-
 }

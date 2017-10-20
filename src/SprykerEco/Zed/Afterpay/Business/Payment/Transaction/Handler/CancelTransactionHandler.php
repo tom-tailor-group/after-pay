@@ -20,7 +20,6 @@ use SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToMoneyInterface;
 
 class CancelTransactionHandler implements CancelTransactionHandlerInterface
 {
-
     /**
      * @var \SprykerEco\Zed\Afterpay\Business\Payment\Transaction\CancelTransactionInterface
      */
@@ -185,5 +184,4 @@ class CancelTransactionHandler implements CancelTransactionHandlerInterface
             $cancelRequestTransfer->getIdSalesOrder()
         );
     }
-
 }

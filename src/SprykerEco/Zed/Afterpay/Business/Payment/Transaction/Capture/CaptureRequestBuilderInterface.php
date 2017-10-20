@@ -13,7 +13,6 @@ use Generated\Shared\Transfer\OrderTransfer;
 
 interface CaptureRequestBuilderInterface
 {
-
     /**
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
      *
@@ -42,5 +41,4 @@ interface CaptureRequestBuilderInterface
         $expenseAmount,
         AfterpayCaptureRequestTransfer $captureRequestTransfer
     );
-
 }

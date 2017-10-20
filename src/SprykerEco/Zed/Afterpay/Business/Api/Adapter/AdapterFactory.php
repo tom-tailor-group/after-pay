@@ -28,7 +28,6 @@ use SprykerEco\Zed\Afterpay\Business\Api\Adapter\Converter\TransferToCamelCaseAr
  */
 class AdapterFactory extends AbstractBusinessFactory implements AdapterFactoryInterface
 {
-
     /**
      * @return \SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\AvailablePaymentMethodsCallInterface
      */
@@ -215,5 +214,4 @@ class AdapterFactory extends AbstractBusinessFactory implements AdapterFactoryIn
     {
         return $this->getProvidedDependency(AfterpayDependencyProvider::SERVICE_UTIL_TEXT);
     }
-
 }

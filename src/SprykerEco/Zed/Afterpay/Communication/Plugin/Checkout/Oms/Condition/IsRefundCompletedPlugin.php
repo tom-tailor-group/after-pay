@@ -20,7 +20,6 @@ use SprykerEco\Shared\Afterpay\AfterpayConstants;
  */
 class IsRefundCompletedPlugin extends AbstractPlugin implements ConditionInterface
 {
-
     const REFUND_TRANSACTION_ACCEPTED = AfterpayConstants::API_TRANSACTION_OUTCOME_ACCEPTED;
 
     /**
@@ -71,5 +70,4 @@ class IsRefundCompletedPlugin extends AbstractPlugin implements ConditionInterfa
     {
         return $refundTransactionLog->getOutcome() === static::REFUND_TRANSACTION_ACCEPTED;
     }
-
 }

@@ -15,7 +15,6 @@ use SprykerEco\Shared\Afterpay\AfterpayConstants;
  */
 class AfterpayQueryContainer extends AbstractQueryContainer implements AfterpayQueryContainerInterface
 {
-
     const TRANSACTION_TYPE_AUTHORIZE = AfterpayConstants::TRANSACTION_TYPE_AUTHORIZE;
     const TRANSACTION_TYPE_CAPTURE = AfterpayConstants::TRANSACTION_TYPE_CAPTURE;
     const TRANSACTION_TYPE_CANCEL = AfterpayConstants::TRANSACTION_TYPE_CANCEL;
@@ -104,7 +103,7 @@ class AfterpayQueryContainer extends AbstractQueryContainer implements AfterpayQ
      *
      * @return \Orm\Zed\Afterpay\Persistence\SpyPaymentAfterpayOrderItemQuery
      */
-    public function queryPaymentOrderItemByIdSalesOrderAndIdPayment($idSalesOrderItem,$idPayment)
+    public function queryPaymentOrderItemByIdSalesOrderAndIdPayment($idSalesOrderItem, $idPayment)
     {
         return $this
             ->getFactory()
@@ -128,5 +127,4 @@ class AfterpayQueryContainer extends AbstractQueryContainer implements AfterpayQ
             ->filterByFkSalesOrder($idSalesOrder)
             ->filterByTransactionType($transactionType);
     }
-
 }

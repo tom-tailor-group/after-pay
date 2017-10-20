@@ -17,11 +17,9 @@ use SprykerEco\Zed\Afterpay\Business\Payment\PaymentWriterInterface;
 use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Refund\RefundRequestBuilderInterface;
 use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\RefundTransactionInterface;
 use SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToMoneyInterface;
-use SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToRefundInterface;
 
 class RefundTransactionHandler implements RefundTransactionHandlerInterface
 {
-
     /**
      * @var \SprykerEco\Zed\Afterpay\Business\Payment\Transaction\RefundTransactionInterface
      */
@@ -191,8 +189,7 @@ class RefundTransactionHandler implements RefundTransactionHandlerInterface
         AfterpayRefundResponseTransfer $refundResponseTransfer,
         AfterpayRefundRequestTransfer $refundRequestTransfer,
         $idSalesOrder
-    )
-    {
+    ) {
         if (!$refundResponseTransfer->getTotalCapturedAmount()) {
             return;
         }
@@ -236,5 +233,4 @@ class RefundTransactionHandler implements RefundTransactionHandlerInterface
         $paymentOrderItemTransfer = $this->getPaymentOrderItemTransferForItem($itemTransfer);
         $refundRequestTransfer->setCaptureNumber($paymentOrderItemTransfer->getCaptureNumber());
     }
-
 }

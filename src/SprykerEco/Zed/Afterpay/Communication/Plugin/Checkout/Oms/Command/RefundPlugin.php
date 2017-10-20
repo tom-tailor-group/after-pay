@@ -22,7 +22,6 @@ use Spryker\Zed\Oms\Dependency\Plugin\Command\CommandByOrderInterface;
  */
 class RefundPlugin extends AbstractPlugin implements CommandByOrderInterface
 {
-
     /**
      *
      * Command which is executed per order basis
@@ -116,8 +115,7 @@ class RefundPlugin extends AbstractPlugin implements CommandByOrderInterface
      */
     protected function storeRefund(array $orderItems, $orderEntity)
     {
-        $refundTransfer = $this->getFactory()->createRefundFacade()->calculateRefund($orderItems, $orderEntity);
-        $this->getFactory()->createRefundFacade()->saveRefund($refundTransfer);
+        $refundTransfer = $this->getFactory()->getRefundFacade()->calculateRefund($orderItems, $orderEntity);
+        $this->getFactory()->getRefundFacade()->saveRefund($refundTransfer);
     }
-
 }

@@ -18,7 +18,6 @@ use Spryker\Zed\Kernel\Persistence\AbstractPersistenceFactory;
  */
 class AfterpayPersistenceFactory extends AbstractPersistenceFactory
 {
-
     /**
      * @return \Orm\Zed\Afterpay\Persistence\SpyPaymentAfterpayQuery
      */
@@ -42,5 +41,4 @@ class AfterpayPersistenceFactory extends AbstractPersistenceFactory
     {
         return SpyPaymentAfterpayTransactionLogQuery::create();
     }
-
 }

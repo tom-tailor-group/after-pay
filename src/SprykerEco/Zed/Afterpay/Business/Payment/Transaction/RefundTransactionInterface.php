@@ -11,12 +11,10 @@ use Generated\Shared\Transfer\AfterpayRefundRequestTransfer;
 
 interface RefundTransactionInterface
 {
-
     /**
      * @param \Generated\Shared\Transfer\AfterpayRefundRequestTransfer $refundRequestTransfer
      *
      * @return \Generated\Shared\Transfer\AfterpayRefundResponseTransfer
      */
     public function executeTransaction(AfterpayRefundRequestTransfer $refundRequestTransfer);
-
 }

@@ -11,7 +11,6 @@ use Spryker\Zed\Kernel\Persistence\QueryContainer\QueryContainerInterface;
 
 interface AfterpayQueryContainerInterface extends QueryContainerInterface
 {
-
     /**
      * @api
      *
@@ -29,7 +28,7 @@ interface AfterpayQueryContainerInterface extends QueryContainerInterface
      *
      * @return \Orm\Zed\Afterpay\Persistence\SpyPaymentAfterpayOrderItemQuery
      */
-    public function queryPaymentOrderItemByIdSalesOrderAndIdPayment($idSalesOrderItem,$idPayment);
+    public function queryPaymentOrderItemByIdSalesOrderAndIdPayment($idSalesOrderItem, $idPayment);
 
     /**
      * @api
@@ -49,5 +48,4 @@ interface AfterpayQueryContainerInterface extends QueryContainerInterface
      * @return \Orm\Zed\Afterpay\Persistence\SpyPaymentAfterpayTransactionLogQuery
      */
     public function queryAuthorizeTransactionLog($idSalesOrder);
-
 }

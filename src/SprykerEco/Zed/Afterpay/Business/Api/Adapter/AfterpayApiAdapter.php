@@ -19,7 +19,6 @@ use Generated\Shared\Transfer\AfterpayValidateCustomerRequestTransfer;
 
 class AfterpayApiAdapter implements AdapterInterface
 {
-
     /**
      * @var \SprykerEco\Zed\Afterpay\Business\Api\Adapter\AdapterFactoryInterface
      */
@@ -152,8 +151,7 @@ class AfterpayApiAdapter implements AdapterInterface
      */
     public function sendRefundRequest(
         AfterpayRefundRequestTransfer $refundRequestTransfer
-    )
-    {
+    ) {
         return $this
             ->adapterFactory
             ->createRefundCall()

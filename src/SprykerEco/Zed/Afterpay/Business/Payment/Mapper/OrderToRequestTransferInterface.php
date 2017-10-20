@@ -12,7 +12,6 @@ use Generated\Shared\Transfer\OrderTransfer;
 
 interface OrderToRequestTransferInterface
 {
-
     /**
      * @param \Generated\Shared\Transfer\OrderTransfer $orderWithPaymentTransfer
      *
@@ -47,6 +46,4 @@ interface OrderToRequestTransferInterface
      * @return \Generated\Shared\Transfer\AfterpayRefundRequestTransfer
      */
     public function orderToBaseRefundRequest(OrderTransfer $orderTransfer);
-
-
 }

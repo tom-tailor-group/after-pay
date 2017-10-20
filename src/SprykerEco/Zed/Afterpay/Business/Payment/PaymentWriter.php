@@ -11,7 +11,6 @@ use SprykerEco\Zed\Afterpay\Persistence\AfterpayQueryContainerInterface;
 
 class PaymentWriter implements PaymentWriterInterface
 {
-
     /**
      * @var \SprykerEco\Zed\Afterpay\Persistence\AfterpayQueryContainerInterface
      */
@@ -118,8 +117,7 @@ class PaymentWriter implements PaymentWriterInterface
         $captureNumber,
         $idSalesOrderItem,
         $idPayment
-    )
-    {
+    ) {
         $afterpayPaymentOrderItemEntity = $this->getPaymentOrderItemEntityByIdSalesOrderItemAndIdPayment(
             $idSalesOrderItem,
             $idPayment

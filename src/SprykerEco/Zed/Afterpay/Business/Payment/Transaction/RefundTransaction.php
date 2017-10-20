@@ -7,8 +7,6 @@
 
 namespace SprykerEco\Zed\Afterpay\Business\Payment\Transaction;
 
-use Generated\Shared\Transfer\AfterpayCaptureRequestTransfer;
-use Generated\Shared\Transfer\AfterpayCaptureResponseTransfer;
 use Generated\Shared\Transfer\AfterpayRefundRequestTransfer;
 use Generated\Shared\Transfer\AfterpayRefundResponseTransfer;
 use SprykerEco\Shared\Afterpay\AfterpayConstants;
@@ -17,7 +15,6 @@ use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Logger\TransactionLogge
 
 class RefundTransaction implements RefundTransactionInterface
 {
-
     const TRANSACTION_TYPE = AfterpayConstants::TRANSACTION_TYPE_REFUND;
 
     /**
@@ -72,5 +69,4 @@ class RefundTransaction implements RefundTransactionInterface
             $refundResponseTransfer->getApiResponse()
         );
     }
-
 }

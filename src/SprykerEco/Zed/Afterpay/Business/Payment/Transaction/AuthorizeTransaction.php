@@ -15,7 +15,6 @@ use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Logger\TransactionLogge
 
 class AuthorizeTransaction implements AuthorizeTransactionInterface
 {
-
     const TRANSACTION_TYPE = AfterpayConstants::TRANSACTION_TYPE_AUTHORIZE;
 
     /**
@@ -70,5 +69,4 @@ class AuthorizeTransaction implements AuthorizeTransactionInterface
             $authorizeResponseTransfer
         );
     }
-
 }
