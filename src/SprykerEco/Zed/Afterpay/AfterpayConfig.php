@@ -12,7 +12,6 @@ use SprykerEco\Shared\Afterpay\AfterpayConstants;
 
 class AfterpayConfig extends AbstractBundleConfig
 {
-
     /**
      * @param string $orderNumber
      *
@@ -165,5 +164,4 @@ class AfterpayConfig extends AbstractBundleConfig
     {
         return $this->get(AfterpayConstants::API_ENDPOINT_BASE_URL) . $endpointPath;
     }
-
 }

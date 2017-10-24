@@ -11,7 +11,6 @@ use SprykerEco\Zed\Afterpay\Persistence\AfterpayQueryContainerInterface;
 
 class PaymentAuthorizeReader implements PaymentAuthorizeReaderInterface
 {
-
     /**
      * @var \SprykerEco\Zed\Afterpay\Persistence\AfterpayQueryContainerInterface
      */
@@ -24,5 +23,4 @@ class PaymentAuthorizeReader implements PaymentAuthorizeReaderInterface
     {
         $this->afterpayQueryContainer = $afterpayQueryContainer;
     }
-    
 }

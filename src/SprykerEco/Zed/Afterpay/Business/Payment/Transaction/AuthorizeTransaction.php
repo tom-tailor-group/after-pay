@@ -16,7 +16,6 @@ use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Logger\TransactionLogge
 
 class AuthorizeTransaction implements AuthorizeTransactionInterface
 {
-
     const TRANSACTION_TYPE = AfterpayConstants::TRANSACTION_TYPE_AUTHORIZE;
 
     /**
@@ -37,6 +36,7 @@ class AuthorizeTransaction implements AuthorizeTransactionInterface
     /**
      * @param \SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Logger\TransactionLoggerInterface $transactionLogger
      * @param \SprykerEco\Zed\Afterpay\Business\Api\Adapter\AdapterInterface $apiAdapter
+     * @param \SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Authorize\PaymentAuthorizeWriter $paymentAuthorizeWriter
      */
     public function __construct(
         TransactionLoggerInterface $transactionLogger,
@@ -88,13 +88,12 @@ class AuthorizeTransaction implements AuthorizeTransactionInterface
      */
     protected function writeAuthorizeResponse(
         AfterpayAuthorizeRequestTransfer $authorizeRequestTransfer,
-        AfterpayApiResponseTransfer $authorizeResponseTransfer)
-    {
+        AfterpayApiResponseTransfer $authorizeResponseTransfer
+    ) {
         $this->paymentAuthorizeWriter->save(
             $authorizeRequestTransfer->getOrder()->getNumber(),
             $authorizeResponseTransfer->getReservationId(),
             $authorizeResponseTransfer->getCheckoutId()
         );
     }
-
 }

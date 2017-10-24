@@ -9,7 +9,6 @@ namespace SprykerEco\Zed\Afterpay\Business\Payment;
 
 interface PaymentWriterInterface
 {
-
     /**
      * @param string $idReservation
      * @param int $idSalesOrder
@@ -41,5 +40,4 @@ interface PaymentWriterInterface
      * @return void
      */
     public function increaseTotalCancelledAmountByIdSalesOrder($amountToAdd, $idSalesOrder);
-
 }

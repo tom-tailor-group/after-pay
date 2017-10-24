@@ -11,14 +11,12 @@ use Generated\Shared\Transfer\AfterpayCallTransfer;
 use Generated\Shared\Transfer\AfterpayCancelRequestTransfer;
 use Generated\Shared\Transfer\AfterpayRequestOrderItemTransfer;
 use Generated\Shared\Transfer\ItemTransfer;
-use Generated\Shared\Transfer\OrderTransfer;
 use SprykerEco\Shared\Afterpay\AfterpayConstants;
 use SprykerEco\Zed\Afterpay\Business\Payment\Mapper\OrderToRequestTransferInterface;
 use SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToMoneyInterface;
 
 class CancelRequestBuilder implements CancelRequestBuilderInterface
 {
-
     /**
      * @var \SprykerEco\Zed\Afterpay\Business\Payment\Mapper\OrderToRequestTransferInterface
      */
@@ -42,7 +40,7 @@ class CancelRequestBuilder implements CancelRequestBuilderInterface
     }
 
     /**
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
+     * @param \Generated\Shared\Transfer\AfterpayCallTransfer $afterpayCallTransfer
      *
      * @return \Generated\Shared\Transfer\AfterpayCancelRequestTransfer
      */
@@ -188,5 +186,4 @@ class CancelRequestBuilder implements CancelRequestBuilderInterface
     {
         return (string)$this->money->convertIntegerToDecimal($intValue);
     }
-
 }

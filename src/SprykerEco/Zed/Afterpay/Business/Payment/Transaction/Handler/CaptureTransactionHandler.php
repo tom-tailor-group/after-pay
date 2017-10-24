@@ -19,7 +19,6 @@ use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\CaptureTransactionInter
 
 class CaptureTransactionHandler implements CaptureTransactionHandlerInterface
 {
-
     /**
      * @var \SprykerEco\Zed\Afterpay\Business\Payment\Transaction\CaptureTransactionInterface
      */
@@ -90,8 +89,7 @@ class CaptureTransactionHandler implements CaptureTransactionHandlerInterface
     protected function buildCaptureRequestForOrderItem(
         ItemTransfer $itemTransfer,
         AfterpayCallTransfer $afterpayCallTransfer
-    )
-    {
+    ) {
         $captureRequestTransfer = $this->captureRequestBuilder
             ->buildBaseCaptureRequestForOrder($afterpayCallTransfer);
 
@@ -161,5 +159,4 @@ class CaptureTransactionHandler implements CaptureTransactionHandlerInterface
             $idSalesOrder
         );
     }
-
 }

@@ -18,7 +18,6 @@ use SprykerEco\Yves\Afterpay\Plugin\Subform\AfterpayInvoiceSubFormPlugin;
 
 class CheckoutDependencyInjector implements DependencyInjectorInterface
 {
-
     /**
      * @param \Spryker\Shared\Kernel\ContainerInterface|\Spryker\Yves\Kernel\Container $container
      *
@@ -61,5 +60,4 @@ class CheckoutDependencyInjector implements DependencyInjectorInterface
 
         return $container;
     }
-
 }

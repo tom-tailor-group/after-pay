@@ -9,17 +9,15 @@ namespace SprykerEco\Zed\Afterpay\Business\Payment\Mapper;
 
 use Generated\Shared\Transfer\AfterpayCallTransfer;
 use Generated\Shared\Transfer\ItemTransfer;
-use Generated\Shared\Transfer\OrderTransfer;
 
 interface OrderToRequestTransferInterface
 {
-
     /**
      * @param \Generated\Shared\Transfer\AfterpayCallTransfer $afterpayCallTransfer
      *
      * @return \Generated\Shared\Transfer\AfterpayAuthorizeRequestTransfer
      */
-    public function orderToAuthorizeRequest(AfterpayCallTransfer $orderWithPaymentTransfer);
+    public function orderToAuthorizeRequest(AfterpayCallTransfer $afterpayCallTransfer);
 
     /**
      * @param \Generated\Shared\Transfer\AfterpayCallTransfer $afterpayCallTransfer
@@ -41,5 +39,4 @@ interface OrderToRequestTransferInterface
      * @return \Generated\Shared\Transfer\AfterpayCancelRequestTransfer
      */
     public function orderToBaseCancelRequest(AfterpayCallTransfer $afterpayCallTransfer);
-
 }

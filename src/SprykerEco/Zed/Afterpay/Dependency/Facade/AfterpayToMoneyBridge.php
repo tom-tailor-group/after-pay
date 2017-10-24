@@ -9,7 +9,6 @@ namespace SprykerEco\Zed\Afterpay\Dependency\Facade;
 
 class AfterpayToMoneyBridge implements AfterpayToMoneyInterface
 {
-
     /**
      * @var \Spryker\Zed\Money\Business\MoneyFacadeInterface
      */
@@ -42,5 +41,4 @@ class AfterpayToMoneyBridge implements AfterpayToMoneyInterface
     {
         return $this->moneyFacade->convertDecimalToInteger($value);
     }
-
 }

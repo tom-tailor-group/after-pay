@@ -14,12 +14,10 @@ use Generated\Shared\Transfer\AfterpayValidateBankAccountRequestTransfer;
 use Generated\Shared\Transfer\AfterpayValidateCustomerRequestTransfer;
 use Generated\Shared\Transfer\CheckoutResponseTransfer;
 use Generated\Shared\Transfer\ItemTransfer;
-use Generated\Shared\Transfer\OrderTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 
 interface AfterpayFacadeInterface
 {
-
     /**
      * Specification:
      * - Makes a call to the "payment-methods" API endpoint, to get a list of payment methods,
@@ -99,7 +97,7 @@ interface AfterpayFacadeInterface
      *
      * @api
      *
-     * @param \Generated\Shared\Transfer\AfterpayCallTransfer $orderTransfer
+     * @param \Generated\Shared\Transfer\AfterpayCallTransfer $afterpayCallTransfer
      *
      * @return \Generated\Shared\Transfer\AfterpayCallTransfer
      */
@@ -181,5 +179,4 @@ interface AfterpayFacadeInterface
      * @return int
      */
     public function getApiStatus();
-
 }

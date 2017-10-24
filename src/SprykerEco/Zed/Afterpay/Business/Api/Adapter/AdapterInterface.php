@@ -18,7 +18,6 @@ use Generated\Shared\Transfer\AfterpayValidateCustomerRequestTransfer;
 
 interface AdapterInterface
 {
-
     const API_ENDPOINT_AVAILABLE_PAYMENT_METHODS = 'checkout/payment-methods';
 
     /**
@@ -102,5 +101,4 @@ interface AdapterInterface
      * @return string
      */
     public function getApiStatus();
-
 }

@@ -10,11 +10,9 @@ namespace SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Capture;
 use Generated\Shared\Transfer\AfterpayCallTransfer;
 use Generated\Shared\Transfer\AfterpayCaptureRequestTransfer;
 use Generated\Shared\Transfer\ItemTransfer;
-use Generated\Shared\Transfer\OrderTransfer;
 
 interface CaptureRequestBuilderInterface
 {
-
     /**
      * @param \Generated\Shared\Transfer\AfterpayCallTransfer $afterpayCallTransfer
      *
@@ -43,5 +41,4 @@ interface CaptureRequestBuilderInterface
         $expenseAmount,
         AfterpayCaptureRequestTransfer $captureRequestTransfer
     );
-
 }

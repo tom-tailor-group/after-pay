@@ -10,11 +10,9 @@ namespace SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Cancel;
 use Generated\Shared\Transfer\AfterpayCallTransfer;
 use Generated\Shared\Transfer\AfterpayCancelRequestTransfer;
 use Generated\Shared\Transfer\ItemTransfer;
-use Generated\Shared\Transfer\OrderTransfer;
 
 interface CancelRequestBuilderInterface
 {
-
     /**
      * @param \Generated\Shared\Transfer\AfterpayCallTransfer $afterpayCallTransfer
      *
@@ -43,5 +41,4 @@ interface CancelRequestBuilderInterface
         $expenseAmount,
         AfterpayCancelRequestTransfer $cancelRequestTransfer
     );
-
 }

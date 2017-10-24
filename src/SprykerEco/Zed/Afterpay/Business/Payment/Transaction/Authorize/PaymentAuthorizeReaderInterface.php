@@ -9,5 +9,4 @@ namespace SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Authorize;
 
 interface PaymentAuthorizeReaderInterface
 {
-
 }

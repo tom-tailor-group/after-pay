@@ -12,7 +12,6 @@ use Generated\Shared\Transfer\AfterpayCancelRequestTransfer;
 use Generated\Shared\Transfer\AfterpayCancelResponseTransfer;
 use Generated\Shared\Transfer\AfterpayPaymentTransfer;
 use Generated\Shared\Transfer\ItemTransfer;
-use Generated\Shared\Transfer\OrderTransfer;
 use SprykerEco\Zed\Afterpay\Business\Payment\PaymentReaderInterface;
 use SprykerEco\Zed\Afterpay\Business\Payment\PaymentWriterInterface;
 use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Cancel\CancelRequestBuilderInterface;
@@ -21,7 +20,6 @@ use SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToMoneyInterface;
 
 class CancelTransactionHandler implements CancelTransactionHandlerInterface
 {
-
     /**
      * @var \SprykerEco\Zed\Afterpay\Business\Payment\Transaction\CancelTransactionInterface
      */
@@ -184,5 +182,4 @@ class CancelTransactionHandler implements CancelTransactionHandlerInterface
             $cancelRequestTransfer->getIdSalesOrder()
         );
     }
-
 }

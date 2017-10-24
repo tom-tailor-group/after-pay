@@ -12,7 +12,6 @@ use SprykerEco\Zed\Afterpay\Persistence\AfterpayQueryContainerInterface;
 
 class PaymentReader implements PaymentReaderInterface
 {
-
     /**
      * @var \SprykerEco\Zed\Afterpay\Persistence\AfterpayQueryContainerInterface
      */
@@ -54,5 +53,4 @@ class PaymentReader implements PaymentReaderInterface
 
         return $afterpayPaymentEntity;
     }
-
 }

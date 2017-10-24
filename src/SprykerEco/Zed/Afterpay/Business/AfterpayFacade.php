@@ -7,14 +7,13 @@
 
 namespace SprykerEco\Zed\Afterpay\Business;
 
+use Generated\Shared\Transfer\AfterpayCallTransfer;
 use Generated\Shared\Transfer\AfterpayCustomerLookupRequestTransfer;
 use Generated\Shared\Transfer\AfterpayInstallmentPlansRequestTransfer;
 use Generated\Shared\Transfer\AfterpayValidateBankAccountRequestTransfer;
 use Generated\Shared\Transfer\AfterpayValidateCustomerRequestTransfer;
 use Generated\Shared\Transfer\CheckoutResponseTransfer;
 use Generated\Shared\Transfer\ItemTransfer;
-use Generated\Shared\Transfer\OrderTransfer;
-use Generated\Shared\Transfer\AfterpayCallTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Spryker\Zed\Kernel\Business\AbstractFacade;
 
@@ -23,7 +22,6 @@ use Spryker\Zed\Kernel\Business\AbstractFacade;
  */
 class AfterpayFacade extends AbstractFacade implements AfterpayFacadeInterface
 {
-
     /**
      * {@inheritdoc}
      *
@@ -235,5 +233,4 @@ class AfterpayFacade extends AbstractFacade implements AfterpayFacadeInterface
             ->createApiAdapter()
             ->getApiStatus();
     }
-
 }

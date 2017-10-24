@@ -12,7 +12,6 @@ use Spryker\Shared\Kernel\Transfer\AbstractTransfer;
 
 interface TransactionLoggerInterface
 {
-
     /**
      * @param string $transactionType
      * @param string $orderReference
@@ -27,5 +26,4 @@ interface TransactionLoggerInterface
         AbstractTransfer $transactionRequest,
         AfterpayApiResponseTransfer $transactionResponse
     );
-
 }

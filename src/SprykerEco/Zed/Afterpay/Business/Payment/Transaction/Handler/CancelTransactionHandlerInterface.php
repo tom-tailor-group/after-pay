@@ -12,7 +12,6 @@ use Generated\Shared\Transfer\ItemTransfer;
 
 interface CancelTransactionHandlerInterface
 {
-
     /**
      * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
      * @param \Generated\Shared\Transfer\AfterpayCallTransfer $afterpayCallTransfer
@@ -20,5 +19,4 @@ interface CancelTransactionHandlerInterface
      * @return void
      */
     public function cancel(ItemTransfer $itemTransfer, AfterpayCallTransfer $afterpayCallTransfer);
-
 }

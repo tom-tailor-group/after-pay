@@ -18,7 +18,6 @@ use SprykerEco\Zed\Afterpay\Communication\Converter\QuoteToCallConverter;
  */
 class AfterpayCommunicationFactory extends AbstractCommunicationFactory
 {
-
     /**
      * @return \SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToSalesInterface
      */
@@ -42,5 +41,4 @@ class AfterpayCommunicationFactory extends AbstractCommunicationFactory
     {
         return new OrderToCallConverter();
     }
-
 }

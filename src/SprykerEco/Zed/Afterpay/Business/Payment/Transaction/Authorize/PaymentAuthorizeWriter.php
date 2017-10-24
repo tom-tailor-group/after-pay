@@ -12,7 +12,6 @@ use SprykerEco\Zed\Afterpay\Persistence\AfterpayQueryContainerInterface;
 
 class PaymentAuthorizeWriter implements PaymentAuthorizeWriterInterface
 {
-
     /**
      * @var \SprykerEco\Zed\Afterpay\Persistence\AfterpayQueryContainerInterface
      */
@@ -49,7 +48,7 @@ class PaymentAuthorizeWriter implements PaymentAuthorizeWriterInterface
      */
     protected function getPaymentAuthorizeEntity($orderReference)
     {
-        $existingEntity =  $this->afterpayQueryContainer
+        $existingEntity = $this->afterpayQueryContainer
             ->queryAuthorizationByOrderReference($orderReference)
             ->findOne();
         if (!$existingEntity) {

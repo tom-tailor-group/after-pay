@@ -11,7 +11,6 @@ use SprykerEco\Zed\Afterpay\Persistence\AfterpayQueryContainerInterface;
 
 class PaymentWriter implements PaymentWriterInterface
 {
-
     /**
      * @var \SprykerEco\Zed\Afterpay\Persistence\AfterpayQueryContainerInterface
      */

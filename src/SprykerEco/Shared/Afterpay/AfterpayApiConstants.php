@@ -9,7 +9,6 @@ namespace SprykerEco\Shared\Afterpay;
 
 interface AfterpayApiConstants
 {
-
     /** Transactional calls */
     const TRANSACTION_OUTCOME = 'outcome';
     const TRANSACTION_RESERVATION_ID = 'reservationId';
@@ -79,5 +78,4 @@ interface AfterpayApiConstants
 
     /** Technical calls */
     const API_VERSION = 'version';
-
 }
