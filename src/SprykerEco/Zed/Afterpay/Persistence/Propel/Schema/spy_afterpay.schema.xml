@@ -11,8 +11,6 @@
         <column name="id_payment_afterpay" required="true" type="INTEGER" autoIncrement="true" primaryKey="true"/>
         <column name="fk_sales_order" required="true" type="INTEGER"/>
 
-        <column name="id_checkout" required="false" type="VARCHAR"/>
-        <column name="id_reservation" required="false" type="VARCHAR"/>
         <column name="id_channel" required="false" type="VARCHAR"/>
         <column name="infoscore_customer_number" required="false" type="VARCHAR"/>
 
