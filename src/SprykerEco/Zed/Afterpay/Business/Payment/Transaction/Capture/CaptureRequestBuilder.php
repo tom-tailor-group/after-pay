@@ -7,6 +7,7 @@
 
 namespace SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Capture;
 
+use Generated\Shared\Transfer\AfterpayCallTransfer;
 use Generated\Shared\Transfer\AfterpayCaptureRequestTransfer;
 use Generated\Shared\Transfer\AfterpayRequestOrderItemTransfer;
 use Generated\Shared\Transfer\ItemTransfer;
@@ -45,10 +46,10 @@ class CaptureRequestBuilder implements CaptureRequestBuilderInterface
      *
      * @return \Generated\Shared\Transfer\AfterpayCaptureRequestTransfer
      */
-    public function buildBaseCaptureRequestForOrder(OrderTransfer $orderTransfer)
+    public function buildBaseCaptureRequestForOrder(AfterpayCallTransfer $afterpayCallTransfer)
     {
         $captureRequestTransfer = $this->orderToRequestMapper
-            ->orderToBaseCaptureRequest($orderTransfer);
+            ->orderToBaseCaptureRequest($afterpayCallTransfer);
 
         return $captureRequestTransfer;
     }

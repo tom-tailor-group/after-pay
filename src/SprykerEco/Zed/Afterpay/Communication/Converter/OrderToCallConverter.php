@@ -25,6 +25,8 @@ class OrderToCallConverter implements OrderToCallConverterInterface
         $afterpayCallTransfer->setItems($orderTransfer->getItems());
         $afterpayCallTransfer->setBillingAddress($orderTransfer->getBillingAddress());
         $afterpayCallTransfer->setShippingAddress($orderTransfer->getShippingAddress());
+        $afterpayCallTransfer->setTotals($orderTransfer->getTotals());
+        $afterpayCallTransfer->setPaymentMethod($orderTransfer->getAfterpayPayment()->getPaymentMethod());
 
         return $afterpayCallTransfer;
     }

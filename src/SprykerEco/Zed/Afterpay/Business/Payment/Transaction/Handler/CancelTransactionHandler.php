@@ -7,6 +7,7 @@
 
 namespace SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Handler;
 
+use Generated\Shared\Transfer\AfterpayCallTransfer;
 use Generated\Shared\Transfer\AfterpayCancelRequestTransfer;
 use Generated\Shared\Transfer\AfterpayCancelResponseTransfer;
 use Generated\Shared\Transfer\AfterpayPaymentTransfer;
@@ -69,13 +70,13 @@ class CancelTransactionHandler implements CancelTransactionHandlerInterface
 
     /**
      * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
+     * @param \Generated\Shared\Transfer\AfterpayCallTransfer $afterpayCallTransfer
      *
      * @return void
      */
-    public function cancel(ItemTransfer $itemTransfer, OrderTransfer $orderTransfer)
+    public function cancel(ItemTransfer $itemTransfer, AfterpayCallTransfer $afterpayCallTransfer)
     {
-        $cancelRequestTransfer = $this->buildCancelRequestForOrderItem($itemTransfer, $orderTransfer);
+        $cancelRequestTransfer = $this->buildCancelRequestForOrderItem($itemTransfer, $afterpayCallTransfer);
         $paymentTransfer = $this->getPaymentTransferForItem($itemTransfer);
 
         if ($this->isExpenseShouldBeCancelled($cancelRequestTransfer, $paymentTransfer)) {
@@ -92,14 +93,14 @@ class CancelTransactionHandler implements CancelTransactionHandlerInterface
 
     /**
      * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
+     * @param \Generated\Shared\Transfer\AfterpayCallTransfer $afterpayCallTransfer
      *
      * @return \Generated\Shared\Transfer\AfterpayCancelRequestTransfer
      */
-    protected function buildCancelRequestForOrderItem(ItemTransfer $itemTransfer, OrderTransfer $orderTransfer)
+    protected function buildCancelRequestForOrderItem(ItemTransfer $itemTransfer, AfterpayCallTransfer $afterpayCallTransfer)
     {
         $cancelRequestTransfer = $this->cancelRequestBuilder
-            ->buildBaseCancelRequestForOrder($orderTransfer);
+            ->buildBaseCancelRequestForOrder($afterpayCallTransfer);
 
         $this->cancelRequestBuilder
             ->addOrderItemToCancelRequest(

@@ -7,6 +7,7 @@
 
 namespace SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Cancel;
 
+use Generated\Shared\Transfer\AfterpayCallTransfer;
 use Generated\Shared\Transfer\AfterpayCancelRequestTransfer;
 use Generated\Shared\Transfer\AfterpayRequestOrderItemTransfer;
 use Generated\Shared\Transfer\ItemTransfer;
@@ -45,10 +46,10 @@ class CancelRequestBuilder implements CancelRequestBuilderInterface
      *
      * @return \Generated\Shared\Transfer\AfterpayCancelRequestTransfer
      */
-    public function buildBaseCancelRequestForOrder(OrderTransfer $orderTransfer)
+    public function buildBaseCancelRequestForOrder(AfterpayCallTransfer $afterpayCallTransfer)
     {
         $cancelRequestTransfer = $this->orderToRequestMapper
-            ->orderToBaseCancelRequest($orderTransfer);
+            ->orderToBaseCancelRequest($afterpayCallTransfer);
 
         return $cancelRequestTransfer;
     }

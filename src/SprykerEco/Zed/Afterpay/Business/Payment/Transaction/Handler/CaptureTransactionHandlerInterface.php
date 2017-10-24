@@ -7,6 +7,7 @@
 
 namespace SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Handler;
 
+use Generated\Shared\Transfer\AfterpayCallTransfer;
 use Generated\Shared\Transfer\ItemTransfer;
 use Generated\Shared\Transfer\OrderTransfer;
 
@@ -15,10 +16,10 @@ interface CaptureTransactionHandlerInterface
 
     /**
      * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
-     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
+     * @param \Generated\Shared\Transfer\AfterpayCallTransfer $afterpayCallTransfer
      *
      * @return void
      */
-    public function capture(ItemTransfer $itemTransfer, OrderTransfer $orderTransfer);
+    public function capture(ItemTransfer $itemTransfer, AfterpayCallTransfer $afterpayCallTransfer);
 
 }

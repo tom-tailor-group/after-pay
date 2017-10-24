@@ -11,7 +11,6 @@ use Spryker\Zed\Kernel\Persistence\QueryContainer\QueryContainerInterface;
 
 interface AfterpayQueryContainerInterface extends QueryContainerInterface
 {
-
     /**
      * @api
      *
@@ -24,20 +23,44 @@ interface AfterpayQueryContainerInterface extends QueryContainerInterface
     /**
      * @api
      *
-     * @param int $idSalesOrder
+     * @param string $orderReference
      * @param string $transactionType
      *
      * @return \Orm\Zed\Afterpay\Persistence\SpyPaymentAfterpayTransactionLogQuery
      */
-    public function queryTransactionByIdSalesOrderAndType($idSalesOrder, $transactionType);
+    public function queryTransactionByIdSalesOrderAndType($orderReference, $transactionType);
+
+    /**
+     * @param string $orderReference
+     *
+     * @return \Orm\Zed\Afterpay\Persistence\SpyPaymentAfterpayAuthorizationQuery
+     */
+    public function queryAuthorizationByOrderReference($orderReference);
 
     /**
      * @api
      *
-     * @param int $idSalesOrder
+     * @param string $orderReference
      *
      * @return \Orm\Zed\Afterpay\Persistence\SpyPaymentAfterpayTransactionLogQuery
      */
-    public function queryAuthorizeTransactionLog($idSalesOrder);
+    public function queryAuthorizeTransactionLog($orderReference);
 
+    /**
+     * @api
+     *
+     * @param string $orderReference
+     *
+     * @return \Orm\Zed\Afterpay\Persistence\SpyPaymentAfterpayTransactionLogQuery
+     */
+    public function queryCaptureTransactionLog($orderReference);
+
+    /**
+     * @api
+     *
+     * @param string $orderReference
+     *
+     * @return \Orm\Zed\Afterpay\Persistence\SpyPaymentAfterpayTransactionLogQuery
+     */
+    public function queryCancelTransactionLog($orderReference);
 }
