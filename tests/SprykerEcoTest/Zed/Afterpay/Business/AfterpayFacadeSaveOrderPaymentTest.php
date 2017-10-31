@@ -7,8 +7,6 @@
 
 namespace SprykerEcoTest\Zed\Afterpay\Business;
 
-use Codeception\TestCase\Test;
-
-class AfterpayFacadeSaveOrderPaymentTest extends Test
+class AfterpayFacadeSaveOrderPaymentTest extends AfterpayFacadeAbstractTest
 {
 }
