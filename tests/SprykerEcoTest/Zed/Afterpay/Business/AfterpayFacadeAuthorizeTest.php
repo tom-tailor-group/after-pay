@@ -7,43 +7,21 @@
 
 namespace SprykerEcoTest\Zed\Afterpay\Business;
 
-use Codeception\TestCase\Test;
-use Generated\Shared\DataBuilder\AfterpayCallBuilder;
-use Generated\Shared\DataBuilder\TaxTotalBuilder;
 use Generated\Shared\Transfer\AfterpayApiResponseTransfer;
 use Generated\Shared\Transfer\AfterpayCallTransfer;
 use SprykerEco\Shared\Afterpay\AfterpayConstants;
 use SprykerEcoTest\Zed\Afterpay\Mock\AfterpayFacadeMock;
 
-class AfterpayFacadeAuthorizeTest extends Test
+class AfterpayFacadeAuthorizeTest extends AfterpayFacadeAbstractTest
 {
     /**
      * @return void
      */
     public function testAuthorize()
     {
-        $input = $this->createRequestTransfer();
+        $input = $this->createCallTransfer();
         $output = $this->doFacadeCall($input);
         $this->doTest($output);
-    }
-
-    /**
-     * @return \Generated\Shared\Transfer\AfterpayCallTransfer
-     */
-    protected function createRequestTransfer()
-    {
-        $call = (new AfterpayCallBuilder())
-            ->withBillingAddress()
-            ->withShippingAddress()
-            ->withTotals()
-            ->withItem()
-            ->build();
-
-        $call->getTotals()->setTaxTotal(
-            (new TaxTotalBuilder())->build()
-        );
-
-        return $call;
     }
 
     /**
