@@ -9,10 +9,26 @@ namespace SprykerEcoTest\Zed\Afterpay\Business;
 
 use Codeception\TestCase\Test;
 use Generated\Shared\DataBuilder\AfterpayCallBuilder;
+use Generated\Shared\DataBuilder\QuoteBuilder;
 use Generated\Shared\DataBuilder\TaxTotalBuilder;
+use SprykerEcoTest\Zed\Afterpay\Mock\AfterpayFacadeMock;
 
 class AfterpayFacadeAbstractTest extends Test
 {
+    /**
+     * @var \SprykerEcoTest\Zed\Afterpay\Mock\AfterpayFacadeMock
+     */
+    protected $facade;
+
+    /**
+     * @return void
+     */
+    public function setUp()
+    {
+        parent::setUp();
+        $this->facade = new AfterpayFacadeMock();
+    }
+
     /**
      * @return \Generated\Shared\Transfer\AfterpayCallTransfer
      */
@@ -26,9 +42,38 @@ class AfterpayFacadeAbstractTest extends Test
             ->build();
 
         $call->getTotals()->setTaxTotal(
-            (new TaxTotalBuilder())->build()
+            $this->createTaxTotalTransfer()
         );
 
         return $call;
+    }
+
+    /**
+     * @return \Generated\Shared\Transfer\QuoteTransfer
+     */
+    protected function createQuoteTransfer()
+    {
+        $quote = (new QuoteBuilder())
+            ->withBillingAddress()
+            ->withShippingAddress()
+            ->withCustomer()
+            ->withTotals()
+            ->withItem()
+            ->withAnotherItem()
+            ->build();
+
+        $quote->getTotals()->setTaxTotal(
+            $this->createTaxTotalTransfer()
+        );
+
+        return $quote;
+    }
+
+    /**
+     * @return \Generated\Shared\Transfer\TaxTotalTransfer
+     */
+    protected function createTaxTotalTransfer()
+    {
+        return (new TaxTotalBuilder())->build();
     }
 }

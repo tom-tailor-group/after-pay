@@ -31,6 +31,15 @@
         <property name="remainingAuthorizedAmount" dataBuilderRule="=5000" />
     </transfer>
 
+    <transfer name="AfterpayAvailablePaymentMethodsResponse">
+        <property name="checkoutId" dataBuilderRule="randomNumber" />
+        <property name="outcome" dataBuilderRule="randomNumber" />
+        <property name="customer" type="array" />
+        <property name="customerNumber" dataBuilderRule="randomNumber" />
+        <property name="paymentMethods" type="array" />
+        <property name="riskCheckResultCode" dataBuilderRule="randomNumber" />
+    </transfer>
+
     <transfer name="Address">
         <property name="firstName" dataBuilderRule="firstName" />
         <property name="lastName" dataBuilderRule="lastName" />

@@ -4,10 +4,24 @@ namespace SprykerEcoTest\Zed\Afterpay\Mock;
 
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\AdapterFactory;
 use SprykerEcoTest\Zed\Afterpay\Mock\Call\AuthorizePaymentCallMock;
+use SprykerEcoTest\Zed\Afterpay\Mock\Call\AvailablePaymentMethodsCallMock;
 use SprykerEcoTest\Zed\Afterpay\Mock\Call\CaptureCallMock;
 
 class AdapterFactoryMock extends AdapterFactory
 {
+    /**
+     * @return \SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\AvailablePaymentMethodsCallInterface
+     */
+    public function createAvailablePaymentMethodsCall()
+    {
+        return new AvailablePaymentMethodsCallMock(
+            $this->createHttpClient(),
+            $this->createTransferToCamelCaseArrayConverter(),
+            $this->getUtilEncodingService(),
+            $this->getConfig()
+        );
+    }
+
     /**
      * @return \SprykerEcoTest\Zed\Afterpay\Mock\Call\AuthorizePaymentCallMock
      */
