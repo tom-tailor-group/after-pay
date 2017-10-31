@@ -3,6 +3,7 @@
 namespace SprykerEcoTest\Zed\Afterpay\Mock;
 
 use SprykerEco\Zed\Afterpay\Business\Api\Adapter\AdapterFactory;
+use SprykerEcoTest\Zed\Afterpay\Mock\Call\ApiVersionCallMock;
 use SprykerEcoTest\Zed\Afterpay\Mock\Call\AuthorizePaymentCallMock;
 use SprykerEcoTest\Zed\Afterpay\Mock\Call\AvailablePaymentMethodsCallMock;
 use SprykerEcoTest\Zed\Afterpay\Mock\Call\CaptureCallMock;
@@ -46,6 +47,18 @@ class AdapterFactoryMock extends AdapterFactory
             $this->getUtilEncodingService(),
             $this->getAfterpayToMoneyBridge(),
             $this->getConfig()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\ApiVersionCallInterface
+     */
+    public function createGetApiVersionCallMock()
+    {
+        return new ApiVersionCallMock(
+            $this->createHttpClient(),
+            $this->getConfig(),
+            $this->getUtilEncodingService()
         );
     }
 }
