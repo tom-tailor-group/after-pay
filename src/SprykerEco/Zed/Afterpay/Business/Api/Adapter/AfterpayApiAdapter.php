@@ -155,7 +155,7 @@ class AfterpayApiAdapter implements AdapterInterface
     }
 
     /**
-     * @return string
+     * @return int
      */
     public function getApiStatus()
     {

@@ -98,7 +98,7 @@ interface AdapterInterface
     public function getApiVersion();
 
     /**
-     * @return string
+     * @return int
      */
     public function getApiStatus();
 }
