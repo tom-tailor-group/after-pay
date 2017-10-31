@@ -10,10 +10,6 @@ namespace SprykerEcoTest\Zed\Afterpay\Business;
 use Codeception\TestCase\Test;
 use Generated\Shared\DataBuilder\AfterpayCallBuilder;
 use Generated\Shared\DataBuilder\TaxTotalBuilder;
-use Generated\Shared\Transfer\AfterpayApiResponseTransfer;
-use Generated\Shared\Transfer\AfterpayCallTransfer;
-use SprykerEco\Shared\Afterpay\AfterpayConstants;
-use SprykerEcoTest\Zed\Afterpay\Mock\AfterpayFacadeMock;
 
 class AfterpayFacadeAbstractTest extends Test
 {

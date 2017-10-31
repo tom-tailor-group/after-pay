@@ -22,6 +22,15 @@
         <property name="responsePayload" dataBuilderRule="=test" />
     </transfer>
 
+    <transfer name="AfterpayCaptureResponse">
+        <property name="idSalesOrder" dataBuilderRule="=" />
+        <property name="apiResponse" type="AfterpayApiResponse" />
+        <property name="capturedAmount" dataBuilderRule="=10000" />
+        <property name="captureNumber" dataBuilderRule="randomNumber" />
+        <property name="authorizedAmount" dataBuilderRule="=5000" />
+        <property name="remainingAuthorizedAmount" dataBuilderRule="=5000" />
+    </transfer>
+
     <transfer name="Address">
         <property name="firstName" dataBuilderRule="firstName" />
         <property name="lastName" dataBuilderRule="lastName" />
