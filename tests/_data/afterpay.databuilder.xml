@@ -15,6 +15,13 @@
         <property name="shippingAddress" type="Address" />
     </transfer>
 
+    <transfer name="AfterpayApiResponse">
+        <property name="outcome" dataBuilderRule="=Accepted" />
+        <property name="reservationId" dataBuilderRule="randomNumber" />
+        <property name="checkoutId" dataBuilderRule="randomNumber" />
+        <property name="responsePayload" dataBuilderRule="=test" />
+    </transfer>
+
     <transfer name="Address">
         <property name="firstName" dataBuilderRule="firstName" />
         <property name="lastName" dataBuilderRule="lastName" />
