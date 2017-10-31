@@ -259,7 +259,7 @@ class OrderToRequestTransfer implements OrderToRequestTransferInterface
      */
     protected function getStringDecimalOrderGrossTotal(AfterpayCallTransfer $afterpayCallTransfer)
     {
-        $orderGrossTotal = $afterpayCallTransfer->getTotals()->getGrandTotal();
+        $orderGrossTotal = (int)$afterpayCallTransfer->getTotals()->getGrandTotal();
 
         return (string)$this->money->convertIntegerToDecimal($orderGrossTotal);
     }
@@ -271,9 +271,9 @@ class OrderToRequestTransfer implements OrderToRequestTransferInterface
      */
     protected function getStringDecimalOrderNetTotal(AfterpayCallTransfer $afterpayCallTransfer)
     {
-        $orderGrossTotal = $afterpayCallTransfer->getTotals()->getGrandTotal();
-        $orderTaxTotal = $afterpayCallTransfer->getTotals()->getTaxTotal()->getAmount();
-        $orderNetTotal = $orderGrossTotal - $orderTaxTotal;
+        $orderGrossTotal = (int)$afterpayCallTransfer->getTotals()->getGrandTotal();
+        $orderTaxTotal = (int)$afterpayCallTransfer->getTotals()->getTaxTotal()->getAmount();
+        $orderNetTotal = (int)$orderGrossTotal - $orderTaxTotal;
 
         return (string)$this->money->convertIntegerToDecimal($orderNetTotal);
     }
@@ -285,7 +285,7 @@ class OrderToRequestTransfer implements OrderToRequestTransferInterface
      */
     protected function getStringDecimalItemGrossUnitPrice(ItemTransfer $itemTransfer)
     {
-        $itemUnitGrossPrice = $itemTransfer->getUnitPriceToPayAggregation();
+        $itemUnitGrossPrice = (int)$itemTransfer->getUnitPriceToPayAggregation();
 
         return (string)$this->money->convertIntegerToDecimal($itemUnitGrossPrice);
     }
@@ -297,8 +297,8 @@ class OrderToRequestTransfer implements OrderToRequestTransferInterface
      */
     protected function getStringDecimalItemNetUnitPrice(ItemTransfer $itemTransfer)
     {
-        $itemUnitGrossPriceAmount = $itemTransfer->getUnitPriceToPayAggregation();
-        $itemUnitTaxAmount = $itemTransfer->getUnitTaxAmountFullAggregation();
+        $itemUnitGrossPriceAmount = (int)$itemTransfer->getUnitPriceToPayAggregation();
+        $itemUnitTaxAmount = (int)$itemTransfer->getUnitTaxAmountFullAggregation();
         $itemUnitNetAmount = $itemUnitGrossPriceAmount - $itemUnitTaxAmount;
 
         return (string)$this->money->convertIntegerToDecimal($itemUnitNetAmount);
