@@ -14,7 +14,7 @@ class AfterpayFacadeGetPaymentByIdSalesOrderTest extends AfterpayFacadeAbstractT
     /**
      * @return void
      */
-    public function testGetPaymentByIdSalesOrder()
+    protected function testGetPaymentByIdSalesOrder()
     {
         $idSalesOrder = 45;
         $output = $this->doFacadeCall($idSalesOrder);
