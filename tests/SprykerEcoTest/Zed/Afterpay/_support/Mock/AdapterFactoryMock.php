@@ -7,6 +7,7 @@ use SprykerEcoTest\Zed\Afterpay\Mock\Call\ApiVersionCallMock;
 use SprykerEcoTest\Zed\Afterpay\Mock\Call\AuthorizePaymentCallMock;
 use SprykerEcoTest\Zed\Afterpay\Mock\Call\AvailablePaymentMethodsCallMock;
 use SprykerEcoTest\Zed\Afterpay\Mock\Call\CaptureCallMock;
+use SprykerEcoTest\Zed\Afterpay\Mock\Call\LookupCustomerCallMock;
 
 class AdapterFactoryMock extends AdapterFactory
 {
@@ -59,6 +60,19 @@ class AdapterFactoryMock extends AdapterFactory
             $this->createHttpClient(),
             $this->getConfig(),
             $this->getUtilEncodingService()
+        );
+    }
+
+    /**
+     * @return \SprykerEco\Zed\Afterpay\Business\Api\Adapter\ApiCall\LookupCustomerCallInterface
+     */
+    public function createLookupCustomerCall()
+    {
+        return new LookupCustomerCallMock(
+            $this->createHttpClient(),
+            $this->createTransferToCamelCaseArrayConverter(),
+            $this->getUtilEncodingService(),
+            $this->getConfig()
         );
     }
 }

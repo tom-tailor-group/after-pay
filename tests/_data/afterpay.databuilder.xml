@@ -40,6 +40,29 @@
         <property name="riskCheckResultCode" dataBuilderRule="randomNumber" />
     </transfer>
 
+    <transfer name="AfterpayUserProfile">
+        <property name="firstName" dataBuilderRule="firstName" />
+        <property name="lastName" dataBuilderRule="lastName" />
+        <property name="mobileNumber" dataBuilderRule="=017400000" />
+        <property name="email" dataBuilderRule="email" />
+        <property name="languageCode" dataBuilderRule="=DE" />
+        <property name="addressList" type="AfterpayLookupAddress[]" singular="lookupAddress" />
+    </transfer>
+
+    <transfer name="AfterpayLookupAddress">
+        <property name="street" dataBuilderRule="address" />
+        <property name="street2" dataBuilderRule="address" />
+        <property name="street3" dataBuilderRule="address" />
+        <property name="street4" dataBuilderRule="address" />
+        <property name="streetNumber" dataBuilderRule="=12" />
+        <property name="flatNo" dataBuilderRule="=1" />
+        <property name="entrance" dataBuilderRule="=1" />
+        <property name="city" dataBuilderRule="city" />
+        <property name="postalCode" dataBuilderRule="postcode" />
+        <property name="country" dataBuilderRule="=Germany" />
+        <property name="countryCode" dataBuilderRule="=DE" />
+    </transfer>
+
     <transfer name="Address">
         <property name="firstName" dataBuilderRule="firstName" />
         <property name="lastName" dataBuilderRule="lastName" />
@@ -59,7 +82,7 @@
     </transfer>
 
     <transfer name="Totals">
-        <property name="subtotal" dataBuilderRule="=10000" />
+        <property name="subtotal" dataBuilderRule="randomNumber" />
         <property name="expenseTotal" dataBuilderRule="=1000" />
         <property name="discountTotal" dataBuilderRule="=1000" />
         <property name="taxTotal" type="TaxTotal" />
