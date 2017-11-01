@@ -40,6 +40,23 @@
         <property name="riskCheckResultCode" dataBuilderRule="randomNumber" />
     </transfer>
 
+    <transfer name="AfterpayInstallmentPlan">
+        <property name="basketAmount" dataBuilderRule="=1000" />
+        <property name="numberOfInstallments" dataBuilderRule="randomDigit" />
+        <property name="installmentAmount" dataBuilderRule="=1000" />
+        <property name="firstInstallmentAmount" dataBuilderRule="=1000" />
+        <property name="lastInstallmentAmount" dataBuilderRule="=0" />
+        <property name="interestRate" dataBuilderRule="=0" />
+        <property name="effectiveInterestRate" dataBuilderRule="=0" />
+        <property name="effectiveAnnualPercentageRate" dataBuilderRule="=0" />
+        <property name="totalInterestAmount" dataBuilderRule="=0" />
+        <property name="startupFee" dataBuilderRule="=1000" />
+        <property name="monthlyFee" dataBuilderRule="=500" />
+        <property name="totalAmount" dataBuilderRule="=3000" />
+        <property name="installmentProfileNumber" dataBuilderRule="randomNumber" />
+        <property name="readMore" dataBuilderRule="unique()->sentence(1)" />
+    </transfer>
+
     <transfer name="AfterpayUserProfile">
         <property name="firstName" dataBuilderRule="firstName" />
         <property name="lastName" dataBuilderRule="lastName" />
