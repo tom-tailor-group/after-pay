@@ -43,31 +43,26 @@ class RefundTransactionHandler implements RefundTransactionHandlerInterface
     /**
      * @var \SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToMoneyInterface
      */
-    private $money;
-
-    /**
-     * @var \SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToRefundInterface
-     */
-    private $refund;
+    protected $moneyFacade;
 
     /**
      * @param \SprykerEco\Zed\Afterpay\Business\Payment\Transaction\RefundTransactionInterface $transaction
      * @param \SprykerEco\Zed\Afterpay\Business\Payment\PaymentReaderInterface $paymentReader
      * @param \SprykerEco\Zed\Afterpay\Business\Payment\PaymentWriterInterface $paymentWriter
-     * @param \SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToMoneyInterface $money
+     * @param \SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToMoneyInterface $moneyFacade
      * @param \SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Refund\RefundRequestBuilderInterface $refundRequestBuilder
      */
     public function __construct(
         RefundTransactionInterface $transaction,
         PaymentReaderInterface $paymentReader,
         PaymentWriterInterface $paymentWriter,
-        AfterpayToMoneyInterface $money,
+        AfterpayToMoneyInterface $moneyFacade,
         RefundRequestBuilderInterface $refundRequestBuilder
     ) {
         $this->transaction = $transaction;
         $this->paymentReader = $paymentReader;
         $this->refundRequestBuilder = $refundRequestBuilder;
-        $this->money = $money;
+        $this->moneyFacade = $moneyFacade;
         $this->paymentWriter = $paymentWriter;
     }
 
@@ -195,11 +190,11 @@ class RefundTransactionHandler implements RefundTransactionHandlerInterface
         }
 
         $refundedAmountDecimal = (float)0;
-        $refundedAmountInt = $this->money->convertDecimalToInteger($refundedAmountDecimal);
+        $refundedAmountInt = $this->moneyFacade->convertDecimalToInteger($refundedAmountDecimal);
 
         foreach ($refundRequestTransfer->getOrderItems() as $item) {
             $itemGrossPriceDecimal = (float)$item->getGrossUnitPrice();
-            $refundedAmountInt += $this->money->convertDecimalToInteger($itemGrossPriceDecimal);
+            $refundedAmountInt += $this->moneyFacade->convertDecimalToInteger($itemGrossPriceDecimal);
         }
 
         $this->paymentWriter->increaseRefundedTotalByIdSalesOrder(
