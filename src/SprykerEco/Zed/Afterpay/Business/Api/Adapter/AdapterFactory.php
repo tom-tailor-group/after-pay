@@ -200,7 +200,7 @@ class AdapterFactory extends AbstractBusinessFactory implements AdapterFactoryIn
     }
 
     /**
-     * @return \SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToMoneyBridge
+     * @return \SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToMoneyInterface
      */
     protected function getMoneyFacade()
     {

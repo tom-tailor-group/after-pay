@@ -18,21 +18,22 @@ use Generated\Shared\Transfer\AfterpayRequestOrderItemTransfer;
 use Generated\Shared\Transfer\AfterpayRequestOrderTransfer;
 use Generated\Shared\Transfer\AfterpayRequestPaymentTransfer;
 use Generated\Shared\Transfer\ItemTransfer;
-use Spryker\Shared\Kernel\Store;
+use Generated\Shared\Transfer\OrderTransfer;
 use SprykerEco\Shared\Afterpay\AfterpayConstants;
 use SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToMoneyInterface;
+use SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToStoreInterface;
 
 class OrderToRequestTransfer implements OrderToRequestTransferInterface
 {
     /**
      * @var \SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToMoneyInterface
      */
-    protected $money;
+    protected $moneyFacade;
 
     /**
-     * @var \Spryker\Shared\Kernel\Store
+     * @var \SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToStoreInterface
      */
-    protected $store;
+    protected $storeFacade;
 
     /**
      * @var array
@@ -42,13 +43,13 @@ class OrderToRequestTransfer implements OrderToRequestTransferInterface
     ];
 
     /**
-     * @param \SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToMoneyInterface $money
-     * @param \Spryker\Shared\Kernel\Store $store
+     * @param \SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToMoneyInterface $moneyFacade
+     * @param \SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToStoreInterface $storeFacade
      */
-    public function __construct(AfterpayToMoneyInterface $money, Store $store)
+    public function __construct(AfterpayToMoneyInterface $moneyFacade, AfterpayToStoreInterface $storeFacade)
     {
-        $this->money = $money;
-        $this->store = $store;
+        $this->moneyFacade = $moneyFacade;
+        $this->storeFacade = $storeFacade;
     }
 
     /**
@@ -258,7 +259,7 @@ class OrderToRequestTransfer implements OrderToRequestTransferInterface
      */
     protected function getStoreCountryIso2()
     {
-        return $this->store->getCurrentCountry();
+        return $this->storeFacade->getCurrentStore()->getName();
     }
 
     /**
@@ -278,7 +279,7 @@ class OrderToRequestTransfer implements OrderToRequestTransferInterface
     {
         $orderGrossTotal = $afterpayCallTransfer->getTotals()->getGrandTotal();
 
-        return (string)$this->money->convertIntegerToDecimal($orderGrossTotal);
+        return (string)$this->moneyFacade->convertIntegerToDecimal($orderGrossTotal);
     }
 
     /**
@@ -292,7 +293,7 @@ class OrderToRequestTransfer implements OrderToRequestTransferInterface
         $orderTaxTotal = $afterpayCallTransfer->getTotals()->getTaxTotal()->getAmount();
         $orderNetTotal = $orderGrossTotal - $orderTaxTotal;
 
-        return (string)$this->money->convertIntegerToDecimal($orderNetTotal);
+        return (string)$this->moneyFacade->convertIntegerToDecimal($orderNetTotal);
     }
 
     /**
@@ -304,7 +305,7 @@ class OrderToRequestTransfer implements OrderToRequestTransferInterface
     {
         $itemUnitGrossPrice = $itemTransfer->getUnitPriceToPayAggregation();
 
-        return (string)$this->money->convertIntegerToDecimal($itemUnitGrossPrice);
+        return (string)$this->moneyFacade->convertIntegerToDecimal($itemUnitGrossPrice);
     }
 
     /**
@@ -318,6 +319,6 @@ class OrderToRequestTransfer implements OrderToRequestTransferInterface
         $itemUnitTaxAmount = $itemTransfer->getUnitTaxAmountFullAggregation();
         $itemUnitNetAmount = $itemUnitGrossPriceAmount - $itemUnitTaxAmount;
 
-        return (string)$this->money->convertIntegerToDecimal($itemUnitNetAmount);
+        return (string)$this->moneyFacade->convertIntegerToDecimal($itemUnitNetAmount);
     }
 }

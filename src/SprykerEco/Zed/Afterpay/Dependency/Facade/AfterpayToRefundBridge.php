@@ -10,7 +10,6 @@ namespace SprykerEco\Zed\Afterpay\Dependency\Facade;
 use Generated\Shared\Transfer\OrderTransfer;
 use Generated\Shared\Transfer\RefundTransfer;
 use Orm\Zed\Sales\Persistence\SpySalesOrder;
-use Spryker\Zed\Refund\Business\RefundFacadeInterface;
 
 class AfterpayToRefundBridge implements AfterpayToRefundInterface
 {
@@ -22,7 +21,7 @@ class AfterpayToRefundBridge implements AfterpayToRefundInterface
     /**
      * @param \Spryker\Zed\Refund\Business\RefundFacadeInterface $refundFacade
      */
-    public function __construct(RefundFacadeInterface $refundFacade)
+    public function __construct($refundFacade)
     {
         $this->refundFacade = $refundFacade;
     }

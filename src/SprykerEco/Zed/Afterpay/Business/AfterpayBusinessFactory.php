@@ -342,7 +342,7 @@ class AfterpayBusinessFactory extends AbstractBusinessFactory
     {
         return new OrderToRequestTransfer(
             $this->getMoneyFacade(),
-            $this->getCurrentStore()
+            $this->getStoreFacade()
         );
     }
 
@@ -371,7 +371,7 @@ class AfterpayBusinessFactory extends AbstractBusinessFactory
     {
         return new QuoteToRequestTransfer(
             $this->getMoneyFacade(),
-            $this->getCurrentStore()
+            $this->getStoreFacade()
         );
     }
 
@@ -400,11 +400,11 @@ class AfterpayBusinessFactory extends AbstractBusinessFactory
     }
 
     /**
-     * @return \Spryker\Shared\Kernel\Store
+     * @return \SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToStoreInterface
      */
-    protected function getCurrentStore()
+    protected function getStoreFacade()
     {
-        return $this->getProvidedDependency(AfterpayDependencyProvider::CURRENT_STORE);
+        return $this->getProvidedDependency(AfterpayDependencyProvider::FACADE_STORE);
     }
 
     /**
