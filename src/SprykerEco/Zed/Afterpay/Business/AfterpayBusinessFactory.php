@@ -73,7 +73,7 @@ class AfterpayBusinessFactory extends AbstractBusinessFactory
     {
         return new AuthorizeTransactionHandler(
             $this->createAuthorizeTransaction(),
-            $this->createAuthorizeRequestBuilder(),
+            $this->getAuthorizeRequestBuilder(),
             $this->createPaymentWriter()
         );
     }
@@ -100,7 +100,7 @@ class AfterpayBusinessFactory extends AbstractBusinessFactory
             $this->createRefundTransaction(),
             $this->createPaymentReader(),
             $this->createPaymentWriter(),
-            $this->getAfterpayToMoneyBridge(),
+            $this->getMoneyFacade(),
             $this->createRefundRequestBuilder()
         );
     }
@@ -114,7 +114,7 @@ class AfterpayBusinessFactory extends AbstractBusinessFactory
             $this->createCancelTransaction(),
             $this->createPaymentReader(),
             $this->createPaymentWriter(),
-            $this->getAfterpayToMoneyBridge(),
+            $this->getMoneyFacade(),
             $this->createCancelRequestBuilder()
         );
     }
@@ -147,7 +147,7 @@ class AfterpayBusinessFactory extends AbstractBusinessFactory
     {
         return new CaptureRequestBuilder(
             $this->createOrderToRequestMapper(),
-            $this->getAfterpayToMoneyBridge()
+            $this->getMoneyFacade()
         );
     }
 
@@ -277,7 +277,7 @@ class AfterpayBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \SprykerEco\Zed\Afterpay\Business\Payment\Transaction\Authorize\RequestBuilder\AuthorizeRequestBuilderInterface
      */
-    protected function createAuthorizeRequestBuilder()
+    protected function getAuthorizeRequestBuilder()
     {
         $authorizeWorkflow = $this->getConfig()->getAfterpayAuthorizeWorkflow();
 
@@ -298,7 +298,7 @@ class AfterpayBusinessFactory extends AbstractBusinessFactory
     {
         return new CancelRequestBuilder(
             $this->createOrderToRequestMapper(),
-            $this->getAfterpayToMoneyBridge()
+            $this->getMoneyFacade()
         );
     }
 
@@ -309,7 +309,7 @@ class AfterpayBusinessFactory extends AbstractBusinessFactory
     {
         return new RefundRequestBuilder(
             $this->createOrderToRequestMapper(),
-            $this->getAfterpayToMoneyBridge()
+            $this->getMoneyFacade()
         );
     }
 
@@ -329,7 +329,7 @@ class AfterpayBusinessFactory extends AbstractBusinessFactory
     protected function createOrderToRequestMapper()
     {
         return new OrderToRequestTransfer(
-            $this->getAfterpayToMoneyBridge(),
+            $this->getMoneyFacade(),
             $this->getCurrentStore()
         );
     }
@@ -358,7 +358,7 @@ class AfterpayBusinessFactory extends AbstractBusinessFactory
     protected function createQuoteToRequestMapper()
     {
         return new QuoteToRequestTransfer(
-            $this->getAfterpayToMoneyBridge(),
+            $this->getMoneyFacade(),
             $this->getCurrentStore()
         );
     }
@@ -366,7 +366,7 @@ class AfterpayBusinessFactory extends AbstractBusinessFactory
     /**
      * @return \SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToMoneyInterface
      */
-    protected function getAfterpayToMoneyBridge()
+    protected function getMoneyFacade()
     {
         return $this->getProvidedDependency(AfterpayDependencyProvider::FACADE_MONEY);
     }

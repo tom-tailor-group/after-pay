@@ -103,7 +103,7 @@ class AdapterFactory extends AbstractBusinessFactory implements AdapterFactoryIn
             $this->createHttpClient(),
             $this->createTransferToCamelCaseArrayConverter(),
             $this->getUtilEncodingService(),
-            $this->getAfterpayToMoneyBridge(),
+            $this->getMoneyFacade(),
             $this->getConfig()
         );
     }
@@ -117,7 +117,7 @@ class AdapterFactory extends AbstractBusinessFactory implements AdapterFactoryIn
             $this->createHttpClient(),
             $this->createTransferToCamelCaseArrayConverter(),
             $this->getUtilEncodingService(),
-            $this->getAfterpayToMoneyBridge(),
+            $this->getMoneyFacade(),
             $this->getConfig()
         );
     }
@@ -131,7 +131,7 @@ class AdapterFactory extends AbstractBusinessFactory implements AdapterFactoryIn
             $this->createHttpClient(),
             $this->createTransferToCamelCaseArrayConverter(),
             $this->getUtilEncodingService(),
-            $this->getAfterpayToMoneyBridge(),
+            $this->getMoneyFacade(),
             $this->getConfig()
         );
     }
@@ -145,7 +145,7 @@ class AdapterFactory extends AbstractBusinessFactory implements AdapterFactoryIn
             $this->createHttpClient(),
             $this->createTransferToCamelCaseArrayConverter(),
             $this->getUtilEncodingService(),
-            $this->getAfterpayToMoneyBridge(),
+            $this->getMoneyFacade(),
             $this->getConfig()
         );
     }
@@ -202,7 +202,7 @@ class AdapterFactory extends AbstractBusinessFactory implements AdapterFactoryIn
     /**
      * @return \SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToMoneyBridge
      */
-    protected function getAfterpayToMoneyBridge()
+    protected function getMoneyFacade()
     {
         return $this->getProvidedDependency(AfterpayDependencyProvider::FACADE_MONEY);
     }
