@@ -17,7 +17,6 @@ use SprykerEco\Zed\Afterpay\Communication\Plugin\Checkout\AfterpaySaveOrderPlugi
 
 class PaymentDependencyInjector extends AbstractDependencyInjector
 {
-
     /**
      * @param \Spryker\Zed\Kernel\Container $container
      *
@@ -46,5 +45,4 @@ class PaymentDependencyInjector extends AbstractDependencyInjector
 
         return $container;
     }
-
 }

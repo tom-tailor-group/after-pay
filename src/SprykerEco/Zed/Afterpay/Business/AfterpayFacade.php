@@ -22,7 +22,6 @@ use Spryker\Zed\Kernel\Business\AbstractFacade;
  */
 class AfterpayFacade extends AbstractFacade implements AfterpayFacadeInterface
 {
-
     /**
      * {@inheritdoc}
      *
@@ -184,6 +183,23 @@ class AfterpayFacade extends AbstractFacade implements AfterpayFacadeInterface
      *
      * @return \Generated\Shared\Transfer\AfterpayResponseTransfer
      */
+    public function refundPayment(ItemTransfer $itemTransfer, OrderTransfer $orderTransfer)
+    {
+        $this->getFactory()
+            ->createRefundTransactionHandler()
+            ->refund($itemTransfer, $orderTransfer);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @api
+     *
+     * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
+     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
+     *
+     * @return \Generated\Shared\Transfer\AfterpayResponseTransfer
+     */
     public function cancelPayment(ItemTransfer $itemTransfer, OrderTransfer $orderTransfer)
     {
         $this->getFactory()
@@ -234,5 +250,4 @@ class AfterpayFacade extends AbstractFacade implements AfterpayFacadeInterface
             ->createApiAdapter()
             ->getApiStatus();
     }
-
 }

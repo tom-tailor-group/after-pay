@@ -16,7 +16,6 @@ use SprykerEco\Zed\Afterpay\Business\Payment\Transaction\AuthorizeTransactionInt
 
 class AuthorizeTransactionHandler implements AuthorizeTransactionHandlerInterface
 {
-
     /**
      * @var \SprykerEco\Zed\Afterpay\Business\Payment\Transaction\AuthorizeTransactionInterface
      */
@@ -101,5 +100,4 @@ class AuthorizeTransactionHandler implements AuthorizeTransactionHandlerInterfac
             $orderTransfer->getIdSalesOrder()
         );
     }
-
 }

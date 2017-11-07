@@ -12,7 +12,6 @@ use SprykerEco\Zed\Afterpay\Business\Payment\Mapper\OrderToRequestTransferInterf
 
 class OneStepAuthorizeRequestBuilder implements AuthorizeRequestBuilderInterface
 {
-
     /**
      * @var \SprykerEco\Zed\Afterpay\Business\Payment\Mapper\OrderToRequestTransferInterface
      */
@@ -37,5 +36,4 @@ class OneStepAuthorizeRequestBuilder implements AuthorizeRequestBuilderInterface
             ->orderToRequestTransferMapper
             ->orderToAuthorizeRequest($orderWithPaymentTransfer);
     }
-
 }

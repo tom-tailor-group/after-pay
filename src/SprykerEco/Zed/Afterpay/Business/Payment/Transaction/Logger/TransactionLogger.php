@@ -14,7 +14,6 @@ use SprykerEco\Zed\Afterpay\Dependency\Service\AfterpayToUtilEncodingInterface;
 
 class TransactionLogger implements TransactionLoggerInterface
 {
-
     /**
      * @var \SprykerEco\Zed\Afterpay\Dependency\Service\AfterpayToUtilEncodingInterface
      */
@@ -61,5 +60,4 @@ class TransactionLogger implements TransactionLoggerInterface
     {
         return $this->utilEncoding->encodeJson($requestTransfer->toArray());
     }
-
 }

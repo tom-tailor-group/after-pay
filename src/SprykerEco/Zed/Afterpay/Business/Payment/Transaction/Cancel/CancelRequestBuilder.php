@@ -17,7 +17,6 @@ use SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToMoneyInterface;
 
 class CancelRequestBuilder implements CancelRequestBuilderInterface
 {
-
     /**
      * @var \SprykerEco\Zed\Afterpay\Business\Payment\Mapper\OrderToRequestTransferInterface
      */
@@ -187,5 +186,4 @@ class CancelRequestBuilder implements CancelRequestBuilderInterface
     {
         return (string)$this->money->convertIntegerToDecimal($intValue);
     }
-
 }

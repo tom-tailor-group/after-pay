@@ -17,7 +17,6 @@ use SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToMoneyInterface;
 
 class CaptureRequestBuilder implements CaptureRequestBuilderInterface
 {
-
     /**
      * @var \SprykerEco\Zed\Afterpay\Business\Payment\Mapper\OrderToRequestTransferInterface
      */
@@ -187,5 +186,4 @@ class CaptureRequestBuilder implements CaptureRequestBuilderInterface
     {
         return (string)$this->money->convertIntegerToDecimal($intValue);
     }
-
 }

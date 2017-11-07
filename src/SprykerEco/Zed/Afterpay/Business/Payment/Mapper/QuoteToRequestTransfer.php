@@ -18,12 +18,10 @@ use Spryker\Shared\Kernel\Store;
 use SprykerEco\Shared\Afterpay\AfterpayConstants;
 use SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToMoneyInterface;
 
-
 //@todo extract shared behaviour between quote and order transfers if possible
 
 class QuoteToRequestTransfer implements QuoteToRequestTransferInterface
 {
-
     /**
      * @var \SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToMoneyInterface
      */
@@ -207,5 +205,4 @@ class QuoteToRequestTransfer implements QuoteToRequestTransferInterface
 
         return (string)$this->money->convertIntegerToDecimal($itemUnitNetAmount);
     }
-
 }

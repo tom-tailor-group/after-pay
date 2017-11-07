@@ -20,7 +20,6 @@ use SprykerEco\Zed\Afterpay\Dependency\Facade\AfterpayToMoneyInterface;
 
 class CancelTransactionHandler implements CancelTransactionHandlerInterface
 {
-
     /**
      * @var \SprykerEco\Zed\Afterpay\Business\Payment\Transaction\CancelTransactionInterface
      */
@@ -128,7 +127,9 @@ class CancelTransactionHandler implements CancelTransactionHandlerInterface
 
         $expenseTotal = $paymentTransfer->getExpenseTotal();
 
-        return $amountToCancelInt + $amountCancelled + $expenseTotal === $amountAuthorized;
+        $refundedTotal = $paymentTransfer->getExpenseTotal();
+
+        return $amountToCancelInt + $amountCancelled + $expenseTotal + $refundedTotal === $amountAuthorized;
     }
 
     /**
@@ -183,5 +184,4 @@ class CancelTransactionHandler implements CancelTransactionHandlerInterface
             $cancelRequestTransfer->getIdSalesOrder()
         );
     }
-
 }

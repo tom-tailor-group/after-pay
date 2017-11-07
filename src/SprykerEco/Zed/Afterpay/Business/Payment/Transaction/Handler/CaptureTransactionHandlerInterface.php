@@ -12,7 +12,6 @@ use Generated\Shared\Transfer\OrderTransfer;
 
 interface CaptureTransactionHandlerInterface
 {
-
     /**
      * @param \Generated\Shared\Transfer\ItemTransfer $itemTransfer
      * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
@@ -20,5 +19,4 @@ interface CaptureTransactionHandlerInterface
      * @return void
      */
     public function capture(ItemTransfer $itemTransfer, OrderTransfer $orderTransfer);
-
 }
