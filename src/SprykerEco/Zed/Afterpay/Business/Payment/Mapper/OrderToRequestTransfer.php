@@ -126,14 +126,13 @@ class OrderToRequestTransfer implements OrderToRequestTransferInterface
      */
     public function orderToBaseRefundRequest(OrderTransfer $orderTransfer)
     {
-        $requestTransfer = new AfterpayRefundRequestTransfer();
+        $refundRequestTransfer = new AfterpayRefundRequestTransfer();
 
-        $afterpayPaymentTransfer = $orderTransfer->getAfterpayPayment();
-        $requestTransfer
+        $refundRequestTransfer
             ->setIdSalesOrder($orderTransfer->getIdSalesOrder())
             ->setOrderNumber($orderTransfer->getOrderReference());
 
-        return $requestTransfer;
+        return $refundRequestTransfer;
     }
 
     /**
