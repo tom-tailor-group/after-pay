@@ -11,6 +11,7 @@ use Generated\Shared\Transfer\AfterpayAuthorizeRequestTransfer;
 use Generated\Shared\Transfer\AfterpayCallTransfer;
 use Generated\Shared\Transfer\AfterpayCancelRequestTransfer;
 use Generated\Shared\Transfer\AfterpayCaptureRequestTransfer;
+use Generated\Shared\Transfer\AfterpayRefundRequestTransfer;
 use Generated\Shared\Transfer\AfterpayRequestAddressTransfer;
 use Generated\Shared\Transfer\AfterpayRequestCustomerTransfer;
 use Generated\Shared\Transfer\AfterpayRequestOrderItemTransfer;
@@ -111,6 +112,22 @@ class OrderToRequestTransfer implements OrderToRequestTransferInterface
             );
 
         return $requestTransfer;
+    }
+
+    /**
+     * @param \Generated\Shared\Transfer\OrderTransfer $orderTransfer
+     *
+     * @return \Generated\Shared\Transfer\AfterpayRefundRequestTransfer
+     */
+    public function orderToBaseRefundRequest(OrderTransfer $orderTransfer)
+    {
+        $refundRequestTransfer = new AfterpayRefundRequestTransfer();
+
+        $refundRequestTransfer
+            ->setIdSalesOrder($orderTransfer->getIdSalesOrder())
+            ->setOrderNumber($orderTransfer->getOrderReference());
+
+        return $refundRequestTransfer;
     }
 
     /**
