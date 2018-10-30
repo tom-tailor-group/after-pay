@@ -11,7 +11,7 @@
     "spryker/oms": "^8.0.0",
     "spryker/payment": "^4.0.0",
     "spryker/propel-orm": "*",
-    "spryker/quote": "^1.0.0",
+    "spryker/quote": "^2.1.0",
     "spryker/sales": "^8.0.0",
     "spryker/session": "^3.0.0",
     "spryker/step-engine": "^2.0.0",
